@@ -1,77 +1,375 @@
 <!doctype html>
 <html lang="en-GB">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="PropertyFlow helps property managers oversee properties, repairs and compliance from one clear workspace.">
-  <meta name="theme-color" content="#111c32">
-  <title>PropertyFlow | Property management workspace</title>
-  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="assets/css/styles.css">
-  <script type="module" src="assets/js/app.js"></script>
-</head>
-<body>
-  <a class="skip-link" href="#main">Skip to main content</a>
-  <div class="app-shell">
-    <aside class="sidebar" id="sidebar" aria-label="Main navigation">
-      <a class="brand" href="#dashboard" aria-label="PropertyFlow home">
-        <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M4 14.2 16 4l12 10.2v13H19v-8h-6v8H4z"/><path d="m10 13 4 4 8-8"/></svg></span>
-        <span class="brand-copy"><strong>propertyflow</strong><small>PROPERTY WORKSPACE</small></span>
-      </a>
-      <div class="workspace-label">WORKSPACE</div>
-      <nav class="primary-nav" aria-label="Workspace">
-        <a class="nav-link active" href="#dashboard" data-route="dashboard"><span class="nav-icon">▦</span> Overview</a>
-        <a class="nav-link" href="#properties" data-route="properties"><span class="nav-icon">⌂</span> Properties <span class="nav-count" id="nav-property-count">—</span></a>
-        <a class="nav-link" href="#repairs" data-route="repairs"><span class="nav-icon">⌁</span> Repairs <span class="nav-count alert-count" id="nav-repair-count">—</span></a>
-        <a class="nav-link" href="#compliance" data-route="compliance"><span class="nav-icon">✓</span> Compliance</a>
-        <a class="nav-link" href="#reports" data-route="reports"><span class="nav-icon">▥</span> Reports</a>
-      </nav>
-      <div class="sidebar-bottom">
-        <div class="sidebar-help"><span class="help-icon">?</span><div><strong>Need a hand?</strong><p>Review the project guide</p><a href="docs/README-GUIDE.md">Open guide <span aria-hidden="true">↗</span></a></div></div>
-        <div class="profile-row"><div class="avatar">SC</div><div class="profile-meta"><strong>Sarah Collins</strong><span>Property manager</span></div><span class="profile-menu" aria-hidden="true">•••</span></div>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="PropertyFlow helps property managers oversee properties, repairs and compliance from one clear workspace."
+    />
+    <meta name="theme-color" content="#111c32" />
+    <title>PropertyFlow | Property management workspace</title>
+    <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="assets/css/styles.css" />
+    <script type="module" src="assets/js/app.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+    <div class="app-shell">
+      <aside class="sidebar" id="sidebar" aria-label="Main navigation">
+        <a class="brand" href="#dashboard" aria-label="PropertyFlow home">
+          <span class="brand-mark" aria-hidden="true"
+            ><svg viewBox="0 0 32 32">
+              <path d="M4 14.2 16 4l12 10.2v13H19v-8h-6v8H4z" />
+              <path d="m10 13 4 4 8-8" /></svg
+          ></span>
+          <span class="brand-copy"
+            ><strong>propertyflow</strong
+            ><small>PROPERTY WORKSPACE</small></span
+          >
+        </a>
+        <div class="workspace-label">WORKSPACE</div>
+        <nav class="primary-nav" aria-label="Workspace">
+          <a class="nav-link active" href="#dashboard" data-route="dashboard"
+            ><span class="nav-icon">▦</span> Overview</a
+          >
+          <a class="nav-link" href="#properties" data-route="properties"
+            ><span class="nav-icon">⌂</span> Properties
+            <span class="nav-count" id="nav-property-count">—</span></a
+          >
+          <a class="nav-link" href="#repairs" data-route="repairs"
+            ><span class="nav-icon">⌁</span> Repairs
+            <span class="nav-count alert-count" id="nav-repair-count"
+              >—</span
+            ></a
+          >
+          <a class="nav-link" href="#compliance" data-route="compliance"
+            ><span class="nav-icon">✓</span> Compliance</a
+          >
+          <a class="nav-link" href="#reports" data-route="reports"
+            ><span class="nav-icon">▥</span> Reports</a
+          >
+          <a class="nav-link" href="#settings" data-route="settings"
+            ><span class="nav-icon" aria-hidden="true">⚙</span> Settings</a
+          >
+        </nav>
+        <div class="sidebar-bottom">
+          <div class="sidebar-help">
+            <span class="help-icon">?</span>
+            <div>
+              <strong>Need a hand?</strong>
+              <p>Review the project guide</p>
+              <a href="docs/README-GUIDE.md"
+                >Open guide <span aria-hidden="true">↗</span></a
+              >
+            </div>
+          </div>
+          <div class="profile-row">
+            <div class="avatar">PF</div>
+            <div class="profile-meta">
+              <strong>Demo manager</strong><span>Property manager</span>
+            </div>
+            <span class="profile-menu" aria-hidden="true">•••</span>
+          </div>
+        </div>
+      </aside>
+
+      <div class="main-column">
+        <header class="topbar">
+          <button
+            type="button"
+            class="icon-button mobile-menu"
+            id="menu-toggle"
+            aria-label="Open navigation"
+            aria-expanded="false"
+            aria-controls="sidebar"
+          >
+            <span>☰</span>
+          </button>
+          <div class="breadcrumb">
+            <span>Workspace</span><span class="crumb-slash">/</span
+            ><strong id="breadcrumb-current">Overview</strong>
+          </div>
+          <div class="topbar-actions">
+            <span class="date-label" id="today-label">Today</span
+            ><button
+              type="button"
+              class="icon-button notification-button"
+              id="notifications-button"
+              aria-label="View attention items"
+            >
+              <span aria-hidden="true">♧</span><i></i>
+            </button>
+            <div
+              class="avatar top-avatar"
+              role="img"
+              aria-label="Fictional demonstration profile"
+            >
+              PF
+            </div>
+          </div>
+        </header>
+
+        <main id="main" tabindex="-1" class="page-content">
+          <div class="loading-state" role="status">
+            <span class="spinner" aria-hidden="true"></span
+            ><span>Loading your workspace…</span>
+          </div>
+        </main>
+        <footer class="app-footer">
+          <span>PropertyFlow <span id="footer-year"></span></span
+          ><span>Demo workspace · Sample data only</span
+          ><span
+            ><span class="status-dot"></span> Browser demo · No account
+            required</span
+          >
+        </footer>
       </div>
-    </aside>
-
-    <div class="main-column">
-      <header class="topbar">
-        <button class="icon-button mobile-menu" id="menu-toggle" aria-label="Open navigation" aria-expanded="false" aria-controls="sidebar"><span>☰</span></button>
-        <div class="breadcrumb"><span>Workspace</span><span class="crumb-slash">/</span><strong id="breadcrumb-current">Overview</strong></div>
-        <div class="topbar-actions"><span class="date-label" id="today-label">Today</span><button class="icon-button notification-button" id="notifications-button" aria-label="View attention items"><span aria-hidden="true">♧</span><i></i></button><div class="avatar top-avatar" aria-label="Signed in as Sarah Collins">SC</div></div>
-      </header>
-
-      <main id="main" tabindex="-1" class="page-content">
-        <div class="loading-state" role="status"><span class="spinner" aria-hidden="true"></span><span>Loading your workspace…</span></div>
-      </main>
-      <footer class="app-footer"><span>PropertyFlow <span id="footer-year"></span></span><span>Demo workspace · Sample data only</span><span><span class="status-dot"></span> All systems operational</span></footer>
     </div>
-  </div>
 
-  <dialog class="modal" id="property-modal" aria-labelledby="property-modal-title">
-    <form id="property-form" novalidate>
-      <div class="modal-header"><div><span class="eyebrow">PROPERTY REGISTER</span><h2 id="property-modal-title">Add a property</h2><p>Enter the core details to add a property to your portfolio.</p></div><button class="icon-button close-modal" type="button" data-close="property-modal" aria-label="Close dialog">×</button></div>
-      <div class="form-grid">
-        <label class="field full-field">Property address <span class="required">*</span><input name="address" autocomplete="street-address" maxlength="120" required placeholder="e.g. 12 Abbeyhills Road"><small class="field-error" data-error-for="address"></small></label>
-        <label class="field">Postcode <span class="required">*</span><input name="postcode" autocomplete="postal-code" maxlength="10" required placeholder="OL8 2AB"><small class="field-error" data-error-for="postcode"></small></label>
-        <label class="field">Bedrooms <span class="required">*</span><select name="bedrooms" required><option value="">Select bedrooms</option><option value="1">1 bedroom</option><option value="2">2 bedrooms</option><option value="3">3 bedrooms</option><option value="4">4 bedrooms</option><option value="5">5+ bedrooms</option></select><small class="field-error" data-error-for="bedrooms"></small></label>
-        <label class="field">Monthly rent (£) <span class="required">*</span><input name="rent" type="number" min="1" max="100000" step="1" required placeholder="950"><small class="field-error" data-error-for="rent"></small></label>
-        <label class="field">Occupancy status <span class="required">*</span><select name="status" required><option value="occupied">Occupied</option><option value="vacant">Vacant</option><option value="maintenance">Maintenance</option></select></label>
-      </div>
-      <div class="modal-actions"><button class="button button-secondary" type="button" data-close="property-modal">Cancel</button><button class="button button-primary" type="submit"><span class="button-label">Save property</span><span class="button-spinner" hidden></span></button></div>
-    </form>
-  </dialog>
+    <dialog
+      class="modal"
+      id="property-modal"
+      aria-labelledby="property-modal-title"
+    >
+      <form id="property-form" novalidate>
+        <div class="modal-header">
+          <div>
+            <span class="eyebrow">PROPERTY REGISTER</span>
+            <h2 id="property-modal-title">Add a property</h2>
+            <p>Enter the core details to add a property to your portfolio.</p>
+          </div>
+          <button
+            class="icon-button close-modal"
+            type="button"
+            data-close="property-modal"
+            aria-label="Close dialog"
+          >
+            ×
+          </button>
+        </div>
+        <div class="form-grid">
+          <label class="field full-field"
+            >Property address <span class="required">*</span
+            ><input
+              type="text"
+              name="address"
+              autocomplete="address-line1"
+              maxlength="120"
+              required
+              placeholder="e.g. 12 Abbeyhills Road" /><small
+              class="field-error"
+              data-error-for="address"
+            ></small
+          ></label>
+          <label class="field"
+            >Postcode <span class="required">*</span
+            ><input
+              type="text"
+              name="postcode"
+              autocomplete="postal-code"
+              maxlength="10"
+              required
+              placeholder="OL8 2AB" /><small
+              class="field-error"
+              data-error-for="postcode"
+            ></small
+          ></label>
+          <label class="field"
+            >Bedrooms <span class="required">*</span
+            ><select name="bedrooms" required>
+              <option value="">Select bedrooms</option>
+              <option value="1">1 bedroom</option>
+              <option value="2">2 bedrooms</option>
+              <option value="3">3 bedrooms</option>
+              <option value="4">4 bedrooms</option>
+              <option value="5">5 bedrooms</option></select
+            ><small class="field-error" data-error-for="bedrooms"></small
+          ></label>
+          <label class="field"
+            >Monthly rent (£) <span class="required">*</span
+            ><input
+              name="rent"
+              type="number"
+              min="1"
+              max="100000"
+              step="0.01"
+              required
+              placeholder="950" /><small
+              class="field-error"
+              data-error-for="rent"
+            ></small
+          ></label>
+          <label class="field"
+            >Occupancy status <span class="required">*</span
+            ><select name="status" required>
+              <option value="occupied">Occupied</option>
+              <option value="vacant">Vacant</option>
+              <option value="maintenance">Maintenance</option>
+            </select></label
+          >
+        </div>
+        <div class="modal-actions">
+          <button
+            class="button button-secondary"
+            type="button"
+            data-close="property-modal"
+          >
+            Cancel</button
+          ><button class="button button-primary" type="submit">
+            <span class="button-label">Save property</span
+            ><span class="button-spinner" hidden></span>
+          </button>
+        </div>
+      </form>
+    </dialog>
 
-  <dialog class="modal" id="repair-modal" aria-labelledby="repair-modal-title">
-    <form id="repair-form" novalidate>
-      <div class="modal-header"><div><span class="eyebrow">MAINTENANCE</span><h2 id="repair-modal-title">Log a repair</h2><p>Record the issue and set a priority for follow-up.</p></div><button class="icon-button close-modal" type="button" data-close="repair-modal" aria-label="Close dialog">×</button></div>
-      <div class="form-grid">
-        <label class="field full-field">Property <span class="required">*</span><select name="propertyId" id="repair-property-select" required><option value="">Choose a property</option></select><small class="field-error" data-error-for="propertyId"></small></label>
-        <label class="field full-field">Issue summary <span class="required">*</span><input name="description" maxlength="180" required placeholder="e.g. Kitchen tap leaking"><small class="field-error" data-error-for="description"></small></label>
-        <label class="field">Priority <span class="required">*</span><select name="priority" required><option value="routine">Routine</option><option value="urgent">Urgent</option><option value="emergency">Emergency</option></select></label>
-        <label class="field">Status <select name="status"><option value="open">Open</option><option value="scheduled">Scheduled</option><option value="in-progress">In progress</option></select></label>
-      </div>
-      <div class="modal-actions"><button class="button button-secondary" type="button" data-close="repair-modal">Cancel</button><button class="button button-primary" type="submit"><span class="button-label">Save repair</span><span class="button-spinner" hidden></span></button></div>
-    </form>
-  </dialog>
-  <div id="toast-region" class="toast-region" aria-live="polite" aria-atomic="true"></div>
-</body>
+    <dialog
+      class="modal"
+      id="repair-modal"
+      aria-labelledby="repair-modal-title"
+    >
+      <form id="repair-form" novalidate>
+        <div class="modal-header">
+          <div>
+            <span class="eyebrow">MAINTENANCE</span>
+            <h2 id="repair-modal-title">Log a repair</h2>
+            <p>Record the issue and set a priority for follow-up.</p>
+          </div>
+          <button
+            class="icon-button close-modal"
+            type="button"
+            data-close="repair-modal"
+            aria-label="Close dialog"
+          >
+            ×
+          </button>
+        </div>
+        <div class="form-grid">
+          <label class="field full-field"
+            >Property <span class="required">*</span
+            ><select name="propertyId" id="repair-property-select" required>
+              <option value="">Choose a property</option></select
+            ><small class="field-error" data-error-for="propertyId"></small
+          ></label>
+          <label class="field full-field"
+            >Issue summary <span class="required">*</span
+            ><input
+              type="text"
+              name="description"
+              maxlength="180"
+              required
+              placeholder="e.g. Kitchen tap leaking" /><small
+              class="field-error"
+              data-error-for="description"
+            ></small
+          ></label>
+          <label class="field"
+            >Priority <span class="required">*</span
+            ><select name="priority" required>
+              <option value="routine">Routine</option>
+              <option value="urgent">Urgent</option>
+              <option value="emergency">Emergency</option>
+            </select></label
+          >
+          <label class="field"
+            >Status
+            <select name="status">
+              <option value="open">Open</option>
+              <option value="scheduled">Scheduled</option>
+              <option value="in-progress">In progress</option>
+              <option value="complete">Completed</option>
+            </select></label
+          >
+        </div>
+        <div class="modal-actions">
+          <button
+            class="button button-secondary"
+            type="button"
+            data-close="repair-modal"
+          >
+            Cancel</button
+          ><button class="button button-primary" type="submit">
+            <span class="button-label">Save repair</span
+            ><span class="button-spinner" hidden></span>
+          </button>
+        </div>
+      </form>
+    </dialog>
+    <dialog
+      class="modal"
+      id="compliance-modal"
+      aria-labelledby="compliance-modal-title"
+    >
+      <form id="compliance-form" novalidate>
+        <div class="modal-header">
+          <div>
+            <span class="eyebrow">CERTIFICATE REGISTER</span>
+            <h2 id="compliance-modal-title">Add certificate</h2>
+            <p>Record a fictional certificate and its expiry date.</p>
+          </div>
+          <button
+            type="button"
+            class="icon-button"
+            data-close="compliance-modal"
+            aria-label="Close dialog"
+          >
+            ×
+          </button>
+        </div>
+        <div class="form-grid">
+          <label class="field full-field"
+            >Property<select name="propertyId" required></select
+            ><small class="field-error" data-error-for="propertyId"></small
+          ></label>
+          <label class="field full-field"
+            >Certificate name<input
+              type="text"
+              name="type"
+              required
+              maxlength="120"
+              list="certificate-types" /><small
+              class="field-error"
+              data-error-for="type"
+            ></small
+          ></label>
+          <datalist id="certificate-types">
+            <option value="Gas Safety Certificate"></option>
+            <option value="Electrical Installation Condition Report"></option>
+            <option value="Energy Performance Certificate"></option>
+          </datalist>
+          <label class="field full-field"
+            >Expiry date<input name="dueDate" type="date" required /><small
+              class="field-error"
+              data-error-for="dueDate"
+            ></small
+          ></label>
+        </div>
+        <div class="modal-actions">
+          <button
+            class="button button-secondary"
+            type="button"
+            data-close="compliance-modal"
+          >
+            Cancel</button
+          ><button class="button button-primary" type="submit">
+            <span class="button-label">Save certificate</span
+            ><span class="button-spinner" hidden></span>
+          </button>
+        </div>
+      </form>
+    </dialog>
+    <noscript
+      ><p>
+        PropertyFlow needs JavaScript. Enable JavaScript and reload to open the
+        dashboard.
+      </p></noscript
+    >
+    <div
+      id="toast-region"
+      class="toast-region"
+      aria-live="polite"
+      aria-atomic="true"
+    ></div>
+  </body>
 </html>
