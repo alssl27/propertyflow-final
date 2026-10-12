@@ -1,0 +1,44 @@
+{
+  "date": "2026-10-12",
+  "url": "https://propertyflow-final.vercel.app",
+  "browser": "155.0.8059.39",
+  "viewport": {
+    "width": 375,
+    "height": 1000
+  },
+  "method": "Playwright emulation of forced-colors and reduced-motion; not an OS high-contrast or screen-reader test",
+  "checks": [
+    {
+      "id": "AC01",
+      "expected": "Requested preference media queries active",
+      "actual": "Both active",
+      "passed": true
+    },
+    {
+      "id": "AC02",
+      "expected": "Six routes usable at 375px with hidden navigation inert",
+      "actual": "Visible headings; no page-wide overflow; hidden links inert",
+      "passed": true
+    },
+    {
+      "id": "AC03",
+      "expected": "Nonessential sidebar transition removed with reduced motion",
+      "actual": "0.00001 seconds",
+      "passed": true
+    },
+    {
+      "id": "AC04",
+      "expected": "Validation text, focus and Escape usable in forced colours",
+      "actual": "Described field error; first invalid control focused; dialog closes",
+      "passed": true
+    },
+    {
+      "id": "AC05",
+      "expected": "No uncaught page errors",
+      "actual": "None observed",
+      "passed": true
+    }
+  ],
+  "passed": 5,
+  "failed": 0
+}

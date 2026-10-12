@@ -1,0 +1,40 @@
+Command: node --test tests/api.test.js
+Date: 12 October 2026 (Europe/London)
+Environment: Windows, Node.js v26.10.0
+Source under test: assets/js/api.js and assets/js/domain.js, unchanged by this test addition
+Timing: Node built-in mock timers; no real 15-second wait
+
+✔ A01 overlapping first-load writes retain every record (39.2523ms)
+✔ A02 failed fetch rejects; next request retries successfully (21.3101ms)
+✔ A03 failed reset preserves existing saved snapshot (9.7742ms)
+✔ A04 corrupt saved JSON rejects and reset can recover (4.5372ms)
+✔ A05 failed storage write never returns success (6.1006ms)
+✔ A06 linked certificates and repairs block deletion (12.2719ms)
+✔ A07 simultaneous duplicate submissions save once (8.1806ms)
+✔ A08 missing records and invalid transitions reject; valid edit succeeds (10.9894ms)
+✔ A09 empty seed datasets are valid (3.7887ms)
+✔ A10 malformed response rejects without partial persistence (4.5537ms)
+✔ A11 legacy data migrates without destroying old keys (12.2168ms)
+✔ A12 queued cross-collection deletion cannot create orphans (6.5206ms)
+✔ A13 out-of-order seeds retain collection mapping and cancel the success timer (6.5614ms)
+✔ A14 pending seeds abort at 15 seconds without saving and the queue can retry (4.8946ms)
+✔ A15 one failed seed cancels pending siblings and preserves the reset snapshot (24.5878ms)
+✔ A16 JSON parsing rejection cancels siblings without partial persistence (1.1796ms)
+ℹ tests 16
+ℹ suites 0
+ℹ pass 16
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1718.3749
+
+Exit code: 0
+
+Added executable service tests:
+A13: Promise.all collections remain correctly mapped when seeds finish compliance, repairs, properties; no partial persistence; the success timeout is cleared.
+A14: All shared fetch signals remain live at 14,999 ms, abort at 15,000 ms, reject with the timed-out error, save nothing, and the serial queue accepts a later successful retry.
+A15: HTTP 503 cancels sibling requests and preserves the existing saved reset snapshot.
+A16: response.json() SyntaxError cancels sibling requests, preserves the original cause, and saves no partial workspace.
+
+Limitations: Controlled fetch mocks verify service behavior. This is not a real-network timeout, browser loading-indicator, stale UI search, or cross-tab locking test. Existing browser tests cover those separate journeys within their documented scope.

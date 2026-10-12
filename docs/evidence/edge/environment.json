@@ -1,0 +1,30 @@
+{
+  "date": "2026-10-12",
+  "baseURL": "https://propertyflow-final.vercel.app",
+  "operatingSystem": "Windows",
+  "browser": "Microsoft Edge",
+  "channel": "msedge",
+  "browserVersion": "155.0.4283.45",
+  "browserVersionEvidence": "Installed msedge.exe FileVersion and ProductVersion",
+  "nodeVersion": "v26.10.0",
+  "playwrightVersion": "1.64.0",
+  "headless": true,
+  "workers": 1,
+  "viewports": [320, 375, 768, 1024, 1440],
+  "viewportHeight": 1000,
+  "results": {
+    "passed": 14,
+    "failed": 0,
+    "skipped": 0,
+    "flaky": 0,
+    "durationMs": 56243.571
+  },
+  "command": "$env:BASE_URL = 'https://propertyflow-final.vercel.app'; .\\node_modules\\.bin\\playwright.cmd test --config=playwright.edge.config.js",
+  "browserAvailability": "Browser plugin not available; existing Playwright suite used",
+  "launchEnvironment": "Executed outside sandbox after sandbox browser startup closed before any application interaction, with Crashpad pipe/profile file errors",
+  "visualInspection": {
+    "desktop": "dashboard-1440.png inspected: meaningful content, readable layout, aligned cards, navigation and controls; no visible overlap or error overlay",
+    "mobile": "dashboard-320.png inspected: single-column content, mobile navigation control and bounded horizontal table region; no visible page overflow or error overlay"
+  },
+  "scope": "Unmodified shared 14-test suite, including six routes at five widths, axe scans, form validation, CRUD, persistence, tab writes, CSV export and error recovery. No app runtime files edited."
+}

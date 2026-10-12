@@ -141,3 +141,150 @@ test("A12 queued cross-collection deletion cannot create orphans", async () => {
   assert.equal(results[0].status, "fulfilled");
   assert.equal(results[1].status, "rejected");
 });
+
+// Resolve requests individually so completion order and cancellation are observable
+// without introducing real network delays or changing the application's timing.
+function deferred() {
+  let resolve;
+  let reject;
+  const promise = new Promise((onResolve, onReject) => {
+    resolve = onResolve;
+    reject = onReject;
+  });
+  return { promise, resolve, reject };
+}
+function controlledSeedFetch() {
+  const requests = new Map();
+  const started = deferred();
+  globalThis.fetch = (url, { signal }) => {
+    const name = url.pathname.split("/").at(-1).replace(".json", "");
+    const response = deferred();
+    const decoded = deferred();
+    signal.addEventListener(
+      "abort",
+      () => response.reject(new DOMException("Request aborted", "AbortError")),
+      { once: true },
+    );
+    requests.set(name, {
+      ...response,
+      signal,
+      complete(records) {
+        response.resolve({
+          ok: true,
+          json: async () => {
+            decoded.resolve();
+            return records;
+          },
+        });
+        return decoded.promise;
+      },
+    });
+    if (requests.size === 3) started.resolve();
+    return response.promise;
+  };
+  return { requests, started: started.promise };
+}
+async function seedData() {
+  const names = ["properties", "repairs", "compliance"];
+  const records = await Promise.all(
+    names.map(async (name) =>
+      JSON.parse(
+        await readFile(new URL(`../data/${name}.json`, import.meta.url)),
+      ),
+    ),
+  );
+  return Object.fromEntries(names.map((name, index) => [name, records[index]]));
+}
+test("A13 out-of-order seeds retain collection mapping and cancel the success timer", async (t) => {
+  const seeds = await seedData();
+  t.mock.timers.enable({ apis: ["setTimeout"] });
+  const { requests, started } = controlledSeedFetch();
+  let settled = false;
+  const loading = getWorkspaceData().then((data) => {
+    settled = true;
+    return data;
+  });
+  await started;
+  assert.deepEqual(
+    [...requests.keys()],
+    ["properties", "repairs", "compliance"],
+  );
+  assert.equal(new Set([...requests.values()].map((r) => r.signal)).size, 1);
+
+  // The last request completes first; neither partial result may be persisted.
+  await requests.get("compliance").complete(seeds.compliance);
+  assert.equal(settled, false);
+  assert.equal(memory.has(STORAGE_KEY), false);
+  await requests.get("repairs").complete(seeds.repairs);
+  assert.equal(settled, false);
+  assert.equal(memory.has(STORAGE_KEY), false);
+  await requests.get("properties").complete(seeds.properties);
+  assert.deepEqual(await loading, seeds);
+  assert.deepEqual(JSON.parse(memory.get(STORAGE_KEY)), seeds);
+
+  t.mock.timers.tick(15000);
+  assert.ok([...requests.values()].every((r) => !r.signal.aborted));
+});
+test("A14 pending seeds abort at 15 seconds without saving and the queue can retry", async (t) => {
+  const successfulFetch = globalThis.fetch;
+  t.mock.timers.enable({ apis: ["setTimeout"] });
+  const { requests, started } = controlledSeedFetch();
+  const loading = getWorkspaceData();
+  const rejected = assert.rejects(loading, (error) => {
+    assert.equal(
+      error.message,
+      "Loading timed out. Check your connection and try again.",
+    );
+    assert.equal(error.cause.name, "AbortError");
+    return true;
+  });
+  await started;
+
+  t.mock.timers.tick(14999);
+  assert.ok([...requests.values()].every((r) => !r.signal.aborted));
+  assert.equal(memory.has(STORAGE_KEY), false);
+  t.mock.timers.tick(1);
+  await rejected;
+  assert.ok([...requests.values()].every((r) => r.signal.aborted));
+  assert.equal(memory.has(STORAGE_KEY), false);
+
+  globalThis.fetch = successfulFetch;
+  assert.equal((await getWorkspaceData()).properties.length, 8);
+});
+test("A15 one failed seed cancels pending siblings and preserves the reset snapshot", async (t) => {
+  await addRecord("properties", property("retained-after-failure"));
+  const before = memory.get(STORAGE_KEY);
+  t.mock.timers.enable({ apis: ["setTimeout"] });
+  const { requests, started } = controlledSeedFetch();
+  const resetting = resetDemoData();
+  const rejected = assert.rejects(resetting, /Starter properties.*HTTP 503/);
+  await started;
+  requests.get("properties").resolve({ ok: false, status: 503 });
+  await rejected;
+  assert.ok([...requests.values()].every((r) => r.signal.aborted));
+  assert.equal(memory.get(STORAGE_KEY), before);
+  assert.equal((await getWorkspaceData()).properties.length, 9);
+});
+test("A16 JSON parsing rejection cancels siblings without partial persistence", async (t) => {
+  t.mock.timers.enable({ apis: ["setTimeout"] });
+  const { requests, started } = controlledSeedFetch();
+  const loading = getWorkspaceData();
+  const rejected = assert.rejects(loading, (error) => {
+    assert.match(
+      error.message,
+      /Could not load demonstration data.*Invalid JSON/,
+    );
+    assert.ok(error.cause instanceof SyntaxError);
+    return true;
+  });
+  await started;
+  requests.get("repairs").resolve({
+    ok: true,
+    json: async () => {
+      throw new SyntaxError("Invalid JSON");
+    },
+  });
+  await rejected;
+  assert.ok([...requests.values()].every((r) => r.signal.aborted));
+  assert.equal(memory.has(STORAGE_KEY), false);
+});

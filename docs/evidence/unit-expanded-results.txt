@@ -1,0 +1,36 @@
+
+> propertyflow@1.0.0 test
+> node --test tests/*.test.js
+
+✔ A01 overlapping first-load writes retain every record (15.1779ms)
+✔ A02 failed fetch rejects; next request retries successfully (3.5285ms)
+✔ A03 failed reset preserves existing saved snapshot (1.7603ms)
+✔ A04 corrupt saved JSON rejects and reset can recover (1.3011ms)
+✔ A05 failed storage write never returns success (2.1833ms)
+✔ A06 linked certificates and repairs block deletion (2.049ms)
+✔ A07 simultaneous duplicate submissions save once (1.4891ms)
+✔ A08 missing records and invalid transitions reject; valid edit succeeds (2.3951ms)
+✔ A09 empty seed datasets are valid (2.2191ms)
+✔ A10 malformed response rejects without partial persistence (1.2708ms)
+✔ A11 legacy data migrates without destroying old keys (4.2086ms)
+✔ A12 queued cross-collection deletion cannot create orphans (4.4684ms)
+✔ A13 out-of-order seeds retain collection mapping and cancel the success timer (4.5774ms)
+✔ A14 pending seeds abort at 15 seconds without saving and the queue can retry (2.5815ms)
+✔ A15 one failed seed cancels pending siblings and preserves the reset snapshot (4.1447ms)
+✔ A16 JSON parsing rejection cancels siblings without partial persistence (1.2993ms)
+✔ D01 rent and occupancy include occupied records only; empty portfolio is zero (2.8849ms)
+✔ D02 search and status filtering compose (0.38ms)
+✔ D03 required fields, rent, bedrooms and enum validation (0.397ms)
+✔ D04 duplicate keys ignore case and redundant whitespace (0.1094ms)
+✔ D05 calendar boundaries are inclusive and reject impossible dates (1.5548ms)
+✔ D06 repair workflow and invalid status (0.2066ms)
+✔ D07 CSV quotes commas newlines and formula protection (0.1306ms)
+✔ D08 schema rejects malformed, duplicate and orphaned data (0.2715ms)
+ℹ tests 24
+ℹ suites 0
+ℹ pass 24
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1587.8827

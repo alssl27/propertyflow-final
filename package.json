@@ -13,7 +13,10 @@
     "validate:css": "node scripts/validate-css.js",
     "test:browser": "playwright test",
     "build": "node scripts/build.js",
-    "check:links": "node scripts/check-links.js"
+    "check:links": "node scripts/check-links.js",
+    "test:deployed": "playwright test --config playwright.deployed.config.js",
+    "test:edge": "playwright test --config playwright.edge.config.js",
+    "test:accessibility": "node scripts/verify-accessibility.js"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.13.0",
