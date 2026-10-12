@@ -152,3 +152,5 @@ The supplied PropertyFlow files are retained in the initial commit. This revisio
 Future work could add a secure authenticated backend, durable audit history, conflict resolution, pagination, authorised CSV import, a real payments ledger and human-reviewed certificate rules. These are intentionally outside the current static front-end assessment scope.
 
 Further verification: [Edge, preference emulation, additional async tests and GitHub evidence](docs/ADDITIONAL-VERIFICATION.md).
+
+Submission materials now include an [assisted project evaluation](docs/PROJECT-EVALUATION.md), [AI-assistance disclosure](docs/AI-ASSISTANCE-DISCLOSURE.md), [public policy review](docs/ACADEMIC-INTEGRITY-REVIEW.md), and [native 200%/400% zoom review](docs/MANUAL-ACCESSIBILITY-REVIEW.md). Personal endorsement, screen-reader speech and assessment-specific policy permission remain unverified.

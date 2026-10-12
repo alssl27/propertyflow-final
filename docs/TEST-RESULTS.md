@@ -77,3 +77,7 @@ Manual observations should be added to TEST-RESULTS-TEMPLATE.md by the person ac
 ## Expanded verification
 
 The initial 20-test table remains the original executed record. The expanded Node run passed 24 tests, including A13–A16 for out-of-order responses, timeout and sibling cancellation. See [additional verification](ADDITIONAL-VERIFICATION.md), which also records Edge and forced-colour/reduced-motion emulation.
+
+## Native UI review
+
+Eight scoped observations of the installed Chrome browser at actual 200%/400% zoom passed; see [manual review](MANUAL-ACCESSIBILITY-REVIEW.md) for the steps, screenshots and limitations. This is agent-operated direct UI evidence, not a learner session or screen-reader speech test.

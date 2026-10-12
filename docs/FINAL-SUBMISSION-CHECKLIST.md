@@ -20,7 +20,8 @@
 - [x] Keyboard skip link, dialog focus, Escape, history and validation checks.
 - [ ] Learner screen-reader test with NVDA/VoiceOver or equivalent.
 - [x] Full deployed Edge regression run and emulated forced-colour/reduced-motion checks.
-- [ ] Real browser zoom at 200%/400%, OS high contrast, touch device and Firefox/Safari if required.
+- [x] Native Chrome 200%/400% zoom review of overview, register, search and property dialog.
+- [ ] Actual OS contrast mode, physical touch device and Firefox/Safari if required.
 
 ## JavaScript and asynchronous operations
 
@@ -63,7 +64,8 @@
 ## UX design
 
 - [x] Purpose, users, requirements, IA, design system, decisions and retrospective wireframe.
-- [ ] Learner writes their own evaluation and verifies design decisions they intend to discuss.
+- [x] Evidence-based assisted project evaluation prepared.
+- [ ] Learner reviews and endorses the evaluation and can explain the design decisions.
 
 ## Merit evidence
 
@@ -75,5 +77,8 @@
 
 - [x] Data race explanation/tests, defensive validation, cohesive UI and explicit compromises.
 - [x] Documentation matches current local implementation.
-- [ ] Confirm institution AI-assistance policy and submit truthful disclosure.
+- [x] Truthful AI-assistance disclosure and public academic-integrity review prepared.
+- [ ] Confirm assessment-specific AI permission and follow the required declaration process.
 - [ ] Demonstrate and explain the project independently; no grade is guaranteed.
+
+Native UI results: [MANUAL-ACCESSIBILITY-REVIEW.md](MANUAL-ACCESSIBILITY-REVIEW.md). Prepared materials: [PROJECT-EVALUATION.md](PROJECT-EVALUATION.md), [AI-ASSISTANCE-DISCLOSURE.md](AI-ASSISTANCE-DISCLOSURE.md) and [ACADEMIC-INTEGRITY-REVIEW.md](ACADEMIC-INTEGRITY-REVIEW.md). Unperformed speech/device/learner checks stay unchecked.

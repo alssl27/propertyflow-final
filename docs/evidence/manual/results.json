@@ -1,0 +1,67 @@
+{
+  "date": "2026-10-12",
+  "operator": "OpenAI Codex through Computer Use",
+  "method": "Native Windows Chrome UI observation and input",
+  "url": "https://propertyflow-final.vercel.app",
+  "runtimeCommit": "2462dcf9e651bea378e1725ce83a8d1b85b43b3b",
+  "scope": "Overview, property register and property dialog at native 200% and 400% browser zoom",
+  "passed": 8,
+  "failed": 0,
+  "checks": [
+    {
+      "id": "MZ01",
+      "expected": "Chrome native zoom reaches 200%",
+      "actual": "Native menu and accessibility tree reported Zoom: 200%.",
+      "status": "Passed"
+    },
+    {
+      "id": "MZ02",
+      "expected": "Overview reflows at 200%",
+      "actual": "Heading, metrics, Refresh and Add property remained visible; navigation used the mobile disclosure.",
+      "status": "Passed"
+    },
+    {
+      "id": "MZ03",
+      "expected": "200% property dialog can be read and dismissed",
+      "actual": "Dialog labels were exposed; its scrollbar reached rent/status and Save/Cancel; Cancel closed the form.",
+      "status": "Passed"
+    },
+    {
+      "id": "MZ04",
+      "expected": "Chrome native zoom reaches 400%",
+      "actual": "Native accessibility tree reported Zoom: 400%, using browser zoom controls, not CSS zoom or a smaller emulated viewport.",
+      "status": "Passed"
+    },
+    {
+      "id": "MZ05",
+      "expected": "400% navigation can be used with keyboard",
+      "actual": "Opened menu; Tab showed Overview then Properties with visible focus and scrolling; Enter opened Properties.",
+      "status": "Passed"
+    },
+    {
+      "id": "MZ06",
+      "expected": "Search/filter controls remain usable at 400%",
+      "actual": "Scrolled to search, typed Abbeyhills, observed Showing 1 of 8 properties; Clear filters restored Showing 8 of 8.",
+      "status": "Passed"
+    },
+    {
+      "id": "MZ07",
+      "expected": "400% form fields/actions stay keyboard reachable",
+      "actual": "Tab traversed postcode, bedrooms, rent, occupancy, Cancel and Save, scrolling focused controls into view. Empty Save returned focus to address and displayed a text error.",
+      "status": "Passed"
+    },
+    {
+      "id": "MZ08",
+      "expected": "Dialog dismissal and browser restoration work",
+      "actual": "Escape closed the invalid form; focus returned to Add property. Browser exited fullscreen and its native zoom alert showed 100%.",
+      "status": "Passed"
+    }
+  ],
+  "limits": [
+    "Not an independent learner or participant session",
+    "No Narrator/NVDA speech heard or verified",
+    "No actual OS contrast mode or physical touch device test",
+    "No whole-site WCAG conformance claim"
+  ],
+  "privacy": "Evidence screenshots capture only the website in browser fullscreen. Unrelated browser chrome and account/bookmark details are excluded."
+}

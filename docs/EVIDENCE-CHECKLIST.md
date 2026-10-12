@@ -25,3 +25,5 @@ Local images and the separately labelled deployed images were captured by Playwr
 The production capture set is separately stored in evidence/deployed; see [deployed test results](DEPLOYED-TEST-RESULTS.md).
 
 Extended captures: [Edge desktop](evidence/edge/dashboard-1440.png), [Edge 320px](evidence/edge/dashboard-320.png), [forced colours](evidence/accessibility/forced-colours-dashboard.png) and [described form errors](evidence/accessibility/forced-colours-form-error.png). See ADDITIONAL-VERIFICATION.md for scope; these do not substitute for a screen-reader test.
+
+Native UI captures: [200% overview](evidence/manual/zoom-200-dashboard.jpg), [400% search](evidence/manual/zoom-400-search.jpg) and [400% validation](evidence/manual/zoom-400-validation.jpg), documented in MANUAL-ACCESSIBILITY-REVIEW.md. These are actual native browser zoom observations, not speech or participant feedback.

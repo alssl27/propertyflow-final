@@ -31,3 +31,7 @@ The user selected alssl27 after the connected Sarah integration denied project c
 ## Additional tests and approved GitHub publication
 
 On continuing the submission work, the workspace had origin configured to the existing public alssl27/propertyflow-final repository at fa4aa11. The user explicitly approved publishing the project history/source/documentation/screenshots; a normal fast-forward push updated it to 6ffa771. Further service tests A13–A16 passed, giving 24 Node tests total. Full Edge production testing passed fourteen cases; five Chrome preference checks passed. Their independent evidence folders preserve earlier results. Test-only/configuration/documentation changes were committed and pushed, leaving the live runtime unchanged. Human checks/reflection are still learner tasks.
+
+## Submission writing and native zoom evidence
+
+Prepared an evidence-based evaluation, truthful AI-assistance disclosure and public academic-integrity review. A first Computer Use attempt stopped because its current browser URL could not be confidently established. At the user's retry request, a dedicated live PropertyFlow Chrome window was uniquely identified and its URL confirmed. Native 200%/400% zoom, keyboard navigation, search/filter and form validation/dismissal were reviewed. Genuine fullscreen website screenshots exclude unrelated browser details. Browser zoom was restored to 100%; no runtime or records were changed. Screen-reader speech and applicable institutional permission remain unverified rather than being assumed.
