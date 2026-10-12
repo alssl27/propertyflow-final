@@ -2,133 +2,151 @@
 
 **Level 5 Diploma in Web Application Development · Unit 2: Interactive Front End Development**
 
-PropertyFlow is an original front-end prototype for a small property management team. It brings a property register, repair workflow, compliance overview and portfolio reporting into one responsive workspace. The project is designed to demonstrate semantic HTML, custom CSS, JavaScript interaction, defensive input handling, asynchronous data access, accessible feedback, manual/automated test planning, Git workflow and static cloud deployment.
+PropertyFlow is a responsive, framework-free educational prototype for a small UK property-management team. It connects a property register, maintenance workflow, certificate dates and portfolio reporting in one browser workspace.
 
-> **Important:** this is an educational demo, not a production property-management system. It uses fictional sample data and browser `localStorage`, with a simulated asynchronous data service. Do not enter real tenant, landlord, payment, identity or other confidential data. A production version would need an authenticated server, role-based access, audit logging, secure storage, backups and legal/compliance review.
+**Local verification:** 20 unit/service tests and 14 Chrome browser tests passed on 12 October 2026. Real screenshots, the initial failed browser run and retest evidence are included. **Not yet deployed or submitted.** No live or GitHub URL is claimed. Human accessibility checks, publication and learner verification remain outstanding.
 
-## Run locally
+## Purpose, users and goals
 
-1. Download and extract the project folder.
-2. Open the `propertyflow-final` folder in Visual Studio Code.
-3. Install the **Live Server** extension if it is not already installed.
-4. Right-click `index.html` and choose **Open with Live Server**.
-5. The browser should open the dashboard. Keep the local server running while using it.
+Fragmented spreadsheets and messages make vacancies, repairs and certificate dates hard to track. Managers need a portfolio summary; administrators need reliable records; maintenance coordinators need prioritised work. PropertyFlow links related records and calculates current totals, reducing repeated entry and giving users a clear next action. Its goal is to demonstrate significant custom JavaScript interaction, thoughtful UX, defensive programming and verifiable development evidence.
 
-Do not open `index.html` directly as a `file://` URL: the app uses `fetch()` to read JSON seed data, which requires a local or hosted web server.
+Use **fictional data only**. This app has no login, secure server, shared database, payment ledger or legal-compliance engine. Displayed rent is expected monthly rent, not collected income. Certificate dates support an educational workflow and do not establish legal compliance.
 
-No npm install or build step is required.
+## Features and usage
 
-## Features
-
-- Dashboard KPIs for property count, occupancy, vacant properties and occupied monthly rent roll.
-- Property register with search, status filtering, duplicate detection, input validation, status updates and deletion guard when linked repairs exist.
-- Repair log with property association, priority, status transitions and form validation.
-- Compliance register with due-date ordering and clear sample-data caveats.
-- Portfolio report with dynamic status/priority bars and CSV export.
-- Asynchronous reads using `fetch()`, `async`/`await`, `Promise.all()`, loading feedback and recoverable error UI.
-- Simulated request latency, busy submit buttons, error handling and a sequence guard that prevents an older delayed search from replacing newer results.
-- Browser persistence via `localStorage`.
-- Responsive sidebar/navigation, keyboard focus indicators, skip link, semantic landmarks, labelled forms, accessible dialog labels, live status/toast announcements and reduced-motion support.
-- Custom 404 page with a clear route back to the dashboard and timed redirect.
+- **Overview:** current property counts, occupancy percentage, occupied monthly rent, unresolved/emergency/urgent repairs, upcoming/overdue certificates, recent property additions and working shortcuts. All graphics derive from current records; no invented financial history.
+- **Properties:** address/postcode/bedroom search, status filter and clear control, validated creation/editing, status changes, duplicate detection and confirmed deletion. Any linked repair or certificate blocks deletion; related records can be reassigned through Edit.
+- **Repairs:** create/edit a property-linked issue, select Emergency/Urgent/Routine, combine priority/status filters and progress Open → Scheduled → In progress → Completed → Open. Existing status is changed through the explicit workflow control.
+- **Compliance:** add/edit certificates, sort by expiry and filter by date-derived status. Overdue is before today; due soon includes today through 30 days ahead.
+- **Reports:** occupancy/status mix, repair priorities, certificate summary, potential and occupied rent totals, plus escaped current-property CSV export with spreadsheet formula protection.
+- **Settings:** explain storage and reset fictional records with confirmation. A failed reset preserves the existing saved snapshot.
+- **Recovery:** loading, 15-second fetch timeout, meaningful errors, retry and reset recovery for corrupt saved data.
 
 ## User stories
 
-1. **As a property manager,** I want an at-a-glance overview so I can identify vacancies, occupancy and operational priorities quickly.
-2. **As a property manager,** I want to search and filter properties so I can find a record without scanning the full table.
-3. **As an administrator,** I want to add a property with validation and confirmation so incomplete or duplicate data is less likely to enter the register.
-4. **As a maintenance coordinator,** I want to log a repair against a property and set its priority so that the team can triage work.
-5. **As a maintenance coordinator,** I want to advance repair statuses so I can track progress from open to complete.
-6. **As a property manager,** I want compliance dates and statuses visible so that records needing review are easy to spot.
-7. **As a manager,** I want to export the property list to CSV so that I can analyse a copy of the demo data.
-8. **As a mobile user,** I want the navigation, tables and forms to remain usable on a small screen.
-9. **As a keyboard or assistive-technology user,** I want labels, focus indicators, skip navigation and status announcements so I can operate the interface without relying only on a mouse or colour.
+| ID   | As a…                   | I want…                          | So that…                                  |
+| ---- | ----------------------- | -------------------------------- | ----------------------------------------- |
+| US01 | Manager                 | Accurate overview metrics        | I can prioritise work                     |
+| US02 | Administrator           | Search and combined filters      | I can find the right record               |
+| US03 | Administrator           | Validated add/edit/delete        | I can maintain accurate data              |
+| US04 | Maintenance coordinator | Repair priorities and lifecycle  | I can track unresolved work               |
+| US05 | Manager                 | Certificate dates and updates    | I can review upcoming tasks               |
+| US06 | Manager                 | Summaries and CSV export         | I can analyse the current register        |
+| US07 | Demo user               | Persistence and controlled reset | I can explore without losing control      |
+| US08 | Mobile user             | Responsive navigation and forms  | I can work on a small screen              |
+| US09 | Keyboard user           | Labels, focus and announcements  | I can operate without a mouse             |
+| US10 | User                    | Honest errors and recovery       | I can recover from failed data operations |
 
-## Design rationale
+Acceptance criteria appear in [UX design](docs/UX-DESIGN.md), with [screenshot mapping](docs/EVIDENCE-CHECKLIST.md).
 
-- **Hierarchy:** portfolio metrics appear first, followed by attention items, recently added properties and quick actions. This prioritises decisions over decorative content.
-- **Consistency:** a shared navy/red/neutral palette, spacing scale, status pills and button styles are reused across the dashboard and secondary views.
-- **Recognition over recall:** navigation labels and counts remain visible; statuses use text labels rather than colour alone.
-- **Feedback and user control:** actions have clear labels, forms validate before saving, save buttons show a busy state, and success/failure is announced. Destructive deletion requires confirmation.
-- **Responsive layout:** CSS grid collapses at tablet/mobile breakpoints; wide data tables scroll horizontally rather than squeezing every column.
-- **Reduced distraction:** no autoplay media or aggressive modal prompts. The trend graphic is explicitly labelled illustrative, rather than presented as real financial history.
-- **Trade-off:** the dashboard uses a simulated rent trend because no genuine time-series dataset is provided. A production design should replace it with a correctly sourced chart or remove it.
+## Run locally
 
-See [`docs/UX-RATIONALE.md`](docs/UX-RATIONALE.md) and [`docs/UX-WIREFRAME.md`](docs/UX-WIREFRAME.md).
+1. Open this folder in VS Code.
+2. With Node 24+ installed, run `npm start`.
+3. Open http://127.0.0.1:4173. Alternatively use VS Code Live Server.
 
-## Architecture and data flow
+The app itself has **no runtime dependencies** and needs no compilation. Do not open index.html using file:// because JSON fetching needs HTTP. Install development tools only when running checks:
 
-```text
-index.html
-  ├── assets/css/styles.css
-  └── assets/js/app.js (views, events, validation, state)
-        └── assets/js/api.js (async data access + localStorage)
-              └── data/*.json (fictional initial records)
+```sh
+npm ci
+npm test
+npm run lint
+npm run validate:html
+npm run validate:css
+npm run format:check
+npm run check:links
+npm run test:browser
+npm run build
 ```
 
-`getWorkspaceData()` loads the three collections concurrently using `Promise.all()`. Each collection is fetched from a JSON file on first run and then cached in localStorage. Create/update/delete operations persist to localStorage and are wrapped in asynchronous functions with a small demonstration delay. This makes loading and timing behaviour visible without requiring a server or paid service.
+Browser tests require installed Google Chrome; playwright.config.js selects its chrome channel. npm run build copies public files into dist for static hosting. There are no secrets or environment variables required for the app. BASE_URL is an optional browser-test target, described in [deployment instructions](docs/DEPLOYMENT.md).
 
-**Limitations:** the service is a mock API, not a real remote API. Browser storage is local to one browser/profile and can be cleared. It has no authentication, multi-user concurrency control, server-side validation, or cross-device synchronisation. The project demonstrates async patterns and defensive UI behaviour, but it does not claim to be a secure production backend.
+## Technologies and structure
 
-## File structure
+HTML5, CSS3, vanilla ES modules, arrays/objects, DOM events, Fetch, promises, async/await, Promise.all, AbortController, Web Locks where available, JSON and localStorage. Development-only tools are ESLint, Prettier, html-validate, CSS Tree, Playwright and axe-core; Node's test runner supplies unit tests. package-lock.json pins the installed tree.
 
 ```text
-propertyflow-final/
-├── index.html
-├── 404.html
-├── README.md
-├── .gitignore
-├── assets/
-│   ├── css/styles.css
-│   ├── img/favicon.svg
-│   └── js/
-│       ├── api.js
-│       └── app.js
-├── data/
-│   ├── properties.json
-│   ├── repairs.json
-│   └── compliance.json
-├── docs/
-│   ├── DEVELOPMENT-LOG.md
-│   ├── DEPLOYMENT.md
-│   ├── TEST-PLAN.md
-│   ├── TEST-RESULTS-TEMPLATE.md
-│   ├── UX-RATIONALE.md
-│   ├── UX-WIREFRAME.md
-│   └── SOURCES.md
-└── tests/
-    └── MANUAL-TEST-CHECKLIST.md
+index.html / 404.html       App shell, native dialogs and recovery page
+assets/css/styles.css      Tokens, shared components and responsive rules
+assets/js/app.js            State, rendering, routing and UI events
+assets/js/api.js            Fetch, queued persistence, migration and reset
+assets/js/domain.js         Pure validation, calculations, dates and CSV
+assets/img/favicon.svg     Supplied local vector mark
+data/*.json                Fictional starter records
+tests/*.test.js             Unit and service regression tests
+tests/browser/             Real Chrome workflows and accessibility scans
+scripts/                   Local server, CSS/link checks and static build
+docs/                      Assessment, UX, test, deployment and handover records
+docs/evidence/             Actual screenshots and machine-readable test results
+vercel.json                Prepared static hosting configuration
 ```
 
-## Quality and testing
+## Implemented design and accessibility
 
-- Use the manual test plan in [`docs/TEST-PLAN.md`](docs/TEST-PLAN.md).
-- Record the actual browser/device, date, expected result, actual result, pass/fail and evidence in [`docs/TEST-RESULTS-TEMPLATE.md`](docs/TEST-RESULTS-TEMPLATE.md).
-- Validate HTML at <https://validator.w3.org/> and CSS at <https://jigsaw.w3.org/css-validator/>.
-- Use a JavaScript linter such as ESLint or JSHint as part of your evidence. Do not claim a clean lint result until you have run it and fixed reported issues.
-- Test with browser DevTools open; verify no uncaught console errors after each interaction.
-- Capture screenshots aligned to user stories and include desktop plus narrow mobile viewport evidence.
+Navy navigation, neutral surfaces, muted red actions and text-labelled semantic colours establish a consistent hierarchy. Overview gives portfolio scale before urgent tasks and detailed records. Responsive grids collapse, navigation becomes a disclosure below 820px and tables scroll within labelled focusable regions. Font rendering uses a local sans-serif stack without an external font request.
 
-See [`docs/TEST-PLAN.md`](docs/TEST-PLAN.md) for async and failure scenarios, including unavailable JSON data, empty results, duplicate submit prevention and out-of-order search responses.
+The shell includes a skip link, semantic landmarks and one h1 per view. Forms have associated labels and described errors. Native modal dialogs support Escape, Tab/Shift+Tab containment and focus restoration. Busy states prevent repeat saves. Hidden mobile navigation is inert. Live feedback, visible focus, minimum control sizes and reduced-motion styling support access. Automated axe checks passed in the recorded states; full WCAG conformance is **not claimed**. Screen-reader, zoom and real-device checks remain for the learner.
 
-## Version control
+[Design rationale](docs/UX-RATIONALE.md), [complete UX design](docs/UX-DESIGN.md) and [retrospective wireframe](docs/UX-WIREFRAME.md) explain decisions and exceptions.
 
-Make small, meaningful commits as each feature is implemented and tested. A suggested sequence is provided in [`docs/DEVELOPMENT-LOG.md`](docs/DEVELOPMENT-LOG.md). Do not make one giant final commit and do not claim commits you have not made. Keep screenshots and your own evidence in a clearly named folder/repository if your assessor requests them.
+## Architecture and asynchronous programming
+
+```mermaid
+flowchart LR
+    UI[app.js: events and views] --> Rules[domain.js: pure rules]
+    UI --> API[api.js: queued operations]
+    API --> Fetch[Promise.all JSON fetches]
+    API --> Store[One localStorage workspace snapshot]
+```
+
+First use fetches the three JSON files concurrently. Promise.all retains their input order even if responses arrive in a different order. A shared AbortController cancels pending fetches on failure or timeout. The loading panel is replaced only after a validated workspace is available. Errors remain visible with Retry.
+
+A service-level queue wraps the entire read/validate/modify/write operation, avoiding lost updates from overlapping operations. Web Locks coordinate cooperating tabs where available. One localStorage setItem replaces the whole workspace atomically; failed writes do not become successful UI state. Reset downloads and validates first. The queue catches rejection so later operations can recover. See [learner handover](docs/LEARNER-HANDOVER.md) for worked explanations and assessor questions.
+
+UI load sequence IDs reject obsolete loads. Search is a **local 180 ms debounce**, with a sequence guard and route check; it is not a simulated remote API. The final service has no artificial network latency. Browser tests introduce real controlled delays and failures.
+
+## Storage and limitations
+
+The active key is propertyflow.workspace.v2. On first use, valid supplied v1 collection keys are migrated and retained as a backup. Saved records are schema-validated, including references and duplicate IDs/addresses. Storage is local to a browser profile and origin; it can be cleared and is not encrypted or backed up by this app. Without Web Locks, edit in one tab: the fallback queue is tab-local. Competing edits to the same field have no merge-conflict interface. Notifications ask users to refresh after another tab saves.
+
+The postcode check validates format, not postal existence. No repair SLA or legal expiry interval is invented. All completed repairs remain linked for record integrity. Search has no pagination; the design targets a small demonstration portfolio. The custom 404 uses root paths for the chosen Vercel deployment; a GitHub Pages repository subpath requires prefix adjustment.
+
+## Tests, results and fixes
+
+[Actual results](docs/TEST-RESULTS.md), [methodology](docs/TESTING-METHODOLOGY.md), [test plan](docs/TEST-PLAN.md) and [bug report](docs/BUG-REPORT.md) distinguish observed passes from outstanding checks. The 20 Node tests cover calculations, search/filter, validation, duplicates, dates, transitions, CSV, concurrent writes, rejected requests, reset safety and corrupt storage. The 14 browser tests cover the main workflows, keyboard navigation, storage, two-tab writes, failure recovery and five responsive widths.
+
+The initial browser run had six failures: dialog focus and dashboard ARIA/contrast issues. Those were corrected and retested. No known application logic errors remain in the automated tested scenarios. This is not a claim that every browser, device or possible action was tested. HTML/CSS checks use html-validate and CSS Tree; W3C hosted validators were not run.
+
+## Real screenshots
+
+Captured locally by the browser on 12 October 2026, with fictional records:
+
+![Implemented desktop dashboard](docs/evidence/dashboard-1440.png)
+
+[320px mobile dashboard](docs/evidence/dashboard-320.png) · [Property dialog](docs/evidence/property-dialog.png) · [Repairs](docs/evidence/repairs-desktop.png) · [Reports](docs/evidence/reports-desktop.png)
+
+## Development process and Git
+
+The supplied folder was not a Git repository. The first genuine commit preserves its original contents; later commits record persistence fixes, workflow/accessibility improvements, tests and documentation. [Development log](docs/DEVELOPMENT-LOG.md) records this revision without inventing earlier activity. Commits use a clearly named project identity. The learner must supply their own reflections and set their own identity for future commits. No remote is configured or pushed.
 
 ## Deployment
 
-This is a static project and can be deployed to GitHub Pages or Vercel without a build command. Follow [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md), then test the deployed site independently. Check that JSON files load from the deployed paths and that the custom 404 page behaves as expected.
+Vercel is the prepared platform. The build command is npm run build, output is dist, framework is Other, install command is npm ci, and no app secrets are needed. The output contains the website and quick guide, excluding assessment evidence and test tooling. A root-level 404.html offers a direct Return to Dashboard link without a timer or redirect loop; unknown JSON requests remain errors.
 
-## Assessment mapping
+Publication requires the approval requested in the original brief. Follow [DEPLOYMENT.md](docs/DEPLOYMENT.md) to confirm the account/team, publish, test the exact deployed commit and add verified URLs. **Live URL: not available. GitHub repository URL: not configured.**
 
-| Assessment area | Project evidence |
-|---|---|
-| UX, accessibility, semantic layout | `index.html`, `styles.css`, `docs/UX-RATIONALE.md` |
-| User-controlled interactions and feedback | `app.js`, forms, navigation, toasts |
-| External CSS and JavaScript | `index.html` links to `assets/css/styles.css` and module `assets/js/app.js` |
-| Loops, conditionals and validation | rendering functions, filters, form handlers |
-| Asynchronous behaviour and timing | `assets/js/api.js`, `Promise.all()`, async handlers, search sequence guard |
-| Defensive design/error feedback | storage/fetch checks, retry state, duplicate detection, validation, deletion guard |
-| Testing and deployment | `docs/TEST-PLAN.md`, `docs/TEST-RESULTS-TEMPLATE.md`, `docs/DEPLOYMENT.md` |
-| Git process and attribution | `docs/DEVELOPMENT-LOG.md`, `docs/SOURCES.md`, this README |
+## Assessment and final preparation
 
-This mapping is a guide, not a guarantee of a grade. The learner should understand, test, document and be able to explain the code and submit genuine development evidence.
+- [Initial assessment audit](docs/ASSESSMENT-AUDIT.md)
+- [Every criterion mapped to evidence](docs/ASSESSMENT-CRITERIA-MATRIX.md)
+- [Final submission checklist](docs/FINAL-SUBMISSION-CHECKLIST.md)
+- [Final report](docs/FINAL-REPORT.md)
+- [Learner handover and assessor practice](docs/LEARNER-HANDOVER.md)
+
+Remaining work: publication approval and account/repository selection; deployed tests/screenshots; learner manual accessibility/usability checks; independent explanation and course-compliant AI disclosure. Completion does not guarantee a distinction.
+
+## Credits, acknowledgements and future improvements
+
+The supplied PropertyFlow files are retained in the initial commit. This revision was implemented and documented with OpenAI Codex assistance. [Sources](docs/SOURCES.md) distinguishes the supplied baseline, assisted work, official references and development libraries. Do not describe this as unaided work; check the course's academic-integrity rules.
+
+Future work could add a secure authenticated backend, durable audit history, conflict resolution, pagination, authorised CSV import, a real payments ledger and human-reviewed certificate rules. These are intentionally outside the current static front-end assessment scope.

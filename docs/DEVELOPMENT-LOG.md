@@ -1,32 +1,25 @@
-# Development log and suggested Git history
+# Genuine development log
 
-This file is a planning log. Replace or supplement the suggested entries with the commits you actually make. Never claim that a commit exists unless it is visible in your Git history.
+## Starting point — 12 October 2026
 
-## Suggested incremental commits
+The supplied folder was not a Git repository. Initial inspection read the HTML, CSS, modules, JSON and documentation. No earlier source history, executed tests or deployed URL were supplied. Commit `5cdfe36` (`chore: preserve supplied project starting point`) records the real starting point, not a fabricated earlier development milestone. The initial ASSESSMENT-AUDIT.md records gaps discovered before implementation.
 
-1. `chore: create project structure and sample data` — shell, directories and fictional JSON data.
-2. `feat: build responsive workspace navigation` — sidebar, header, mobile navigation and active states.
-3. `feat: add portfolio overview and KPI cards` — metric calculations and dashboard hierarchy.
-4. `feat: add property register search and filters` — register, empty state and status filter.
-5. `feat: add validated property creation` — accessible dialog, duplicate checks and save feedback.
-6. `feat: add repair logging and status workflow` — repair association, priority and status changes.
-7. `feat: add compliance register and portfolio reports` — due dates, summaries and CSV export.
-8. `feat: add asynchronous data service` — fetch seed files, async operations, localStorage persistence.
-9. `fix: guard asynchronous search result ordering` — debounce and sequence guard.
-10. `fix: improve storage and form error feedback` — validation and recoverable errors.
-11. `feat: add custom not-found page` — missing-route recovery.
-12. `test: document functional and async test cases` — testing plans and evidence templates.
-13. `docs: document UX rationale and architecture` — design rationale, limitations and source attribution.
-14. `docs: add cloud deployment procedure` — deployment guide and final verification steps.
+## Data integrity and tests
 
-## Commit quality
+Commit `f5b60e6` (`fix: validate and serialise workspace persistence with regression tests`) introduces pure domain rules, one atomic workspace snapshot, a shared queue, cooperating-tab locks and failure-safe reset. Twenty Node tests passed. The design keeps a static front end and documents that localStorage is synchronous even though loading and queue/lock acquisition are asynchronous.
 
-- Make a commit after a small, coherent feature or fix has been tested.
-- Use descriptive messages that explain the change, not vague messages such as `stuff` or `final`.
-- Inspect `git status` and `git diff` before committing.
-- Keep generated files and evidence organised.
-- Save the commit hash in your test evidence so the assessor can link a result to a version.
+## Workflows and accessible UI
 
-## Development narrative to write in your own words
+Commit `73e93f4` (`feat: complete editing workflows and accessible dynamic dashboard`) adds property/repair/certificate editing, filters and Settings, replaces invented history with current data, strengthens deletion guards and repairs mobile/dialog access. The initial browser tests exposed real focus, ARIA and contrast failures; fixes were retested. Eleven tests passed, then an expanded fourteen-test run also passed. Real screenshots and both initial/final machine-readable reports were retained.
 
-For each stage, record: the user story, the design/code decision, the issue or trade-off, how you tested it, what changed after feedback, and the commit that contains the change. Explain async data flow specifically: concurrent reads via `Promise.all`, loading/error states, disabled save buttons, and how the search sequence guard prevents stale results from winning a race.
+## Quality tooling and documentation
+
+Commit `c128409` (`test: verify browser workflows accessibility and static release checks`) records runnable tests, named validators, screenshots and release preparation. A following documentation commit records the final assessment/learner documents and completed quality log. Use `git log --oneline` for their exact hashes. ESLint and html-validate findings were corrected. CSS Tree replaced Stylelint after a dependency advisory; npm audit then reported zero vulnerabilities. Prettier formats the code and documents; a link checker and copy-only static build support reproducibility.
+
+The learner-facing documentation distinguishes evidence from plans, explains trade-offs and leaves cloud tests/manual accessibility unchecked. Wireframes are labelled retrospective. Local tests ran during implementation and the final revision; no deployment test or historical learner activity is claimed.
+
+## Identity, publication and learner reflection
+
+Commits use `PropertyFlow project <propertyflow@example.invalid>` to avoid inventing the learner's author identity. Configure your own name/email for future work. No remote is configured and nothing was pushed. The user requested approval before remote publication; the prepared Vercel release remains local.
+
+The learner should write their own reflection: which errors they understood, which UX choices they agree with, what they changed after personal testing and what they would improve next. Do not submit this generated record as personal reflection. See SOURCES.md for AI assistance and provenance.

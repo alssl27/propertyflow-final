@@ -1,19 +1,19 @@
 # UX wireframe — PropertyFlow
 
-This low-fidelity wireframe documents the information hierarchy that the implementation follows. It is a planning artefact, not a screenshot of the final interface.
+Retrospective wireframe, updated on 12 October 2026 after implementation. This is a reconstruction of the implemented hierarchy, not evidence of pre-development planning.
 
 ```text
 ┌──────────────────────┬─────────────────────────────────────────────────────────┐
 │ PROPERTYFLOW         │ Workspace / Overview                  Date  Bell  User  │
 │                      ├─────────────────────────────────────────────────────────┤
 │ WORKSPACE            │ PORTFOLIO OVERVIEW                                      │
-│ ▦ Overview           │ Good afternoon, Sarah             [Refresh] [+ Add]     │
+│ ▦ Overview           │ Portfolio at a glance             [Refresh] [+ Add]     │
 │ ⌂ Properties         │                                                         │
 │ ⌁ Repairs            │ [Total properties] [Occupied] [Vacant] [Monthly rent]   │
 │ ✓ Compliance         │                                                         │
 │ ▥ Reports            │ ┌──────────────────────────────┐ ┌────────────────────┐ │
 │                      │ │ Portfolio performance        │ │ Needs attention    │ │
-│                      │ │ Rent trend + occupancy       │ │ Emergency repairs  │ │
+│                      │ │ Status bars + occupancy       │ │ Emergency repairs  │ │
 │                      │ │                              │ │ Compliance due     │ │
 │                      │ └──────────────────────────────┘ │ Vacant properties  │ │
 │                      │                                 └────────────────────┘ │
@@ -27,7 +27,7 @@ This low-fidelity wireframe documents the information hierarchy that the impleme
 
 ## Design decisions
 
-- The sidebar gives persistent access to the five key work areas.
+- The sidebar gives persistent access to the six work areas including Settings.
 - The top four metrics establish portfolio context before the user sees detailed tables.
 - The attention panel sits next to performance so urgent operational tasks are not buried below analytics.
 - Recent properties and quick actions support common workflows.

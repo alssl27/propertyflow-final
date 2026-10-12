@@ -15,26 +15,26 @@
 ## Results
 
 | Test ID | Actual result | Pass / fail / blocked | Evidence filename | Notes |
-|---|---|---|---|---|
-| F01 | Not run yet | Not run | — | |
-| F02 | Not run yet | Not run | — | |
-| F04 | Not run yet | Not run | — | |
-| F06 | Not run yet | Not run | — | |
-| F07 | Not run yet | Not run | — | |
-| F12 | Not run yet | Not run | — | |
-| F16 | Not run yet | Not run | — | |
-| F20 | Not run yet | Not run | — | |
-| A01 | Not run yet | Not run | — | |
-| A02 | Not run yet | Not run | — | |
-| A03 | Not run yet | Not run | — | |
+| ------- | ------------- | --------------------- | ----------------- | ----- |
+| F01     | Not run yet   | Not run               | —                 |       |
+| F02     | Not run yet   | Not run               | —                 |       |
+| F04     | Not run yet   | Not run               | —                 |       |
+| F06     | Not run yet   | Not run               | —                 |       |
+| F07     | Not run yet   | Not run               | —                 |       |
+| F12     | Not run yet   | Not run               | —                 |       |
+| F16     | Not run yet   | Not run               | —                 |       |
+| F20     | Not run yet   | Not run               | —                 |       |
+| A01     | Not run yet   | Not run               | —                 |       |
+| A02     | Not run yet   | Not run               | —                 |       |
+| A03     | Not run yet   | Not run               | —                 |       |
 
 Add rows for every test performed. Include screenshots that show the page state and, where useful, DevTools Console/Network output.
 
 ## Bug and fix log
 
-| Bug ID | Reproduction steps | Expected | Actual | Severity | Fix/decision | Retest result |
-|---|---|---|---|---|---|---|
-| B-001 | Add after discovered | Describe | Describe | Low/Medium/High | Record the actual fix | Not retested |
+| Bug ID | Reproduction steps   | Expected | Actual   | Severity        | Fix/decision          | Retest result |
+| ------ | -------------------- | -------- | -------- | --------------- | --------------------- | ------------- |
+| B-001  | Add after discovered | Describe | Describe | Low/Medium/High | Record the actual fix | Not retested  |
 
 ## Validation results
 

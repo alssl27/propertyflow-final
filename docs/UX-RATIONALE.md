@@ -18,8 +18,8 @@ The primary user is a property manager or administrator who needs to switch betw
 - Form errors appear beside the field, the invalid field is marked programmatically and focus moves to the first invalid field.
 - Buttons show a busy state while asynchronous saves run, preventing repeat submission.
 - Success and failure feedback is announced through an `aria-live` region. Notifications can be dismissed.
-- Property deletion requires confirmation and is blocked when repair records still reference that property.
-- Search is delayed slightly to model a responsive search experience. A sequence token prevents an older delayed search from overwriting newer results.
+- Property deletion requires confirmation and is blocked when repair or certificate records still reference that property.
+- Local search is debounced for 180 ms. A sequence token prevents obsolete scheduled work from updating a different route. There is no remote search API.
 
 ## Accessibility
 
@@ -32,15 +32,19 @@ These measures are intended to support WCAG-aligned practice, but the project ha
 - Deep navy sidebar provides a stable navigation anchor.
 - White surfaces on a cool grey canvas distinguish content groups.
 - Red is reserved for primary actions and urgent/problem cues; green, amber and blue status colours are paired with words.
-- Typography uses a display face for headings and a readable sans-serif for controls and data, with system fallbacks.
+- Typography uses a local Arial/Helvetica/sans-serif stack, removing the external font request.
 - Spacing, borders, radius and button patterns are reused to reduce cognitive load.
 
 ## Deliberate exceptions and limitations
 
-- The illustrative chart is not actual rent history; it is labelled as sample/illustrative to avoid misleading users. In a production release, use a real, sourced time series or remove the chart.
+- The supplied illustrative financial trend was removed. Status bars and the compliance ring now reflect current records. No historical financial values are invented.
 - The confirmation dialog for deletion uses the browser's native confirm prompt. It is simple and familiar, but a production version could use a custom accessible confirmation dialog for consistent styling.
-- Data is stored locally in the browser and the asynchronous service is simulated. This is suitable for demonstrating front-end behaviour, not multi-user property operations or confidential data.
+- Data is stored locally in the browser and initial JSON fetching is asynchronous and storage operations are queued. This is suitable for demonstrating front-end behaviour, not multi-user property operations or confidential data.
 
 ## Validation still required
 
 Run HTML and CSS validators, a JavaScript linter, keyboard-only checks, browser zoom checks, mobile viewport checks and manual screen-reader/assistive-technology checks. Record the results in the testing documents rather than assuming the design is accessible solely because these features are present.
+
+## Verified revision
+
+The 12 October 2026 automated browser run checked all six views at five widths and modal accessibility. See TEST-RESULTS.md for actual scope and remaining manual checks.

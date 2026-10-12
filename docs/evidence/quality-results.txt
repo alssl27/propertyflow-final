@@ -53,3 +53,24 @@ COMMAND: npm run validate:css
 CSS Tree: syntax and supported property/value grammar passed; custom properties need browser verification.
 EXIT: 0
 COMMAND: npm run format:check
+
+> propertyflow@1.0.0 format:check
+> prettier --check .
+
+Checking formatting...
+All matched files use Prettier code style!
+EXIT: 0
+COMMAND: npm run check:links
+
+> propertyflow@1.0.0 check:links
+> node scripts/check-links.js
+
+48 local document and asset links resolve. External URLs are not fetched by this check.
+EXIT: 0
+COMMAND: npm run build
+
+> propertyflow@1.0.0 build
+> node scripts/build.js
+
+Static release assembled in dist/; no runtime dependencies.
+EXIT: 0
