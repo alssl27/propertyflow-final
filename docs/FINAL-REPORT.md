@@ -1,6 +1,6 @@
-# Final local implementation report
+# Final implementation and deployment report
 
-PropertyFlow has been improved in the supplied workspace while retaining custom HTML, CSS and vanilla JavaScript. The original source is preserved in Git. This is a tested local educational prototype, not a published or submitted assessment.
+PropertyFlow has been improved in the supplied workspace while retaining custom HTML, CSS and vanilla JavaScript. The original source is preserved in Git. The educational prototype is published at https://propertyflow-final.vercel.app and verified locally and on production. The assessment has not been submitted.
 
 ## Implemented and improved
 
@@ -14,7 +14,7 @@ PropertyFlow has been improved in the supplied workspace while retaining custom 
 
 Twenty Node tests and fourteen real Chrome browser tests passed. Browser evidence covers six views at 320/375/768/1024/1440px, key CRUD workflows, persistence, reset, CSV, keyboard/history, failed loading, damaged/blocked storage, duplicate submit and two-tab writes. Automated axe checks found no enabled violations after fixes in tested pages/dialog. Initial failures and retests are retained. Static checks, formatting, links and build results are recorded in TEST-RESULTS.md and evidence/quality-results.txt.
 
-[Assessment matrix](ASSESSMENT-CRITERIA-MATRIX.md) maps every supplied numbered criterion plus merit/distinction requirements. Local functionality and source evidence are strong; cloud criteria 4.1, the GitHub portion of 4.3, deployment portion of 3.4 and remaining human accessibility/authorship checks are outstanding. No distinction is guaranteed.
+[Assessment matrix](ASSESSMENT-CRITERIA-MATRIX.md) maps every supplied numbered criterion plus merit/distinction requirements. Cloud criteria 4.1 and the automated deployment portion of 3.4 are now verified. The GitHub portion of 4.3 and human accessibility/authorship checks remain outstanding. No distinction is guaranteed.
 
 ## File changes
 
@@ -22,14 +22,14 @@ Modified: index.html, 404.html, assets/js/app.js, assets/js/api.js, assets/css/s
 
 ## Git and deployment
 
-Genuine commits include 5cdfe36 (supplied baseline), f5b60e6 (persistence and tests) and 73e93f4 (workflows/accessibility), c128409 (tests/evidence/release tooling), followed by the documentation commit visible in git log. No remote, push, deployment URL or production test is claimed. Vercel configuration and a static dist release are prepared. The app has no runtime dependencies.
+Genuine commits include 5cdfe36 (supplied baseline), f5b60e6 (persistence and tests) and 73e93f4 (workflows/accessibility), c128409 (tests/evidence/release tooling), followed by the documentation commit visible in git log. Production publication to the explicitly selected alssl27 account is READY. All 14 deployed browser tests and 13 HTTP/hash checks passed; runtime bytes matched local dist. No GitHub remote or push is claimed. The app has no runtime dependencies.
 
 ## Exact remaining steps
 
 1. Review the running app, screenshots and learner handover. Confirm the code and explanations you can demonstrate yourself.
-2. Resolve Vercel account access/selection and GitHub repository visibility if required; publish the reviewed commit using DEPLOYMENT.md. Publication was explicitly approved on 12 October 2026.
-3. Repeat the listed cloud checks, save deployed URL/commit/screenshots/results, and add verified URLs to README.
+2. Complete GitHub repository publication if required for assessment: confirm account and visibility, push ordinary commits, and add the verified URL.
+3. Review DEPLOYED-TEST-RESULTS.md and the actual production screenshots. Repeat cloud checks after any later application change.
 4. Perform screen-reader, real zoom/touch, cross-browser and independent usability checks. Record actual findings and fix/retest any defects.
 5. Verify institutional AI-assistance rules, write your own reflection/disclosure and complete the unchecked final submission items before submitting.
 
-Publication is approved but blocked by account access: the connected integration returned HTTP 403 on project creation, and the CLI is signed into a different account. The user has been asked which owner to use. VS Code is open with the project. No live URL or cloud tests are claimed.
+The initial account access blocker was resolved by the user selecting alssl27. Production URL, deployment identity and actual tests are recorded in DEPLOYMENT.md and DEPLOYED-TEST-RESULTS.md. VS Code is open with the project.

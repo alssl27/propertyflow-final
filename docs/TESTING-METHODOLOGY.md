@@ -28,8 +28,8 @@ npm run test:browser
 npm run build
 ```
 
-Use Node 24+ and an installed Google Chrome; versions actually used are in TEST-RESULTS.md. Every browser test has an isolated browser context and fictional records. Test output lives in docs/evidence. No submitted data is sent to a backend. Tests against a future deployed origin must use a separate test browser context and save a separate report. BASE_URL changes the target and disables the local web server; avoid overwriting local evidence by changing the reporter output path before a deployed run.
+Use Node 24+ and an installed Google Chrome; versions actually used are in TEST-RESULTS.md. Every browser test has an isolated browser context and fictional records. Test output lives in docs/evidence. No submitted data is sent to a backend. Tests against the deployed origin use separate browser contexts and reports. Set BASE_URL and use playwright.deployed.config.js as shown in DEPLOYED-TEST-RESULTS.md; it disables the local server and saves all screenshots/reports to evidence/deployed, preserving local evidence.
 
 ## Interpretation
 
-A pass means that the assertion passed in the named environment, not that every possible use case passed. The failed initial browser run exposed dialog Tab behaviour, low contrast and invalid ARIA. Later passes demonstrate those scenarios were retested. Expected failure scenarios intentionally log a caught load error; these are distinguished from uncaught pageerror events. No cloud deployment run has occurred yet.
+A pass means that the assertion passed in the named environment, not that every possible use case passed. The failed initial browser run exposed dialog Tab behaviour, low contrast and invalid ARIA. Later passes demonstrate those scenarios were retested. Expected failure scenarios intentionally log a caught load error; these are distinguished from uncaught pageerror events. A subsequent cloud run passed all 14 browser tests plus 13 independent HTTP/hash checks; see DEPLOYED-TEST-RESULTS.md.

@@ -1,6 +1,6 @@
 # Final submission checklist
 
-12 October 2026. Checked items refer to the recorded local scope. The project has not been submitted or deployed.
+12 October 2026. Checked items refer to the recorded local and deployed scope. The site is published on Vercel; the assessment has not been submitted.
 
 ## Application functionality
 
@@ -32,7 +32,7 @@
 - [x] 20 Node tests and 14 Chrome browser tests passed in recorded local run.
 - [x] Failed initial browser run, fixes and actual screenshots retained.
 - [ ] Learner performs and records independent manual usability tests.
-- [ ] Repeat relevant tests on deployed origin and record actual results separately.
+- [x] Repeat all 14 browser tests on deployed origin; record results/screenshots separately.
 
 ## User stories and screenshots
 
@@ -49,14 +49,15 @@
 
 - [x] Vercel static configuration, copy build and deployment guide prepared.
 - [x] User approved Vercel publication.
-- [ ] Resolve account access/selection and publish; integration returned HTTP 403.
-- [ ] Verify homepage, modules, JSON, 404, persistence, console, mobile and deployed commit.
-- [ ] Add verified live URL and deployment evidence.
+- [x] User selected alssl27; publish successfully using its authorised CLI login.
+- [x] Verify live workflows plus 13 HTTP/hash checks, including custom 404 and release match.
+- [x] Add verified live URL and separate deployment evidence.
 
 ## README
 
 - [x] Purpose, features, architecture, limitations, run/test commands, evidence, sources and criteria links.
-- [ ] Add live and remote URLs after verification.
+- [x] Add verified live URL.
+- [ ] Add verified GitHub repository URL after publication.
 
 ## UX design
 
@@ -66,7 +67,8 @@
 ## Merit evidence
 
 - [x] Local missing-path recovery, logical commits, user stories, design and bug/test documentation.
-- [ ] Cloud missing-path test and remaining human accessibility checks.
+- [x] Cloud nested missing-path test.
+- [ ] Remaining human accessibility checks.
 
 ## Distinction evidence
 

@@ -1,0 +1,595 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "C:\\Users\\sarah\\OneDrive\\Desktop\\propertyflow-final\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "--config",
+      "playwright.deployed.config.js"
+    ],
+    "configFile": "C:\\Users\\sarah\\OneDrive\\Desktop\\propertyflow-final\\playwright.deployed.config.js",
+    "rootDir": "C:/Users/sarah/OneDrive/Desktop/propertyflow-final/tests/browser",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/Users/sarah/OneDrive/Desktop/propertyflow-final/docs/evidence/deployed/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "",
+        "name": "",
+        "testDir": "C:/Users/sarah/OneDrive/Desktop/propertyflow-final/tests/browser",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "filteredProjects": [
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "C:\\Users\\sarah\\OneDrive\\Desktop\\propertyflow-final\\docs\\evidence\\deployed\\artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "name": "",
+        "testDir": "C:\\Users\\sarah\\OneDrive\\Desktop\\propertyflow-final\\tests\\browser",
+        "snapshotDir": "C:\\Users\\sarah\\OneDrive\\Desktop\\propertyflow-final\\tests\\browser",
+        "testIgnore": [],
+        "testMatch": "**/*.@(spec|test).?(c|m)[jt]s?(x)",
+        "timeout": 30000,
+        "use": {
+          "baseURL": "https://propertyflow-final.vercel.app",
+          "channel": "chrome",
+          "headless": true,
+          "viewport": {
+            "width": 1440,
+            "height": 1000
+          },
+          "screenshot": "only-on-failure",
+          "trace": "retain-on-failure"
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": ""
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "docs/evidence/deployed/browser-results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "default",
+    "updateSourceMethod": "patch",
+    "version": "1.64.0",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "workflows.spec.js",
+      "file": "workflows.spec.js",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "B01 full property workflow, duplicates, persistence, search, delete",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4005,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-12T18:48:27.647Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "500e814c046e2132c6e8-ee1e05ffb159a087615c",
+          "file": "workflows.spec.js",
+          "line": 24,
+          "column": 1
+        },
+        {
+          "title": "B02 repairs create edit filter and lifecycle; linked deletion blocked",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1824,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-12T18:48:32.090Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "500e814c046e2132c6e8-b843b47e669b6653b2af",
+          "file": "workflows.spec.js",
+          "line": 69,
+          "column": 1
+        },
+        {
+          "title": "B03 certificates create edit expiry filtering, reports CSV and reset",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2014,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-12T18:48:33.931Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "500e814c046e2132c6e8-522b36fd2fc8745c17fd",
+          "file": "workflows.spec.js",
+          "line": 109,
+          "column": 1
+        },
+        {
+          "title": "B04 modal keyboard, validation, focus containment, history and skip link",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2510,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-12T18:48:35.964Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "500e814c046e2132c6e8-b7b3bb352ccde48c7c31",
+          "file": "workflows.spec.js",
+          "line": 153,
+          "column": 1
+        },
+        {
+          "title": "B05 slow fetch loading failure retry and corrupt storage recovery",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2195,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-12T18:48:38.490Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "500e814c046e2132c6e8-8aa4f00d06ea1ec8ba1d",
+          "file": "workflows.spec.js",
+          "line": 187,
+          "column": 1
+        },
+        {
+          "title": "B06 empty workspace, missing resource and custom 404",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1489,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-12T18:48:40.706Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "500e814c046e2132c6e8-22865fd352c5cf485bfc",
+          "file": "workflows.spec.js",
+          "line": 212,
+          "column": 1
+        },
+        {
+          "title": "B07 responsive 320px all views and accessibility scan",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 6041,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-12T18:48:42.216Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "500e814c046e2132c6e8-dfb001955ca6423ae204",
+          "file": "workflows.spec.js",
+          "line": 236,
+          "column": 3
+        },
+        {
+          "title": "B07 responsive 375px all views and accessibility scan",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 6227,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-12T18:48:48.277Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "500e814c046e2132c6e8-49029a4b5d68b5185d3c",
+          "file": "workflows.spec.js",
+          "line": 236,
+          "column": 3
+        },
+        {
+          "title": "B07 responsive 768px all views and accessibility scan",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5421,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-12T18:48:54.530Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "500e814c046e2132c6e8-9f9149c3b718f6d4568f",
+          "file": "workflows.spec.js",
+          "line": 236,
+          "column": 3
+        },
+        {
+          "title": "B07 responsive 1024px all views and accessibility scan",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5846,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-12T18:48:59.966Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "500e814c046e2132c6e8-cd64731819663c654f4c",
+          "file": "workflows.spec.js",
+          "line": 236,
+          "column": 3
+        },
+        {
+          "title": "B07 responsive 1440px all views and accessibility scan",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5908,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-12T18:49:05.835Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "500e814c046e2132c6e8-aa9c777c89b1e20ca809",
+          "file": "workflows.spec.js",
+          "line": 236,
+          "column": 3
+        },
+        {
+          "title": "B08 duplicate form submit and unavailable storage retain unsaved form",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2058,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-12T18:49:11.758Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "500e814c046e2132c6e8-f034f25c1e9195aa79a3",
+          "file": "workflows.spec.js",
+          "line": 286,
+          "column": 1
+        },
+        {
+          "title": "B09 Web Locks preserve writes from two browser tabs",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1416,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-12T18:49:13.835Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "500e814c046e2132c6e8-c2afc01f9f529e84e2a4",
+          "file": "workflows.spec.js",
+          "line": 330,
+          "column": 1
+        },
+        {
+          "title": "B10 quick actions, property status/filter, notification, unknown route and modal scan",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2662,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-12T18:49:15.263Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "500e814c046e2132c6e8-bea70917f3b65f73d17c",
+          "file": "workflows.spec.js",
+          "line": 359,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-12T18:48:26.379Z",
+    "duration": 52229.340000000004,
+    "expected": 14,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

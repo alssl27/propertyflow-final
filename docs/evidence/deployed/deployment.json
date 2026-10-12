@@ -1,0 +1,24 @@
+{
+  "date": "2026-10-12",
+  "productionURL": "https://propertyflow-final.vercel.app",
+  "uniqueURL": "https://propertyflow-final-8jc3nj4h0-alssl27s-projects.vercel.app",
+  "deploymentId": "dpl_2yRE1N5Gcp4EtpWTmdLuBt6ZSRH1",
+  "projectId": "prj_9Gj6lEVAxzUbAZ3ual8kmilll2dn",
+  "teamSlug": "alssl27s-projects",
+  "teamId": "team_MkzLGUM1fbtgA7ElYcaDZLxT",
+  "target": "production",
+  "readyState": "READY",
+  "localCommitAtUpload": "c3715fd9c8381d1356561635b6e204c153a5f80a",
+  "runtimeBaselineCommit": "fa4aa1177e2006a144c628593e6695d4ee257416",
+  "buildDurationSeconds": 7,
+  "deployedBrowserTests": {
+    "passed": 14,
+    "failed": 0
+  },
+  "httpChecks": {
+    "passed": 13,
+    "failed": 0
+  },
+  "publicProductionAlias": true,
+  "notes": "CLI metadata recorded the runtime baseline commit; the upload commit adds only deployment/test configuration. Successful HTTP responses matched local dist bytes exactly."
+}

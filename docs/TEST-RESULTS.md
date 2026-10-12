@@ -2,7 +2,7 @@
 
 ## Environment and scope
 
-Windows; Node v26.10.0; npm 11.19.1; Google Chrome 155.0.8059.39 (headless); Playwright 1.64.0; axe integration 4.13.0; ESLint 10.12.0; html-validate 11.16.2; CSS Tree 3.2.1; Prettier 3.9.10. Local URL http://127.0.0.1:4173. Browser plugin absent; regular Playwright was used as permitted by the testing skill. Tests ran on the implemented source after commit 73e93f4; this report and test additions are committed afterwards. No cloud tests were run.
+Windows; Node v26.10.0; npm 11.19.1; Google Chrome 155.0.8059.39 (headless); Playwright 1.64.0; axe integration 4.13.0; ESLint 10.12.0; html-validate 11.16.2; CSS Tree 3.2.1; Prettier 3.9.10. Local URL http://127.0.0.1:4173. Browser plugin absent; regular Playwright was used as permitted by the testing skill. Tests ran on the implemented source after commit 73e93f4; this report and test additions are committed afterwards. This section records the local run. The later cloud run is recorded separately in DEPLOYED-TEST-RESULTS.md.
 
 ## Browser workflows — 14 passed, zero failed
 
@@ -66,7 +66,7 @@ Final commands and exit codes are recorded in evidence/quality-results.txt: npm 
 
 ## Outstanding / not run
 
-- Cloud homepage/assets/JSON/404 tests and deployed browser regressions: pending approval and publication.
+- Cloud checks were subsequently executed: 14 browser workflows and 13 HTTP/hash checks passed. See [deployed results](DEPLOYED-TEST-RESULTS.md); the remaining items below are still outstanding.
 - Screen-reader speech, 200%/400% browser zoom, real touch devices, high-contrast settings and independent learner usability feedback.
 - Firefox/Safari/Edge browser matrices; Chrome is the executed browser.
 - Every possible malformed record and extreme dataset size; 15-second timeout path specifically is not separately timed in the suite.

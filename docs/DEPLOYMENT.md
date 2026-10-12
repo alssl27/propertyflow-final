@@ -1,52 +1,45 @@
-# Deployment — approved, awaiting account access
+# Deployment — live and verified
 
-Status as of 12 October 2026: the user explicitly approved publication. A production deployment of the verified static release was attempted through the connected Vercel account, but Vercel returned HTTP 403: the integration does not have permission to create a project. No live URL or deployed-site test is claimed. VS Code was opened and its project window verified.
+Production: [PropertyFlow](https://propertyflow-final.vercel.app). Published on 12 October 2026 to the account explicitly selected by the user, **alssl27**, team **alssl27s-projects**. Status READY, target production, project propertyflow-final (prj_9Gj6lEVAxzUbAZ3ual8kmilll2dn), deployment dpl_2yRE1N5Gcp4EtpWTmdLuBt6ZSRH1. Unique URL: [immutable deployment](https://propertyflow-final-8jc3nj4h0-alssl27s-projects.vercel.app). Build duration reported by inspect: 7 seconds. VS Code was opened and its PropertyFlow window confirmed.
 
-Read-only account inspection found the connected team `sarahcollins702-7360s-projects` and no matching PropertyFlow project. Proposed new project name: `propertyflow-final`. No project was created or changed.
+## Platform, source and settings
 
-## Selected platform and release
+Vercel static hosting suits this application: it needs no backend and serves HTML, CSS, modules, JSON and a root-level 404. vercel.json sets framework null (Other), install npm ci, build npm run build, output dist. The copy-only build publishes index.html, 404.html, assets, data and quick guide. No app secrets are required. .vercelignore excludes local environment files, node_modules, Git internals and test evidence from deployment uploads. The local link's .vercel directory and generated environment file are Git-ignored and were not published.
 
-Vercel static hosting is selected because the application uses modules and relative JSON paths, needs no backend and can use a root-level custom 404. `vercel.json` sets framework to null, install to `npm ci`, build to `npm run build`, and output to `dist`. No environment variables are needed. `scripts/build.js` copies only index.html, 404.html, assets, data and the quick guide. Tests and assessment evidence are not public website assets. This is a copy step, not a JavaScript framework build.
+Source at upload: c3715fd9c8381d1356561635b6e204c153a5f80a. That commit adds separate test evidence/configuration; the runtime files remain as in fa4aa1177e2006a144c628593e6695d4ee257416, which was recorded in sourceCommit deployment metadata. SHA256 checks confirm deployed runtime/JSON/guide bytes match local dist. Later documentation/evidence commits do not change the deployed runtime.
 
-[Vercel configuration reference](https://vercel.com/docs/project-configuration) and [custom error pages](https://vercel.com/docs/custom-error-pages) were consulted. Platform behaviour still requires verification on a real deployment.
+[Vercel configuration reference](https://vercel.com/docs/project-configuration) and [custom error pages](https://vercel.com/docs/custom-error-pages) informed the setup. Actual platform behaviour is now verified in DEPLOYED-TEST-RESULTS.md.
 
-## Account access blocker
+## Actual publishing procedure
 
-The authorised target was the connected team `sarahcollins702-7360s-projects`. The integration rejected project creation. The supported CLI fallback reported that scope unavailable; read-only inspection found a different CLI login/team, `alssl27` / `alssl27s-projects`. No deployment was attempted into that different account. The user has been asked to select the intended owner or sign into the Sarah account. Publication permission persists once account access is resolved.
+1. The user approved publication. An initial connected-account attempt returned HTTP 403 on project creation; its CLI fallback had a different account. The user explicitly selected alssl27 before any mutation in that account.
+2. CLI read-only inspection listed the selected team's projects; no PropertyFlow project existed. `vercel project add propertyflow-final --scope alssl27s-projects` created a new project.
+3. Explicit link selected propertyflow-final under that team. `vercel project inspect --non-interactive --scope alssl27s-projects` confirmed owner/project.
+4. `vercel deploy --prod --yes --scope alssl27s-projects` uploaded the reviewed source. Remote npm ci and npm run build succeeded; the install audit reported zero vulnerabilities. Vercel assigned the production alias above.
+5. CLI inspect confirmed READY. Fourteen browser tests and thirteen independent HTTP/hash checks passed on the production alias. Deployed evidence is kept separately from local results.
 
-Release source: commit `03ed0f09753f3ae76f80ea5027189f9a1603ac21`; eleven files assembled by npm run build. Only the static website files were included in the attempted upload.
+The executed CLI was Vercel 63.1.2 under local Node 26.10.0. Vercel built using Node 24.x and its remote CLI 62.7.0. The app itself has no runtime package dependencies.
 
-## Remaining publishing steps
+## Repeat deployment and verification
 
-1. Review FINAL-REPORT.md, screenshots and the local app. Resolve the Vercel account selection/access question and choose GitHub repository visibility if publishing a repository. Do not paste access tokens into chat.
-2. If GitHub evidence is needed, create an empty repository in your account. Use `git remote add origin YOUR_CONFIRMED_REPOSITORY_URL`, then `git push -u origin master`. No force-push is needed; preserve existing remote history if the target is not empty.
-3. Import the confirmed repository into Vercel as a new project, with the repository root as Root Directory and framework Other. The committed configuration supplies build and output settings. Do not enable an SPA catch-all rewrite.
-4. Review the preview before production publication. Record the real URL, deployment ID, commit and account/team here.
-5. Run the checks below on that URL. Store deployment results separately from local results; add the verified live/repository links to README.
-
-## Deployment acceptance checks
-
-- Homepage, CSS, three JavaScript modules, favicon and all three JSON files return successfully.
-- All six hash routes work directly and with back/forward.
-- Add/edit, search/filter, repair lifecycle, certificate dates, CSV, refresh and reset behave as locally.
-- Changes persist after reload in the same browser and origin. A different preview URL has separate storage.
-- Unknown nested paths return HTTP 404 with the custom page and working Return to Dashboard link.
-- Missing JSON returns a failure, not index.html with a 200 rewrite. Failed startup has Retry.
-- Browser console has no uncaught errors; mobile and keyboard checks pass.
-- Compare the deployed assets with `dist` or the recorded Git commit.
-
-PowerShell browser regression command after recording the real origin:
+From this linked workspace, inspect the intended owner/project first. Run normal local checks, commit changes, then deploy with the explicit scope. Read current CLI help before using new flags. Do not change another project's link or deployment by relying on a default team.
 
 ```powershell
-$env:BASE_URL = 'https://YOUR-VERIFIED-DEPLOYMENT'
-npm run test:browser
+npx --yes vercel@63.1.2 project inspect --non-interactive --scope alssl27s-projects
+npx --yes vercel@63.1.2 deploy --prod --scope alssl27s-projects
+$env:BASE_URL = 'https://propertyflow-final.vercel.app'
+node node_modules/@playwright/test/cli.js test --config playwright.deployed.config.js
 Remove-Item Env:BASE_URL
 ```
 
-Before running, select a separate reporter filename for deployed evidence. Tests use fictional data and isolated browser contexts. If preview protection blocks automation, sign in through the intended account or make the preview accessible through approved platform controls; do not bypass authentication.
+## Verified acceptance and limitations
+
+Homepage, stylesheet, modules, favicon, JSON and guide return appropriate HTTP200 responses and match the release. All six routes and history work. CRUD, filters, lifecycle, certificate dates, CSV, persistence and reset passed. The custom 404 is served for nested unknown paths with a working return link; missing JSON remains a 404 and the UI offers retry. No page-wide overflow was found at 320/375/768/1024/1440px. Automated keyboard and axe checks passed in recorded scenarios.
+
+LocalStorage is per browser and origin; moving from localhost to the live origin starts a separate workspace. Production is public, while the unique/preview URL may require authentication. Do not disable deployment protection to test it; use approved authenticated access if needed. No drains or server-side app monitoring were configured for this static prototype; observed browser errors and response checks are recorded instead.
+
+GitHub publication remains outstanding. If required for assessment, confirm the account/repository visibility, create a repository and push normal commits without force-push. This CLI deployment is not evidence of a GitHub repository.
 
 ## Troubleshooting and rollback
 
-Wrong output directory produces 404s: use dist. Opening with file:// blocks JSON fetch: use HTTP. Missing MIME types break modules: check Content-Type. Storage blocked/quota errors need browser permission or space, not a false success message. Root paths in 404.html are correct for a Vercel root-hosted site. A GitHub Pages project subpath needs its actual repository prefix in the 404 stylesheet and return URL before deployment; the root-hosted configuration is not claimed portable unchanged.
-
-No timed redirect is used: the user controls when to leave and no redirect loop can occur. For rollback, redeploy a known-good commit or create a normal revert commit; never rewrite history. Browser data is independent of deployments, so do not reset it silently during rollback.
+Wrong output directory produces missing pages: use dist. file:// blocks fetch: use HTTP. Missing module types require checking Content-Type. Storage errors require browser permission/space. Root paths in 404.html are correct for this Vercel site; a GitHub Pages subpath would need its actual prefix. The explicit Return to Dashboard link has no timed redirect or loop. To roll back, redeploy a verified prior commit or create a normal revert commit. Browser records are independent of deployed code and should not be reset silently.

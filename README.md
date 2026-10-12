@@ -4,7 +4,7 @@
 
 PropertyFlow is a responsive, framework-free educational prototype for a small UK property-management team. It connects a property register, maintenance workflow, certificate dates and portfolio reporting in one browser workspace.
 
-**Local verification:** 20 unit/service tests and 14 Chrome browser tests passed on 12 October 2026. Real screenshots, the initial failed browser run and retest evidence are included. **Not yet deployed or submitted.** No live or GitHub URL is claimed. Human accessibility checks, publication and learner verification remain outstanding.
+**Live site:** [PropertyFlow](https://propertyflow-final.vercel.app), published to alssl27’s Vercel account on 12 October 2026. **Verification:** 20 local unit/service tests, 14 local browser tests, 14 deployed browser tests and 13 deployed HTTP/hash checks passed. Real local/deployed screenshots and initial failure/retest evidence are included. Human accessibility checks, GitHub publication and learner verification remain outstanding; the assessment has not been submitted.
 
 ## Purpose, users and goals
 
@@ -131,9 +131,9 @@ The supplied folder was not a Git repository. The first genuine commit preserves
 
 ## Deployment
 
-Vercel is the prepared platform. The build command is npm run build, output is dist, framework is Other, install command is npm ci, and no app secrets are needed. The output contains the website and quick guide, excluding assessment evidence and test tooling. A root-level 404.html offers a direct Return to Dashboard link without a timer or redirect loop; unknown JSON requests remain errors.
+Vercel is the live hosting platform. The build command is npm run build, output is dist, framework is Other, install command is npm ci, and no app secrets are needed. The output contains the website and quick guide, excluding assessment evidence and test tooling. A root-level 404.html offers a direct Return to Dashboard link without a timer or redirect loop; unknown JSON requests remain errors.
 
-Publication is approved. The connected Vercel integration rejected project creation with HTTP 403; the CLI uses a different account, so account selection/access remains unresolved. Follow [DEPLOYMENT.md](docs/DEPLOYMENT.md) to confirm the account/team, publish, test the exact deployed commit and add verified URLs. **Live URL: not available. GitHub repository URL: not configured.**
+Published through the CLI to the explicitly selected alssl27 account. [DEPLOYMENT.md](docs/DEPLOYMENT.md) records the real deployment identity/settings; [deployed test results](docs/DEPLOYED-TEST-RESULTS.md) record all 14 browser passes and 13 HTTP/hash passes. **Live site: [PropertyFlow](https://propertyflow-final.vercel.app). GitHub repository: not configured.**
 
 ## Assessment and final preparation
 
@@ -143,7 +143,7 @@ Publication is approved. The connected Vercel integration rejected project creat
 - [Final report](docs/FINAL-REPORT.md)
 - [Learner handover and assessor practice](docs/LEARNER-HANDOVER.md)
 
-Remaining work: Vercel account access/selection and optional GitHub repository publication; deployed tests/screenshots; learner manual accessibility/usability checks; independent explanation and course-compliant AI disclosure. Completion does not guarantee a distinction.
+Remaining work: GitHub repository publication for assessment evidence; learner manual accessibility/usability checks; independent explanation and course-compliant AI disclosure. Completion does not guarantee a distinction.
 
 ## Credits, acknowledgements and future improvements
 
