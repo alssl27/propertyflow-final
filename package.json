@@ -10,17 +10,19 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "validate:html": "html-validate index.html 404.html",
-    "validate:css": "stylelint assets/css/*.css",
-    "test:browser": "playwright test"
+    "validate:css": "node scripts/validate-css.js",
+    "test:browser": "playwright test",
+    "build": "node scripts/build.js",
+    "check:links": "node scripts/check-links.js"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.13.0",
     "@eslint/js": "^10.0.1",
     "@playwright/test": "^1.64.0",
+    "css-tree": "^3.2.1",
     "eslint": "^10.12.0",
     "globals": "^17.13.0",
     "html-validate": "^11.16.2",
-    "prettier": "^3.9.10",
-    "stylelint": "^17.16.0"
+    "prettier": "^3.9.10"
   }
 }

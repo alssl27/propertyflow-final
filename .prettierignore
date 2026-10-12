@@ -1,0 +1,6 @@
+node_modules
+package-lock.json
+docs/evidence
+playwright-report
+test-results
+dist

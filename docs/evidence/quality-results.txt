@@ -1,0 +1,55 @@
+Final verification — 12 October 2026; corrected doctype style configuration
+COMMAND: npm run test
+
+> propertyflow@1.0.0 test
+> node --test tests/*.test.js
+
+✔ A01 overlapping first-load writes retain every record (13.673ms)
+✔ A02 failed fetch rejects; next request retries successfully (3.0379ms)
+✔ A03 failed reset preserves existing saved snapshot (2.1831ms)
+✔ A04 corrupt saved JSON rejects and reset can recover (1.9573ms)
+✔ A05 failed storage write never returns success (2.0681ms)
+✔ A06 linked certificates and repairs block deletion (1.9152ms)
+✔ A07 simultaneous duplicate submissions save once (1.8394ms)
+✔ A08 missing records and invalid transitions reject; valid edit succeeds (2.2108ms)
+✔ A09 empty seed datasets are valid (1.0924ms)
+✔ A10 malformed response rejects without partial persistence (0.3872ms)
+✔ A11 legacy data migrates without destroying old keys (2.1449ms)
+✔ A12 queued cross-collection deletion cannot create orphans (2.3464ms)
+✔ D01 rent and occupancy include occupied records only; empty portfolio is zero (1.5432ms)
+✔ D02 search and status filtering compose (0.2128ms)
+✔ D03 required fields, rent, bedrooms and enum validation (0.3611ms)
+✔ D04 duplicate keys ignore case and redundant whitespace (0.1076ms)
+✔ D05 calendar boundaries are inclusive and reject impossible dates (1.8178ms)
+✔ D06 repair workflow and invalid status (0.2505ms)
+✔ D07 CSV quotes commas newlines and formula protection (0.1662ms)
+✔ D08 schema rejects malformed, duplicate and orphaned data (0.2762ms)
+ℹ tests 20
+ℹ suites 0
+ℹ pass 20
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1341.5602
+EXIT: 0
+COMMAND: npm run lint
+
+> propertyflow@1.0.0 lint
+> eslint assets/js scripts tests
+
+EXIT: 0
+COMMAND: npm run validate:html
+
+> propertyflow@1.0.0 validate:html
+> html-validate index.html 404.html
+
+EXIT: 0
+COMMAND: npm run validate:css
+
+> propertyflow@1.0.0 validate:css
+> node scripts/validate-css.js
+
+CSS Tree: syntax and supported property/value grammar passed; custom properties need browser verification.
+EXIT: 0
+COMMAND: npm run format:check

@@ -880,12 +880,22 @@ document.querySelectorAll(".field-error").forEach((error, index) => {
     ?.setAttribute("aria-describedby", error.id);
 });
 document.querySelectorAll("dialog").forEach((dialog) => {
-  dialog.addEventListener('keydown', event => {
-    if(event.key !== 'Tab') return;
-    const controls = [...dialog.querySelectorAll('button:not(:disabled), input:not(:disabled), select:not(:disabled), textarea:not(:disabled), [tabindex="0"]')].filter(node => node.getClientRects().length);
-    const first = controls[0], last = controls.at(-1);
-    if(event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
-    else if(!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+  dialog.addEventListener("keydown", (event) => {
+    if (event.key !== "Tab") return;
+    const controls = [
+      ...dialog.querySelectorAll(
+        'button:not(:disabled), input:not(:disabled), select:not(:disabled), textarea:not(:disabled), [tabindex="0"]',
+      ),
+    ].filter((node) => node.getClientRects().length);
+    const first = controls[0],
+      last = controls.at(-1);
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
   });
   dialog.addEventListener("cancel", (event) => {
     if (dialog.querySelector("form").dataset.busy === "true")

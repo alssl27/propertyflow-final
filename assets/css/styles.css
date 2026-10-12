@@ -1755,4 +1755,11 @@ tbody td,
   }
 }
 
-.bar-item, tbody td, .mini-action, .filter-select, .empty-state, .table-toolbar p { color: #536176; }
+.bar-item,
+tbody td,
+.mini-action,
+.filter-select,
+.empty-state,
+.table-toolbar p {
+  color: #536176;
+}
