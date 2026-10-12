@@ -2,6 +2,7 @@ import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 import { readFile } from "node:fs/promises";
 const key = "propertyflow.workspace.v2";
+const evidenceDir = process.env.PLAYWRIGHT_EVIDENCE_DIR || "docs/evidence";
 async function ready(page, route = "dashboard") {
   await page.goto(`/#${route}`);
   await expect(page.locator("h1")).toBeVisible();
@@ -51,7 +52,7 @@ test("B01 full property workflow, duplicates, persistence, search, delete", asyn
   await row.getByRole("button", { name: /Delete/ }).click();
   await expect(row).toHaveCount(0);
   await page.screenshot({
-    path: "docs/evidence/properties-desktop.png",
+    path: `${evidenceDir}/properties-desktop.png`,
     fullPage: true,
   });
   expect(errors).toEqual([]);
@@ -94,7 +95,7 @@ test("B02 repairs create edit filter and lifecycle; linked deletion blocked", as
   await page.getByRole("button", { name: "Clear filters" }).click();
   await expect(row).toHaveCount(1);
   await page.screenshot({
-    path: "docs/evidence/repairs-desktop.png",
+    path: `${evidenceDir}/repairs-desktop.png`,
     fullPage: true,
   });
   await go(page, "properties");
@@ -124,7 +125,7 @@ test("B03 certificates create edit expiry filtering, reports CSV and reset", asy
   await page.locator("#compliance-filter").selectOption("overdue");
   await expect(row).toHaveCount(0);
   await page.screenshot({
-    path: "docs/evidence/compliance-desktop.png",
+    path: `${evidenceDir}/compliance-desktop.png`,
     fullPage: true,
   });
   await go(page, "reports");
@@ -135,7 +136,7 @@ test("B03 certificates create edit expiry filtering, reports CSV and reset", asy
   expect(csv).toContain("Abbeyhills");
   expect(csv).toContain("Monthly rent GBP");
   await page.screenshot({
-    path: "docs/evidence/reports-desktop.png",
+    path: `${evidenceDir}/reports-desktop.png`,
     fullPage: true,
   });
   await go(page, "settings");
@@ -200,7 +201,7 @@ test("B05 slow fetch loading failure retry and corrupt storage recovery", async 
   await page.reload();
   await expect(page.getByText("We couldn't load your workspace")).toBeVisible();
   await page.screenshot({
-    path: "docs/evidence/storage-error.png",
+    path: `${evidenceDir}/storage-error.png`,
     fullPage: true,
   });
   await page.getByRole("button", { name: "Open Settings to recover" }).click();
@@ -267,7 +268,7 @@ for (const width of [320, 375, 768, 1024, 1440])
     await page.goto("/#dashboard");
     await expect(page.locator("h1")).toBeVisible();
     await page.screenshot({
-      path: `docs/evidence/dashboard-${width}.png`,
+      path: `${evidenceDir}/dashboard-${width}.png`,
       fullPage: true,
     });
     if (width <= 768) {
@@ -368,7 +369,7 @@ test("B10 quick actions, property status/filter, notification, unknown route and
     .analyze();
   expect(scan.violations.map((v) => v.id)).toEqual([]);
   await page.screenshot({
-    path: "docs/evidence/property-dialog.png",
+    path: `${evidenceDir}/property-dialog.png`,
     fullPage: true,
   });
   await page.keyboard.press("Escape");
