@@ -48,7 +48,8 @@
 ## Deployment
 
 - [x] Vercel static configuration, copy build and deployment guide prepared.
-- [ ] Approve publication, choose account/team and publish.
+- [x] User approved Vercel publication.
+- [ ] Resolve account access/selection and publish; integration returned HTTP 403.
 - [ ] Verify homepage, modules, JSON, 404, persistence, console, mobile and deployed commit.
 - [ ] Add verified live URL and deployment evidence.
 

@@ -20,6 +20,6 @@ The learner-facing documentation distinguishes evidence from plans, explains tra
 
 ## Identity, publication and learner reflection
 
-Commits use `PropertyFlow project <propertyflow@example.invalid>` to avoid inventing the learner's author identity. Configure your own name/email for future work. No remote is configured and nothing was pushed. The user requested approval before remote publication; the prepared Vercel release remains local.
+Commits use `PropertyFlow project <propertyflow@example.invalid>` to avoid inventing the learner's author identity. Configure your own name/email for future work. No remote is configured and nothing was pushed. The user approved Vercel publication on 12 October 2026. The connected integration returned HTTP 403 on project creation. CLI inspection found a different signed-in owner; publication remains blocked pending account selection/access. VS Code was opened and the project window confirmed.
 
 The learner should write their own reflection: which errors they understood, which UX choices they agree with, what they changed after personal testing and what they would improve next. Do not submit this generated record as personal reflection. See SOURCES.md for AI assistance and provenance.

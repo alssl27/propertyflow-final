@@ -27,9 +27,9 @@ Genuine commits include 5cdfe36 (supplied baseline), f5b60e6 (persistence and te
 ## Exact remaining steps
 
 1. Review the running app, screenshots and learner handover. Confirm the code and explanations you can demonstrate yourself.
-2. Approve publication and confirm Vercel account/team and GitHub repository visibility; publish the reviewed commit using DEPLOYMENT.md.
+2. Resolve Vercel account access/selection and GitHub repository visibility if required; publish the reviewed commit using DEPLOYMENT.md. Publication was explicitly approved on 12 October 2026.
 3. Repeat the listed cloud checks, save deployed URL/commit/screenshots/results, and add verified URLs to README.
 4. Perform screen-reader, real zoom/touch, cross-browser and independent usability checks. Record actual findings and fix/retest any defects.
 5. Verify institutional AI-assistance rules, write your own reflection/disclosure and complete the unchecked final submission items before submitting.
 
-The reason publication is pending is the explicit instruction in the supplied brief: ask before publishing code to a remote service. Ordinary local edits and verification have been completed without a separate approval request.
+Publication is approved but blocked by account access: the connected integration returned HTTP 403 on project creation, and the CLI is signed into a different account. The user has been asked which owner to use. VS Code is open with the project. No live URL or cloud tests are claimed.

@@ -133,7 +133,7 @@ The supplied folder was not a Git repository. The first genuine commit preserves
 
 Vercel is the prepared platform. The build command is npm run build, output is dist, framework is Other, install command is npm ci, and no app secrets are needed. The output contains the website and quick guide, excluding assessment evidence and test tooling. A root-level 404.html offers a direct Return to Dashboard link without a timer or redirect loop; unknown JSON requests remain errors.
 
-Publication requires the approval requested in the original brief. Follow [DEPLOYMENT.md](docs/DEPLOYMENT.md) to confirm the account/team, publish, test the exact deployed commit and add verified URLs. **Live URL: not available. GitHub repository URL: not configured.**
+Publication is approved. The connected Vercel integration rejected project creation with HTTP 403; the CLI uses a different account, so account selection/access remains unresolved. Follow [DEPLOYMENT.md](docs/DEPLOYMENT.md) to confirm the account/team, publish, test the exact deployed commit and add verified URLs. **Live URL: not available. GitHub repository URL: not configured.**
 
 ## Assessment and final preparation
 
@@ -143,7 +143,7 @@ Publication requires the approval requested in the original brief. Follow [DEPLO
 - [Final report](docs/FINAL-REPORT.md)
 - [Learner handover and assessor practice](docs/LEARNER-HANDOVER.md)
 
-Remaining work: publication approval and account/repository selection; deployed tests/screenshots; learner manual accessibility/usability checks; independent explanation and course-compliant AI disclosure. Completion does not guarantee a distinction.
+Remaining work: Vercel account access/selection and optional GitHub repository publication; deployed tests/screenshots; learner manual accessibility/usability checks; independent explanation and course-compliant AI disclosure. Completion does not guarantee a distinction.
 
 ## Credits, acknowledgements and future improvements
 
