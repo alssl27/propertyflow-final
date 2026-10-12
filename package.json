@@ -1,0 +1,26 @@
+{
+  "name": "propertyflow",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node scripts/serve.js",
+    "test": "node --test tests/*.test.js",
+    "lint": "eslint assets/js scripts tests",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "validate:html": "html-validate index.html 404.html",
+    "validate:css": "stylelint assets/css/*.css",
+    "test:browser": "playwright test"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
+    "@eslint/js": "^10.0.1",
+    "@playwright/test": "^1.64.0",
+    "eslint": "^10.12.0",
+    "globals": "^17.13.0",
+    "html-validate": "^11.16.2",
+    "prettier": "^3.9.10",
+    "stylelint": "^17.16.0"
+  }
+}

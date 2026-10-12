@@ -7,3 +7,5 @@ Thumbs.db
 !.env.example
 playwright-report/
 test-results/
+
+node_modules/

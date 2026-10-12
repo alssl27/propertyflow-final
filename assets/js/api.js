@@ -1,99 +1,95 @@
-/**
- * PropertyFlow demo data service.
- * Reads starter data from local JSON files with fetch(), then persists changes in localStorage.
- * The small delay represents network latency so loading and async states can be observed.
- * This is a front-end simulation, not a secure production backend.
- */
-const STORAGE_KEYS = {
-  properties: 'propertyflow.properties.v1',
-  repairs: 'propertyflow.repairs.v1',
-  compliance: 'propertyflow.compliance.v1'
-};
-const SEED_PATHS = {
-  properties: 'data/properties.json',
-  repairs: 'data/repairs.json',
-  compliance: 'data/compliance.json'
-};
-const delay = (ms = 220) => new Promise(resolve => window.setTimeout(resolve, ms));
+import { validateWorkspace, nextRepairStatus } from './domain.js';
 
-function readStored(key) {
+export const STORAGE_KEY = 'propertyflow.workspace.v2';
+const collections = ['properties', 'repairs', 'compliance'];
+let queue = Promise.resolve();
+
+// One queue for ALL collections avoids a delete racing a linked-record creation.
+// Web Locks extend this guarantee to cooperating tabs. Without them the queue is tab-local.
+function exclusive(operation) {
+  const run = () => globalThis.navigator?.locks
+    ? navigator.locks.request('propertyflow-workspace', operation) : operation();
+  const pending = queue.then(run, run);
+  queue = pending.catch(() => {}); // A failed task must not poison subsequent operations.
+  return pending;
+}
+function read(key) {
   try {
-    const value = window.localStorage.getItem(key);
+    const value = localStorage.getItem(key);
     return value === null ? null : JSON.parse(value);
-  } catch (error) {
-    console.error(`PropertyFlow could not read local data for ${key}.`, error);
-    throw new Error('Saved browser data could not be read. Try refreshing the page or clearing this demo data.');
+  } catch {
+    throw new Error('Saved browser data could not be read. Storage may be blocked or damaged. Retry, or reset demo data in Settings.');
   }
 }
-
-function writeStored(key, value) {
+function save(data) {
+  validateWorkspace(data);
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); }
+  catch { throw new Error('Your browser could not save this change. Check storage permissions and available space.'); }
+  return structuredClone(data);
+}
+async function fetchSeeds() {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 15000);
   try {
-    window.localStorage.setItem(key, JSON.stringify(value));
+    const results = await Promise.all(collections.map(async name => {
+      const response = await fetch(new URL(`../../data/${name}.json`, import.meta.url), { signal: controller.signal });
+      if (!response.ok) throw new Error(`Starter ${name} data could not be loaded (HTTP ${response.status}).`);
+      return response.json();
+    }));
+    return validateWorkspace(Object.fromEntries(collections.map((name, i) => [name, results[i]])));
   } catch (error) {
-    console.error(`PropertyFlow could not save local data for ${key}.`, error);
-    throw new Error('Your browser could not save this change. Check available storage and try again.');
-  }
+    controller.abort();
+    throw new Error(error.name === 'AbortError' ? 'Loading timed out. Check your connection and try again.' : `Could not load demonstration data. ${error.message}`, { cause: error });
+  } finally { clearTimeout(timeout); }
 }
-
-async function loadCollection(collection) {
-  const key = STORAGE_KEYS[collection];
-  const saved = readStored(key);
-  if (saved !== null) return saved;
-  const response = await fetch(SEED_PATHS[collection], { headers: { Accept: 'application/json' } });
-  if (!response.ok) throw new Error(`Starter ${collection} data could not be loaded (HTTP ${response.status}).`);
-  const records = await response.json();
-  if (!Array.isArray(records)) throw new Error(`Starter ${collection} data has an unexpected format.`);
-  writeStored(key, records);
-  return records;
+async function load() {
+  const saved = read(STORAGE_KEY);
+  if (saved !== null) return structuredClone(validateWorkspace(saved));
+  const legacy = Object.fromEntries(collections.map(name => [name, read(`propertyflow.${name}.v1`)]));
+  const seed = await fetchSeeds();
+  // Preserve any valid original v1 records on first use. Old keys are retained as a backup.
+  for (const name of collections) if (legacy[name] !== null) seed[name] = legacy[name];
+  for (const repair of seed.repairs) if (repair.status === 'resolved') repair.status = 'complete';
+  return save(seed);
 }
-
-export async function getWorkspaceData() {
-  await delay(180);
-  // Parallel reads shorten total wait time compared with three sequential requests.
-  const [properties, repairs, compliance] = await Promise.all([
-    loadCollection('properties'), loadCollection('repairs'), loadCollection('compliance')
-  ]);
-  return { properties, repairs, compliance };
+function checkCollection(name) {
+  if (!collections.includes(name)) throw new Error('Unknown data collection requested.');
 }
-
-export async function getCollection(collection) {
-  if (!STORAGE_KEYS[collection]) throw new Error('Unknown data collection requested.');
-  await delay(120);
-  return loadCollection(collection);
+export const getWorkspaceData = () => exclusive(load);
+export const getCollection = name => exclusive(async () => { checkCollection(name); return (await load())[name]; });
+export function addRecord(name, record) {
+  return exclusive(async () => {
+    checkCollection(name);
+    const data = await load();
+    if (data[name].some(item => item.id === record.id)) throw new Error('This record has already been saved.');
+    data[name].unshift(record);
+    save(data);
+    return structuredClone(record);
+  });
 }
-
-export async function addRecord(collection, record) {
-  if (!STORAGE_KEYS[collection]) throw new Error('Unknown data collection requested.');
-  await delay(180);
-  const records = await loadCollection(collection);
-  const next = [record, ...records];
-  writeStored(STORAGE_KEYS[collection], next);
-  return record;
+export function updateRecord(name, id, changes) {
+  return exclusive(async () => {
+    checkCollection(name);
+    const data = await load();
+    const index = data[name].findIndex(item => item.id === id);
+    if (index < 0) throw new Error('This record no longer exists. Refresh and try again.');
+    const original = data[name][index];
+    if (name === 'repairs' && changes.status && changes.status !== original.status && changes.status !== nextRepairStatus(original.status)) throw new Error('Move the repair through Open → Scheduled → In progress → Completed → Open.');
+    const updated = { ...original, ...changes, id: original.id, createdAt: original.createdAt, updatedAt: new Date().toISOString() };
+    data[name][index] = updated;
+    save(data);
+    return structuredClone(updated);
+  });
 }
-
-export async function updateRecord(collection, id, changes) {
-  if (!STORAGE_KEYS[collection]) throw new Error('Unknown data collection requested.');
-  await delay(160);
-  const records = await loadCollection(collection);
-  const index = records.findIndex(record => record.id === id);
-  if (index < 0) throw new Error('This record could not be found. Refresh the page and try again.');
-  const updated = { ...records[index], ...changes };
-  const next = [...records];
-  next[index] = updated;
-  writeStored(STORAGE_KEYS[collection], next);
-  return updated;
+export function deleteRecord(name, id) {
+  return exclusive(async () => {
+    checkCollection(name);
+    const data = await load();
+    if (!data[name].some(item => item.id === id)) throw new Error('This record no longer exists. Refresh and try again.');
+    if (name === 'properties' && [...data.repairs, ...data.compliance].some(item => item.propertyId === id)) throw new Error('This property has linked repairs or certificates. Keep it in the register to preserve those records.');
+    data[name] = data[name].filter(item => item.id !== id);
+    save(data);
+  });
 }
-
-export async function deleteRecord(collection, id) {
-  if (!STORAGE_KEYS[collection]) throw new Error('Unknown data collection requested.');
-  await delay(150);
-  const records = await loadCollection(collection);
-  const next = records.filter(record => record.id !== id);
-  if (next.length === records.length) throw new Error('This record could not be found. Refresh the page and try again.');
-  writeStored(STORAGE_KEYS[collection], next);
-}
-
-export async function resetDemoData() {
-  Object.values(STORAGE_KEYS).forEach(key => window.localStorage.removeItem(key));
-  return getWorkspaceData();
-}
+// Fetch and validate BEFORE the single atomic replacement. Failed resets keep saved data intact.
+export const resetDemoData = () => exclusive(async () => save(await fetchSeeds()));
