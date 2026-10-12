@@ -1,0 +1,10 @@
+[
+ {"id":"p-1001","address":"12 Abbeyhills Road","postcode":"OL8 2AB","bedrooms":3,"rent":1200,"status":"occupied","createdAt":"2026-09-10T09:00:00.000Z"},
+ {"id":"p-1002","address":"24 Greenacres Road","postcode":"OL4 2BB","bedrooms":2,"rent":950,"status":"vacant","createdAt":"2026-09-12T09:00:00.000Z"},
+ {"id":"p-1003","address":"8 Manchester Street","postcode":"OL1 1AA","bedrooms":2,"rent":875,"status":"occupied","createdAt":"2026-09-15T09:00:00.000Z"},
+ {"id":"p-1004","address":"41 Kings Road","postcode":"OL8 3CD","bedrooms":4,"rent":1350,"status":"occupied","createdAt":"2026-09-17T09:00:00.000Z"},
+ {"id":"p-1005","address":"6 Park Lane","postcode":"OL9 7EF","bedrooms":1,"rent":725,"status":"maintenance","createdAt":"2026-09-19T09:00:00.000Z"},
+ {"id":"p-1006","address":"19 Oak Street","postcode":"OL8 1LT","bedrooms":3,"rent":1100,"status":"occupied","createdAt":"2026-09-22T09:00:00.000Z"},
+ {"id":"p-1007","address":"3 Maple Avenue","postcode":"OL2 6QH","bedrooms":2,"rent":825,"status":"occupied","createdAt":"2026-09-24T09:00:00.000Z"},
+ {"id":"p-1008","address":"52 Union Street","postcode":"OL1 1DJ","bedrooms":2,"rent":900,"status":"vacant","createdAt":"2026-09-28T09:00:00.000Z"}
+]
