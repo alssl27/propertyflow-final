@@ -68,8 +68,12 @@ Final commands and exit codes are recorded in evidence/quality-results.txt: npm 
 
 - Cloud checks were subsequently executed: 14 browser workflows and 13 HTTP/hash checks passed. See [deployed results](DEPLOYED-TEST-RESULTS.md); the remaining items below are still outstanding.
 - Screen-reader speech, 200%/400% browser zoom, real touch devices, high-contrast settings and independent learner usability feedback.
-- Firefox/Safari/Edge browser matrices; Chrome is the executed browser.
-- Every possible malformed record and extreme dataset size; 15-second timeout path specifically is not separately timed in the suite.
+- Firefox/Safari remain untested. A separate full Edge run subsequently passed; see ADDITIONAL-VERIFICATION.md.
+- Every possible malformed record and extreme dataset size remain outside scope. Exact 15-second service timeout/cancellation was subsequently tested with virtual time in A14.
 - No independent accessibility certification or assessor acceptance.
 
 Manual observations should be added to TEST-RESULTS-TEMPLATE.md by the person actually performing them, with date, expected/actual result, bug and evidence references.
+
+## Expanded verification
+
+The initial 20-test table remains the original executed record. The expanded Node run passed 24 tests, including A13–A16 for out-of-order responses, timeout and sibling cancellation. See [additional verification](ADDITIONAL-VERIFICATION.md), which also records Edge and forced-colour/reduced-motion emulation.

@@ -25,7 +25,7 @@
 | 3.5       | Document actual results                           | TEST-RESULTS.md; browser-results.json; quality logs                                     | Complete for executed checks                                                   |
 | 4.1       | Deploy to cloud                                   | vercel.json; scripts/build.js; DEPLOYMENT.md                                            | Complete — live production URL and verified deployment evidence                |
 | 4.2       | No obsolete code or broken internal links         | Source review; check:links; browser navigation tests                                    | Complete within checked local scope                                            |
-| 4.3       | Git and GitHub                                    | Local genuine git log; DEVELOPMENT-LOG.md                                               | Partial — GitHub repository/push requires approval                             |
+| 4.3       | Git and GitHub                                    | Genuine git log; public alssl27/propertyflow-final; DEVELOPMENT-LOG.md                  | Complete — public repository verified; approved fast-forward push              |
 | 5.1       | Development cycle through commits and README      | git log; DEVELOPMENT-LOG.md; README.md; initial/final evidence                          | Complete for current revision; no fabricated earlier history                   |
 | 5.2       | Purpose and real-world value                      | README.md; UX-DESIGN.md                                                                 | Complete                                                                       |
 | 5.3       | Distinguish original/external/assisted work       | SOURCES.md; LEARNER-HANDOVER.md                                                         | Partial — learner must check academic-integrity policy                         |
@@ -39,7 +39,7 @@
 | M7        | Deployment procedure in README                    | README.md; DEPLOYMENT.md                                                                | Complete — procedure, live URL and actual verification recorded                |
 | D1        | Justified real-world rationale                    | README.md problem and value; UX-DESIGN.md                                               | Complete                                                                       |
 | D2        | Comprehensive development explanation             | DEVELOPMENT-LOG.md; LEARNER-HANDOVER.md                                                 | Complete for assisted revision; learner reflection required                    |
-| D3        | Fully functioning interactive application         | B01–B10 and 20 unit/service tests                                                       | Partial — local/deployed verified; manual checks outstanding                   |
+| D3        | Fully functioning interactive application         | B01–B10, 24 Node tests, deployed Chrome/Edge and preference checks                      | Partial — local/deployed verified; manual checks outstanding                   |
 | D4        | Async timing and shared data understanding        | api.js exclusive()/fetchSeeds()/load(); app.js sequences; A01–A12/B05/B08/B09; handover | Complete with documented cross-tab fallback limits                             |
 | D5        | Professional publishable interface                | Shared design tokens; five-width screenshots; B07                                       | Complete — polished published prototype in tested scope                        |
 | D6        | No known application logic errors in tested scope | TEST-RESULTS.md; BUG-REPORT.md                                                          | Complete in automated tested scope; not an absence-of-bugs guarantee           |
@@ -49,3 +49,5 @@
 | D10       | Original considered solution and attribution      | Property-linked workflows; SOURCES.md; initial source retained                          | Partial — learner must verify and disclose authorship                          |
 
 Cloud evidence: [DEPLOYED-TEST-RESULTS.md](DEPLOYED-TEST-RESULTS.md), production URL https://propertyflow-final.vercel.app, fourteen browser passes and thirteen HTTP/hash passes. GitHub and human review/authorship limitations remain as stated.
+
+Additional scope: [ADDITIONAL-VERIFICATION.md](ADDITIONAL-VERIFICATION.md) records Edge, emulated preferences, 24-test Node results and approved public GitHub publication. Human checks remain outstanding.

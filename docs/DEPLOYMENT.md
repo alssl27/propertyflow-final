@@ -38,7 +38,7 @@ Homepage, stylesheet, modules, favicon, JSON and guide return appropriate HTTP20
 
 LocalStorage is per browser and origin; moving from localhost to the live origin starts a separate workspace. Production is public, while the unique/preview URL may require authentication. Do not disable deployment protection to test it; use approved authenticated access if needed. No drains or server-side app monitoring were configured for this static prototype; observed browser errors and response checks are recorded instead.
 
-GitHub publication remains outstanding. If required for assessment, confirm the account/repository visibility, create a repository and push normal commits without force-push. This CLI deployment is not evidence of a GitHub repository.
+The public source repository [alssl27/propertyflow-final](https://github.com/alssl27/propertyflow-final) was verified and updated through approved normal fast-forward pushes. The Vercel production deployment was made through the CLI; automatic Git-to-Vercel deployment has not been connected or claimed. Additional Edge/preference/async checks are recorded in ADDITIONAL-VERIFICATION.md.
 
 ## Troubleshooting and rollback
 

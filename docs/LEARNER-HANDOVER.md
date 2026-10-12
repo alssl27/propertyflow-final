@@ -44,7 +44,7 @@ The UI also tracks a load sequence. Only the most recent requested load may upda
 
 Run npm test for business/service tests. Run npm run test:browser for real Chrome workflows, screenshots and axe scans. Lint and validators inspect source; they do not replace interacting with the page. Follow TESTING-METHODOLOGY.md and TEST-RESULTS.md to understand which checks actually ran. Human screen-reader, zoom and usability checks remain required.
 
-Git records snapshots and messages. `git log --oneline` shows genuine commits made during this revision. The first commit preserves the supplied project; it does not imply earlier work was version-controlled. Commits use the clearly named PropertyFlow project identity, not an invented learner identity. Set your own Git name/email before your future commits. No remote was configured or pushed in this revision.
+Git records snapshots and messages. `git log --oneline` shows genuine commits made during this revision. The first commit preserves the supplied project; it does not imply earlier work was version-controlled. Commits use the clearly named PropertyFlow project identity, not an invented learner identity. Set your own Git name/email before your future commits. The existing public alssl27/propertyflow-final repository was subsequently verified and updated after explicit approval; git log and the remote show the genuine source history.
 
 ## Cloud deployment
 

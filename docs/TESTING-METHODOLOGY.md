@@ -33,3 +33,7 @@ Use Node 24+ and an installed Google Chrome; versions actually used are in TEST-
 ## Interpretation
 
 A pass means that the assertion passed in the named environment, not that every possible use case passed. The failed initial browser run exposed dialog Tab behaviour, low contrast and invalid ARIA. Later passes demonstrate those scenarios were retested. Expected failure scenarios intentionally log a caught load error; these are distinguished from uncaught pageerror events. A subsequent cloud run passed all 14 browser tests plus 13 independent HTTP/hash checks; see DEPLOYED-TEST-RESULTS.md.
+
+## Extended scope
+
+Edge used the full shared browser suite in its own evidence folder. Forced colours/reduced motion were emulated in Chrome and explicitly distinguished from OS/assistive-technology checks. Virtual time advanced the exact 15-second timeout in service tests without adding an artificial delay to the app. The expanded Node total is 24 tests; details and limits appear in ADDITIONAL-VERIFICATION.md.

@@ -4,7 +4,7 @@
 
 PropertyFlow is a responsive, framework-free educational prototype for a small UK property-management team. It connects a property register, maintenance workflow, certificate dates and portfolio reporting in one browser workspace.
 
-**Live site:** [PropertyFlow](https://propertyflow-final.vercel.app), published to alssl27’s Vercel account on 12 October 2026. **Verification:** 20 local unit/service tests, 14 local browser tests, 14 deployed browser tests and 13 deployed HTTP/hash checks passed. Real local/deployed screenshots and initial failure/retest evidence are included. Human accessibility checks, GitHub publication and learner verification remain outstanding; the assessment has not been submitted.
+**Live site:** [PropertyFlow](https://propertyflow-final.vercel.app), published to alssl27’s Vercel account on 12 October 2026. **Verification:** 24 local unit/service tests, 14 local browser tests, 14 deployed Chrome tests, 14 deployed Edge tests, five colour/motion preference checks and 13 deployed HTTP/hash checks passed. Real local/deployed screenshots and initial failure/retest evidence are included. Human accessibility checks and learner verification remain outstanding; the assessment has not been submitted.
 
 ## Purpose, users and goals
 
@@ -113,7 +113,7 @@ The postcode check validates format, not postal existence. No repair SLA or lega
 
 ## Tests, results and fixes
 
-[Actual results](docs/TEST-RESULTS.md), [methodology](docs/TESTING-METHODOLOGY.md), [test plan](docs/TEST-PLAN.md) and [bug report](docs/BUG-REPORT.md) distinguish observed passes from outstanding checks. The 20 Node tests cover calculations, search/filter, validation, duplicates, dates, transitions, CSV, concurrent writes, rejected requests, reset safety and corrupt storage. The 14 browser tests cover the main workflows, keyboard navigation, storage, two-tab writes, failure recovery and five responsive widths.
+[Actual results](docs/TEST-RESULTS.md), [methodology](docs/TESTING-METHODOLOGY.md), [test plan](docs/TEST-PLAN.md) and [bug report](docs/BUG-REPORT.md) distinguish observed passes from outstanding checks. The 24 Node tests cover calculations, search/filter, validation, duplicates, dates, transitions, CSV, concurrent writes, rejected requests, reset safety, corrupt storage, exact timeout cancellation and out-of-order responses. The 14 browser tests cover the main workflows, keyboard navigation, storage, two-tab writes, failure recovery and five responsive widths.
 
 The initial browser run had six failures: dialog focus and dashboard ARIA/contrast issues. Those were corrected and retested. No known application logic errors remain in the automated tested scenarios. This is not a claim that every browser, device or possible action was tested. HTML/CSS checks use html-validate and CSS Tree; W3C hosted validators were not run.
 
@@ -127,13 +127,13 @@ Captured locally by the browser on 12 October 2026, with fictional records:
 
 ## Development process and Git
 
-The supplied folder was not a Git repository. The first genuine commit preserves its original contents; later commits record persistence fixes, workflow/accessibility improvements, tests and documentation. [Development log](docs/DEVELOPMENT-LOG.md) records this revision without inventing earlier activity. Commits use a clearly named project identity. The learner must supply their own reflections and set their own identity for future commits. No remote is configured or pushed.
+The supplied folder was not a Git repository. The first genuine commit preserves its original contents; later commits record persistence fixes, workflow/accessibility improvements, tests and documentation. [Development log](docs/DEVELOPMENT-LOG.md) records this revision without inventing earlier activity. Commits use a clearly named project identity. The learner must supply their own reflections and set their own identity for future commits. The public repository [alssl27/propertyflow-final](https://github.com/alssl27/propertyflow-final) was verified and updated through normal fast-forward pushes after explicit user approval.
 
 ## Deployment
 
 Vercel is the live hosting platform. The build command is npm run build, output is dist, framework is Other, install command is npm ci, and no app secrets are needed. The output contains the website and quick guide, excluding assessment evidence and test tooling. A root-level 404.html offers a direct Return to Dashboard link without a timer or redirect loop; unknown JSON requests remain errors.
 
-Published through the CLI to the explicitly selected alssl27 account. [DEPLOYMENT.md](docs/DEPLOYMENT.md) records the real deployment identity/settings; [deployed test results](docs/DEPLOYED-TEST-RESULTS.md) record all 14 browser passes and 13 HTTP/hash passes. **Live site: [PropertyFlow](https://propertyflow-final.vercel.app). GitHub repository: not configured.**
+Published through the CLI to the explicitly selected alssl27 account. [DEPLOYMENT.md](docs/DEPLOYMENT.md) records the real deployment identity/settings; [deployed test results](docs/DEPLOYED-TEST-RESULTS.md) record all 14 browser passes and 13 HTTP/hash passes. **Live site: [PropertyFlow](https://propertyflow-final.vercel.app). GitHub repository: [alssl27/propertyflow-final](https://github.com/alssl27/propertyflow-final).**
 
 ## Assessment and final preparation
 
@@ -143,10 +143,12 @@ Published through the CLI to the explicitly selected alssl27 account. [DEPLOYMEN
 - [Final report](docs/FINAL-REPORT.md)
 - [Learner handover and assessor practice](docs/LEARNER-HANDOVER.md)
 
-Remaining work: GitHub repository publication for assessment evidence; learner manual accessibility/usability checks; independent explanation and course-compliant AI disclosure. Completion does not guarantee a distinction.
+Remaining work: learner manual accessibility/usability checks; independent explanation and course-compliant AI disclosure. Completion does not guarantee a distinction.
 
 ## Credits, acknowledgements and future improvements
 
 The supplied PropertyFlow files are retained in the initial commit. This revision was implemented and documented with OpenAI Codex assistance. [Sources](docs/SOURCES.md) distinguishes the supplied baseline, assisted work, official references and development libraries. Do not describe this as unaided work; check the course's academic-integrity rules.
 
 Future work could add a secure authenticated backend, durable audit history, conflict resolution, pagination, authorised CSV import, a real payments ledger and human-reviewed certificate rules. These are intentionally outside the current static front-end assessment scope.
+
+Further verification: [Edge, preference emulation, additional async tests and GitHub evidence](docs/ADDITIONAL-VERIFICATION.md).

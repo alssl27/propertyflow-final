@@ -19,7 +19,8 @@
 - [x] Automated axe checks across six routes at five widths and property dialog.
 - [x] Keyboard skip link, dialog focus, Escape, history and validation checks.
 - [ ] Learner screen-reader test with NVDA/VoiceOver or equivalent.
-- [ ] Real browser zoom at 200%/400%, high contrast, touch device and cross-browser checks.
+- [x] Full deployed Edge regression run and emulated forced-colour/reduced-motion checks.
+- [ ] Real browser zoom at 200%/400%, OS high contrast, touch device and Firefox/Safari if required.
 
 ## JavaScript and asynchronous operations
 
@@ -29,7 +30,7 @@
 
 ## Testing
 
-- [x] 20 Node tests and 14 Chrome browser tests passed in recorded local run.
+- [x] Expanded 24 Node tests; original 14 local Chrome tests; deployed Chrome and Edge 14 tests each.
 - [x] Failed initial browser run, fixes and actual screenshots retained.
 - [ ] Learner performs and records independent manual usability tests.
 - [x] Repeat all 14 browser tests on deployed origin; record results/screenshots separately.
@@ -42,8 +43,8 @@
 ## Git/GitHub
 
 - [x] Supplied source preserved in genuine initial commit; incremental revision commits.
-- [ ] Confirm GitHub account, repository visibility and permission to publish; push without rewriting history.
-- [ ] Add verified repository URL to README.
+- [x] Verify existing public alssl27/propertyflow-final repository, obtain explicit approval and push without rewriting history.
+- [x] Add verified repository URL to README.
 
 ## Deployment
 
@@ -57,7 +58,7 @@
 
 - [x] Purpose, features, architecture, limitations, run/test commands, evidence, sources and criteria links.
 - [x] Add verified live URL.
-- [ ] Add verified GitHub repository URL after publication.
+- [x] Add verified GitHub repository URL after publication.
 
 ## UX design
 
