@@ -35,3 +35,7 @@ On continuing the submission work, the workspace had origin configured to the ex
 ## Submission writing and native zoom evidence
 
 Prepared an evidence-based evaluation, truthful AI-assistance disclosure and public academic-integrity review. A first Computer Use attempt stopped because its current browser URL could not be confidently established. At the user's retry request, a dedicated live PropertyFlow Chrome window was uniquely identified and its URL confirmed. Native 200%/400% zoom, keyboard navigation, search/filter and form validation/dismissal were reviewed. Genuine fullscreen website screenshots exclude unrelated browser details. Browser zoom was restored to 100%; no runtime or records were changed. Screen-reader speech and applicable institutional permission remain unverified rather than being assumed.
+
+## Submission package preparation — 14 October 2026
+
+Reconciled stale current summaries with the already recorded native zoom, Edge and expanded Node evidence, preserving original test records. Captured the previously missing Settings view on the live alias in a fresh isolated Chrome context; actual date, method and scope are in EVIDENCE-CHECKLIST.md. Added an ordered demonstration guide and a Git-based source/evidence packaging command, with per-file SHA-256 manifest and genuine commit listing. These changes prepare review materials; they do not change application runtime, establish learner understanding or submit an assessment. Generated archives stay outside tracked source and production uploads.

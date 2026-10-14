@@ -14,7 +14,7 @@ Five checks AC01–AC05 passed in Chrome on the live site at 375×1000. Playwrig
 
 [Exact results](evidence/accessibility/results.json) · [Dashboard](evidence/accessibility/forced-colours-dashboard.png) · [Form error](evidence/accessibility/forced-colours-form-error.png)
 
-This is preference emulation, not an actual Windows high-contrast setting, screen-reader test or true browser zoom. Those human checks remain unchecked.
+These five checks used preference emulation; they did not observe an actual Windows high-contrast setting, screen-reader speech or native browser zoom. A separate scoped agent-operated [native Chrome 200%/400% zoom review](MANUAL-ACCESSIBILITY-REVIEW.md) is complete. Screen-reader speech and actual OS contrast/touch-device checks remain unverified.
 
 ## Additional asynchronous tests
 
@@ -45,4 +45,4 @@ npm run test:accessibility
 Remove-Item Env:BASE_URL
 ```
 
-Each test config saves separate evidence. Remaining learner work: screen-reader speech, actual browser zoom/touch/OS high contrast, Firefox/Safari if required, independent usability feedback, course-specific screenshots, academic-integrity disclosure and personal reflection. No assessor approval or assessment submission is claimed.
+Each test config saves separate evidence. The Edge suite and scoped agent-operated native Chrome zoom review are complete. Remaining learner work: screen-reader speech, physical touch-device and actual OS high-contrast checks, Firefox/Safari if required, independent usability feedback, course-specific screenshot review, review of the prepared academic-integrity disclosure and applicable policy, and personal reflection. No assessor approval or assessment submission is claimed.

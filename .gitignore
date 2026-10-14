@@ -11,5 +11,6 @@ test-results/
 node_modules/
 dist/
 .vercel/
+submission-artifacts/
 .vercel
 .env*

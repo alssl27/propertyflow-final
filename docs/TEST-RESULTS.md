@@ -67,7 +67,7 @@ Final commands and exit codes are recorded in evidence/quality-results.txt: npm 
 ## Outstanding / not run
 
 - Cloud checks were subsequently executed: 14 browser workflows and 13 HTTP/hash checks passed. See [deployed results](DEPLOYED-TEST-RESULTS.md); the remaining items below are still outstanding.
-- Screen-reader speech, 200%/400% browser zoom, real touch devices, high-contrast settings and independent learner usability feedback.
+- Screen-reader speech, physical touch devices, actual OS high-contrast settings and independent learner usability feedback remain unverified. The scoped agent-operated native Chrome 200%/400% zoom review is complete; see [manual review](MANUAL-ACCESSIBILITY-REVIEW.md).
 - Firefox/Safari remain untested. A separate full Edge run subsequently passed; see ADDITIONAL-VERIFICATION.md.
 - Every possible malformed record and extreme dataset size remain outside scope. Exact 15-second service timeout/cancellation was subsequently tested with virtual time in A14.
 - No independent accessibility certification or assessor acceptance.

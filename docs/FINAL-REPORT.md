@@ -12,7 +12,7 @@ PropertyFlow has been improved in the supplied workspace while retaining custom 
 
 ## Verification
 
-Twenty Node tests and fourteen real Chrome browser tests passed. Browser evidence covers six views at 320/375/768/1024/1440px, key CRUD workflows, persistence, reset, CSV, keyboard/history, failed loading, damaged/blocked storage, duplicate submit and two-tab writes. Automated axe checks found no enabled violations after fixes in tested pages/dialog. Initial failures and retests are retained. Static checks, formatting, links and build results are recorded in TEST-RESULTS.md and evidence/quality-results.txt.
+Twenty-four Node tests, fourteen local Chrome browser tests, fourteen deployed Chrome tests and fourteen deployed Edge tests passed in the recorded runs. Five emulated colour/motion preference checks and thirteen deployed HTTP/hash checks also passed. Browser evidence covers six views at 320/375/768/1024/1440px, key CRUD workflows, persistence, reset, CSV, keyboard/history, failed loading, damaged/blocked storage, duplicate submit and two-tab writes. Eight scoped agent-operated native Chrome 200%/400% zoom observations are recorded in [MANUAL-ACCESSIBILITY-REVIEW.md](MANUAL-ACCESSIBILITY-REVIEW.md). Automated axe checks found no enabled violations after fixes in tested pages/dialog. Initial failures and retests are retained. Static checks, formatting, links and build results are recorded in TEST-RESULTS.md and evidence/quality-results.txt; the expanded scope is recorded in ADDITIONAL-VERIFICATION.md and DEPLOYED-TEST-RESULTS.md.
 
 [Assessment matrix](ASSESSMENT-CRITERIA-MATRIX.md) maps every supplied numbered criterion plus merit/distinction requirements. Cloud criteria 4.1 and the automated deployment portion of 3.4 are now verified. GitHub criterion 4.3 is now verified with the approved public repository; human accessibility/authorship checks remain outstanding. No distinction is guaranteed.
 
@@ -29,7 +29,7 @@ Genuine commits include 5cdfe36 (supplied baseline), f5b60e6 (persistence and te
 1. Review the running app, screenshots and learner handover. Confirm the code and explanations you can demonstrate yourself.
 2. Review the verified GitHub repository and its README/evidence; use normal commits and pushes for future changes.
 3. Review DEPLOYED-TEST-RESULTS.md and the actual production screenshots. Repeat cloud checks after any later application change.
-4. Perform screen-reader, real zoom/touch, OS high-contrast, any required Firefox/Safari and independent usability checks. Record actual findings and fix/retest any defects.
+4. Review the completed scoped native Chrome zoom evidence. Perform screen-reader speech, physical touch-device, actual OS high-contrast, any required Firefox/Safari and independent usability checks. Record actual findings and fix/retest any defects.
 5. Verify institutional AI-assistance rules, write your own reflection/disclosure and complete the unchecked final submission items before submitting.
 
 The initial account access blocker was resolved by the user selecting alssl27. Production URL, deployment identity and actual tests are recorded in DEPLOYMENT.md and DEPLOYED-TEST-RESULTS.md. VS Code is open with the project.
@@ -41,3 +41,9 @@ Twenty-four Node tests now pass, including precise virtual timeout/cancellation 
 ## Prepared remaining evidence
 
 The project evaluation and AI-assistance disclosure are now drafted honestly, with an official-source policy review and a native Chrome 200%/400% zoom report. Eight scoped manual UI observations passed; screenshots are source-controlled. Unperformed screen-reader speech, actual OS contrast/touch, personal endorsement and assessment-specific policy permission remain accurately unchecked. No application runtime changes or assessment submission were made.
+
+## Review package preparation — 14 October 2026
+
+The current-status summaries now consistently recognise the completed native zoom and Edge evidence. A separately dated live Settings screenshot closes the remaining view-capture gap. The [review route](SUBMISSION-PACKAGE.md) explains how to generate a committed source/evidence ZIP with manifest, checksums and a genuine history listing. The [walkthrough](DEMONSTRATION-WALKTHROUGH.md) gives an ordered fictional-data demonstration with expected outcomes; it is practice guidance rather than a claim that the learner performed it. Application runtime remains unchanged.
+
+JavaScript lint, formatting and local links passed for this preparation. The packaging command correctly refused uncommitted changes. [Exact scoped check output](evidence/submission-preparation-results.txt) retains the commands and observed exit codes; earlier application test reports were not overwritten or represented as fresh runs.

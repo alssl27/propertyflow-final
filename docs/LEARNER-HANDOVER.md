@@ -42,13 +42,13 @@ The UI also tracks a load sequence. Only the most recent requested load may upda
 
 ## Testing and Git
 
-Run npm test for business/service tests. Run npm run test:browser for real Chrome workflows, screenshots and axe scans. Lint and validators inspect source; they do not replace interacting with the page. Follow TESTING-METHODOLOGY.md and TEST-RESULTS.md to understand which checks actually ran. Human screen-reader, zoom and usability checks remain required.
+Run npm test for business/service tests. Run npm run test:browser for real Chrome workflows, screenshots and axe scans. Lint and validators inspect source; they do not replace interacting with the page. Follow TESTING-METHODOLOGY.md and TEST-RESULTS.md to understand which checks actually ran. The deployed Edge suite and scoped agent-operated [native Chrome 200%/400% zoom review](MANUAL-ACCESSIBILITY-REVIEW.md) are complete. Screen-reader speech, actual OS contrast/touch-device checks, any required Firefox/Safari checks and independent learner usability review remain unverified.
 
 Git records snapshots and messages. `git log --oneline` shows genuine commits made during this revision. The first commit preserves the supplied project; it does not imply earlier work was version-controlled. Commits use the clearly named PropertyFlow project identity, not an invented learner identity. Set your own Git name/email before your future commits. The existing public alssl27/propertyflow-final repository was subsequently verified and updated after explicit approval; git log and the remote show the genuine source history.
 
 ## Cloud deployment
 
-The build copies website files into dist. Vercel can serve these static files after an approved publication. It does not create a database: browser storage remains local. Cloud evidence needs the actual URL, commit and repeated tests; a local screenshot does not prove deployment. Follow DEPLOYMENT.md after approval.
+The build copies website files into dist. Vercel serves the published application at [PropertyFlow](https://propertyflow-final.vercel.app), following the user's approval and account selection. It does not create a database: browser storage remains local. DEPLOYMENT.md records the actual account, deployment and source revision; DEPLOYED-TEST-RESULTS.md records repeated production checks. A local screenshot alone does not prove deployment. Follow DEPLOYMENT.md for future authorised releases and repeat relevant cloud checks after application changes.
 
 ## Assessor practice questions
 

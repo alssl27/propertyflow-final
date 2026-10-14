@@ -12,7 +12,7 @@ ESLint checks JavaScript; html-validate checks both static HTML documents; CSS T
 
 ## Appropriate manual testing
 
-Human checks remain necessary for screen-reader speech, understandable copy, task efficiency, real touch devices, browser zoom, OS high contrast, and cross-browser behaviour. Automated contrast and ARIA checks cannot guarantee WCAG conformance. Have a learner or peer follow the manual checklist and record their own observations in TEST-RESULTS-TEMPLATE.md; never mark unexecuted work as passed.
+Manual checks remain necessary for screen-reader speech, understandable copy, task efficiency, physical touch devices, browser zoom and OS high contrast. A scoped agent-operated [native Chrome 200%/400% zoom review](MANUAL-ACCESSIBILITY-REVIEW.md) is complete; the deployed Edge suite provides separate cross-browser evidence. These records do not establish screen-reader speech, actual OS contrast/touch-device use, Firefox/Safari behaviour or independent learner usability feedback. Automated contrast and ARIA checks cannot guarantee WCAG conformance. Have a learner or peer follow the manual checklist and record their own observations in TEST-RESULTS-TEMPLATE.md; never mark unexecuted work as passed.
 
 ## Reproduce
 

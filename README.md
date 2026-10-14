@@ -85,7 +85,7 @@ vercel.json                Prepared static hosting configuration
 
 Navy navigation, neutral surfaces, muted red actions and text-labelled semantic colours establish a consistent hierarchy. Overview gives portfolio scale before urgent tasks and detailed records. Responsive grids collapse, navigation becomes a disclosure below 820px and tables scroll within labelled focusable regions. Font rendering uses a local sans-serif stack without an external font request.
 
-The shell includes a skip link, semantic landmarks and one h1 per view. Forms have associated labels and described errors. Native modal dialogs support Escape, Tab/Shift+Tab containment and focus restoration. Busy states prevent repeat saves. Hidden mobile navigation is inert. Live feedback, visible focus, minimum control sizes and reduced-motion styling support access. Automated axe checks passed in the recorded states; full WCAG conformance is **not claimed**. Screen-reader, zoom and real-device checks remain for the learner.
+The shell includes a skip link, semantic landmarks and one h1 per view. Forms have associated labels and described errors. Native modal dialogs support Escape, Tab/Shift+Tab containment and focus restoration. Busy states prevent repeat saves. Hidden mobile navigation is inert. Live feedback, visible focus, minimum control sizes and reduced-motion styling support access. Automated axe checks passed in the recorded states; full WCAG conformance is **not claimed**. A scoped agent-operated [native Chrome 200%/400% zoom review](docs/MANUAL-ACCESSIBILITY-REVIEW.md) is complete. Screen-reader speech, actual OS contrast/touch-device checks and independent learner review remain unverified.
 
 [Design rationale](docs/UX-RATIONALE.md), [complete UX design](docs/UX-DESIGN.md) and [retrospective wireframe](docs/UX-WIREFRAME.md) explain decisions and exceptions.
 
@@ -142,6 +142,8 @@ Published through the CLI to the explicitly selected alssl27 account. [DEPLOYMEN
 - [Final submission checklist](docs/FINAL-SUBMISSION-CHECKLIST.md)
 - [Final report](docs/FINAL-REPORT.md)
 - [Learner handover and assessor practice](docs/LEARNER-HANDOVER.md)
+- [Submission package and review route](docs/SUBMISSION-PACKAGE.md)
+- [Ordered demonstration walkthrough](docs/DEMONSTRATION-WALKTHROUGH.md)
 
 Remaining work: learner manual accessibility/usability checks; independent explanation and course-compliant AI disclosure. Completion does not guarantee a distinction.
 

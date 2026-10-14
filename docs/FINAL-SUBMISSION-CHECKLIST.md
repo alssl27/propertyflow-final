@@ -82,3 +82,11 @@
 - [ ] Demonstrate and explain the project independently; no grade is guaranteed.
 
 Native UI results: [MANUAL-ACCESSIBILITY-REVIEW.md](MANUAL-ACCESSIBILITY-REVIEW.md). Prepared materials: [PROJECT-EVALUATION.md](PROJECT-EVALUATION.md), [AI-ASSISTANCE-DISCLOSURE.md](AI-ASSISTANCE-DISCLOSURE.md) and [ACADEMIC-INTEGRITY-REVIEW.md](ACADEMIC-INTEGRITY-REVIEW.md). Unperformed speech/device/learner checks stay unchecked.
+
+## Review package — 14 October 2026
+
+- [x] Ordered [demonstration instructions](DEMONSTRATION-WALKTHROUGH.md) and [review route/packaging instructions](SUBMISSION-PACKAGE.md) prepared.
+- [x] Separate live Settings screenshot added to the evidence checklist, with actual capture date and scope.
+- [ ] Learner verifies the actual submission portal's accepted files, size limits and declaration requirements before upload.
+
+`npm run package:submission` generates a ZIP from a clean committed revision, with a file manifest, genuine history listing and checksums. It does not submit the assessment or mark any learner checks complete.
