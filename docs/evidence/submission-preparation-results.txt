@@ -30,3 +30,11 @@ Error: Commit or resolve project changes before packaging a revision.
     at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:105:5)
 
 Node.js v26.10.0
+
+First generated archive: propertyflow-submission-2a65809.zip.
+Independent ZIP entry verification failed at .gitignore: archive length 176 bytes,
+with 16 CRLF line endings; the committed blob has LF endings.
+Observed Git configuration: core.autocrlf=true. No file export attributes were found.
+Fix: override core.autocrlf=false and core.eol=lf only for the archive invocation.
+The first artifact is retained outside tracked source and is not the final review package.
+Regenerated archive integrity results are recorded alongside the final generated package.

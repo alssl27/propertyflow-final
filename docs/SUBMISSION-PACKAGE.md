@@ -26,7 +26,7 @@ The command prints the generated folder under `submission-artifacts/`. It create
 - `source-history.txt`, listing genuine commit identifiers, author dates and messages. The complete Git history remains in the linked repository.
 - `SHA256SUMS.txt`, with hashes of the ZIP, manifest and history listing.
 
-The package is generated with `git archive` from the recorded commit. It contains committed bytes, so Windows checkout line-ending conversions do not change its contents. Uncommitted changes cause the command to stop. Ignored environments, Vercel account configuration, dependencies, build output and Git internals are not included. Generated packages are ignored by Git, formatting and Vercel uploads. No extra packaging dependency is installed.
+The package is generated with `git archive` from the recorded commit. The archive command explicitly sets `core.autocrlf=false` and `core.eol=lf` for that invocation, preventing this machine's Windows line-ending conversion from changing the committed bytes. It does not change the user's Git settings. Uncommitted changes cause the command to stop. Ignored environments, Vercel account configuration, dependencies, build output and Git internals are not included. Generated packages are ignored by Git, formatting and Vercel uploads. No extra packaging dependency is installed.
 
 Extract the ZIP before opening `propertyflow-final/` in VS Code. Run `npm start` and open http://127.0.0.1:4173; JSON fetching requires HTTP. To run development checks, first use `npm ci`, then the commands in the root README. The ZIP is a source package, rather than a copy of the production build, and has no credentials required to run the app.
 

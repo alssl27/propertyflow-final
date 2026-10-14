@@ -71,6 +71,10 @@ await mkdir(output, { recursive: true });
 const archiveName = `propertyflow-submission-${commit.slice(0, 7)}.zip`;
 const archivePath = join(output, archiveName);
 git([
+  "-c",
+  "core.autocrlf=false",
+  "-c",
+  "core.eol=lf",
   "archive",
   "--format=zip",
   "--prefix=propertyflow-final/",
