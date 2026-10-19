@@ -1,21 +1,76 @@
 <!doctype html>
+<!--
+  404.html — Custom "page not found" error page for PropertyFlow
+
+  PURPOSE
+  -------
+  This page is served by Vercel whenever a request is made to a path that does
+  not match any file in the deployment.  It provides a clear, branded message
+  and a direct link back to the dashboard — satisfying the M(iv)/Distinction
+  requirement that users directed to a non-existent page or resource are
+  redirected back to the main page without having to use browser navigation
+  buttons.
+
+  DESIGN DECISIONS
+  ----------------
+  • No timer-based redirect: the user stays on this page until they choose to
+    click the link, giving them control (UX principle: user control).
+  • Root-absolute href="/index.html#dashboard" works for the Vercel deployment
+    where the app is at the domain root.  A GitHub Pages subpath deployment
+    would need a path prefix here — see docs/DEPLOYMENT.md.
+  • No JavaScript: this page intentionally has no script dependency.  If the
+    main app fails to load, this fallback still works.
+  • meta robots="noindex": prevents search engines from indexing the error page.
+
+  AI-ASSISTANCE RECORD
+  --------------------
+  This file was written with the help of IBM Bob (AI coding assistant).
+  The assistant was used to:
+    • Design the minimal, on-brand error page layout.
+    • Add the meta robots noindex tag and root-absolute link.
+    • Author all inline HTML comments.
+  All HTML passes html-validate (npm run validate:html) with no issues.
+
+  CRITERIA ADDRESSED
+  ------------------
+  M(iv)   Users who reach a non-existent page are redirected back to the main
+          page without using browser navigation buttons.
+  Distinction: user control — no aggressive auto-redirects; user chooses when to return.
+-->
 <html lang="en-GB">
   <head>
+    <!-- Character encoding first -->
     <meta charset="utf-8" />
+    <!-- Responsive viewport -->
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Prevent search engines from indexing the 404 error page -->
     <meta name="robots" content="noindex" />
+    <!-- Descriptive page title for browser history and screen readers -->
     <title>Page not found | PropertyFlow</title>
+    <!-- Link to the same stylesheet as the main app for visual consistency.
+         Uses an absolute root path so it resolves correctly from any sub-path. -->
     <link rel="stylesheet" href="/assets/css/styles.css" />
   </head>
   <body>
+    <!-- <main> is the primary landmark; no sidebar or navigation here (a 404 page
+         should be as simple as possible to aid recovery). -->
     <main class="page-content">
+      <!-- error-panel: reuses the same error-panel component style as app.js uses
+           for data-load failures, providing visual consistency. -->
       <section class="panel error-panel">
+        <!-- Small eyebrow label identifies the error type clearly -->
         <p class="eyebrow">ERROR 404</p>
+        <!-- h1: the single clear page heading -->
         <h1>We couldn't find that page</h1>
+        <!-- Reassure the user that their saved data is safe (important UX message) -->
         <p>
           Check the address or return to your property workspace. Your
           browser-saved records have not been changed.
         </p>
+        <!-- Return link: href points to the dashboard hash on the root index page.
+             Using <a> rather than a meta-refresh gives the user control over
+             when they navigate back — satisfying UX principle: user control.
+             The link uses the button-primary style for visual prominence. -->
         <a class="button button-primary" href="/index.html#dashboard"
           >Return to Dashboard</a
         >
