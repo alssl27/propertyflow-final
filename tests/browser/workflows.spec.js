@@ -24,6 +24,11 @@ async function addProperty(page, address = "99 Fiction Lane") {
 test("B01 full property workflow, duplicates, persistence, search, delete", async ({
   page,
 }) => {
+  // Clear localStorage before this test so it always starts from the seed data,
+  // regardless of state left by a previous test run.  Navigate first so the
+  // origin is set, then clear, then reload to get a clean workspace.
+  await page.goto("/");
+  await page.evaluate(() => localStorage.clear());
   const errors = [];
   page.on("pageerror", (e) => errors.push(e.message));
   await ready(page);
