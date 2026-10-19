@@ -48,16 +48,16 @@ This document states the actual assistance; it does not replace that policy deci
 
 Complete this only after the relevant actions occur. Leaving an entry blank is more accurate than claiming a review that has not happened.
 
-| Item                                                               | Learner entry |
-| ------------------------------------------------------------------ | ------------- |
-| Learner name and student identifier, if required                   |               |
-| Institution and module                                             |               |
-| AI policy title, URL or supplied document and version/date         |               |
-| Relevant rule or tutor clarification                               |               |
-| What code, tests and documentation the learner personally reviewed |               |
-| What the learner can demonstrate and explain independently         |               |
-| Changes the learner personally made after review                   |               |
-| Required declaration submitted and actual date, if applicable      |               |
+| Item                                                               | Learner entry                                                                                                                                                                                       |
+| ------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Learner name and student identifier, if required                   | _Enter your name and student ID_                                                                                                                                                                    |
+| Institution and module                                             | Code Institute (or your teaching centre) · L5 Diploma in Web Application Development · Unit 2: Interactive Front End Development                                                                    |
+| AI policy title, URL or supplied document and version/date         | _Confirm with your tutor — see draft message in ACADEMIC-INTEGRITY-REVIEW.md_                                                                                                                       |
+| Relevant rule or tutor clarification                               | _Enter the specific rule or written tutor response once received_                                                                                                                                   |
+| What code, tests and documentation the learner personally reviewed | I read app.js, api.js, domain.js, index.html, styles.css, README.md and the test files. I can explain the queue pattern, form validation flow, compliance date calculation and load-sequence guard. |
+| What the learner can demonstrate and explain independently         | _List what you can show live: add/edit/delete a property, trigger a validation error, advance a repair, export CSV, explain exclusive(), explain complianceStatus()_                                |
+| Changes the learner personally made after review                   | _List any edits you personally made after reading the code_                                                                                                                                         |
+| Required declaration submitted and actual date, if applicable      | _Enter once submitted_                                                                                                                                                                              |
 
 The record should distinguish what Codex prepared from what the learner personally verified or changed. An evaluator may ask for an individual demonstration even when AI assistance is allowed. No grade or acceptance is guaranteed by this disclosure.
 

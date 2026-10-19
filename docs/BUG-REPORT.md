@@ -21,6 +21,10 @@ Environment: Windows, local Chrome at http://127.0.0.1:4173. Initial defects bel
 | B-015 | Penny-valued rent remains precise                       | UI rounded all currency to whole pounds               | Two-decimal currency display                                     | D01; browser property workflow    |
 | B-016 | Local tool audit should be clean                        | Stylelint dependency chain had 5 high advisories      | Replaced with CSS Tree; no forced downgrade                      | npm audit: zero after replacement |
 
+| B-017 | Submit compliance form with invalid fields; user must see feedback | No toast shown on compliance validation failure (unlike property/repair forms) | Added missing `showToast` call for compliance form validation errors | ESLint/lint clean; 24 unit tests pass |
+| B-018 | Open compliance dialog; required fields must be visually marked | Required asterisk markers missing on all three compliance fields | Added `<span class="required">*</span>` to all three compliance form labels | html-validate clean; consistent with property and repair modals |
+| B-019 | Compliance modal close button must match other modal styling | Missing `close-modal` class on compliance dialog × button | Added `close-modal` class to match property-modal and repair-modal | html-validate clean |
+
 No remaining known application logic errors in the automated scenarios. This does not cover untested browsers or assistive technology. The same browser suite subsequently passed on the deployment; see DEPLOYED-TEST-RESULTS.md. Documented limits: local-only storage; no conflict UI for competing edits to one record; cross-tab lock fallback; UK-style postcode validation does not verify postal existence; no actual payment ledger or legal compliance engine. See FINAL-SUBMISSION-CHECKLIST.md for remaining evidence.
 
 Tool configuration retest: Prettier normalises the case-insensitive HTML doctype to lowercase. html-validate now explicitly accepts lowercase doctype style; this resolves a formatter/checker disagreement without suppressing HTML validity checks.
