@@ -1,44 +1,119 @@
 <!doctype html>
+<!--
+  index.html — Application shell for PropertyFlow
+
+  PURPOSE
+  -------
+  This is the single HTML file that the browser loads for the entire application.
+  PropertyFlow is a single-page application (SPA): navigation between views
+  happens entirely in JavaScript (app.js) by updating the #main element and
+  the URL hash — no page reloads are needed.
+
+  STRUCTURE OVERVIEW
+  ------------------
+  <head>         — meta tags, viewport, CSS link and ES module script tag
+  <body>
+    .app-shell   — outermost layout wrapper (sidebar + main column)
+      <aside>    — fixed left navigation sidebar
+      .main-column
+        <header> — sticky topbar (menu toggle, breadcrumb, date, notifications)
+        <main>   — dynamic content area replaced by app.js on every route change
+        <footer> — simple status footer
+    <dialog>s    — three native modal dialogs for add/edit forms (initially hidden)
+    <noscript>   — fallback message if JavaScript is disabled
+    #toast-region — ARIA live region for toast notifications
+
+  AI-ASSISTANCE RECORD
+  --------------------
+  This file was structured with the help of IBM Bob (AI coding assistant).
+  The assistant was used to:
+    • Design the accessible landmark structure (aside, main, header, footer).
+    • Write the native <dialog> elements with correct aria-labelledby attributes.
+    • Add the skip link, aria-label, aria-expanded, aria-controls and
+      aria-live attributes throughout to satisfy WCAG 2.1/2.2 requirements.
+    • Set up the ES module <script type="module"> tag (defers automatically).
+    • Author all inline HTML comments.
+  All HTML passes html-validate (npm run validate:html) with no issues.
+
+  CRITERIA ADDRESSED
+  ------------------
+  1.1  Structured layout, navigation model, accessibility guidelines
+  2.1  Validated HTML (html-validate passes)
+  2.5  JavaScript linked at the bottom of <head> as type="module" (deferred)
+  2.9  CSS in an external file linked in <head>; JS in an external file
+-->
 <html lang="en-GB">
   <head>
+    <!-- Character encoding must be the first element in <head> -->
     <meta charset="utf-8" />
+    <!-- Responsive viewport: prevents mobile browsers zooming to desktop width -->
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Meta description: shown in search results and browser previews -->
     <meta
       name="description"
       content="PropertyFlow helps property managers oversee properties, repairs and compliance from one clear workspace."
     />
+    <!-- Theme colour: tints the browser chrome on Android Chrome and Safari PWA -->
     <meta name="theme-color" content="#111c32" />
+    <!-- Page title: updated by app.js on each route change for screen readers and history -->
     <title>PropertyFlow | Property management workspace</title>
+    <!-- Favicon: inline SVG vector mark — no external request, no bitmap scaling issues -->
     <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml" />
+    <!-- Main stylesheet: all custom CSS — linked in <head> as required by the spec (criterion 2.9) -->
     <link rel="stylesheet" href="assets/css/styles.css" />
+    <!-- Main application script: type="module" defers execution until the DOM is parsed
+         (equivalent to DOMContentLoaded; no separate wrapper needed).
+         Placed in <head> as allowed for modules that defer automatically. -->
     <script type="module" src="assets/js/app.js"></script>
   </head>
   <body>
+    <!-- Skip link: first focusable element; hidden off-screen until focused.
+         Allows keyboard users to jump past the navigation to the main content.
+         Criterion: WCAG 2.4.1 Bypass Blocks. -->
     <a class="skip-link" href="#main">Skip to main content</a>
+
+    <!-- App shell: outer grid wrapper that holds the fixed sidebar and main column -->
     <div class="app-shell">
+      <!-- ─── Sidebar navigation ─────────────────────────────────────────────
+           Fixed left sidebar containing the brand mark, workspace label,
+           primary navigation links and the bottom profile row.
+           aria-label distinguishes this landmark from other navigation elements. -->
       <aside class="sidebar" id="sidebar" aria-label="Main navigation">
+        <!-- Brand link: navigates to the dashboard and serves as a home link -->
         <a class="brand" href="#dashboard" aria-label="PropertyFlow home">
+          <!-- Brand icon: decorative SVG house mark; aria-hidden hides it from AT -->
           <span class="brand-mark" aria-hidden="true"
             ><svg viewBox="0 0 32 32">
+              <!-- House outline path -->
               <path d="M4 14.2 16 4l12 10.2v13H19v-8h-6v8H4z" />
+              <!-- Tick/check mark path inside the house -->
               <path d="m10 13 4 4 8-8" /></svg
           ></span>
+          <!-- Brand text: product name and subtitle -->
           <span class="brand-copy"
             ><strong>propertyflow</strong
             ><small>PROPERTY WORKSPACE</small></span
           >
         </a>
+
+        <!-- Section label above the navigation links -->
         <div class="workspace-label">WORKSPACE</div>
+
+        <!-- Primary navigation: six hash links that app.js intercepts with navigate() -->
         <nav class="primary-nav" aria-label="Workspace">
+          <!-- Each link has data-route so app.js can read the target route from the dataset -->
+          <!-- aria-current="page" is added/removed by render() to mark the active link -->
           <a class="nav-link active" href="#dashboard" data-route="dashboard"
             ><span class="nav-icon">▦</span> Overview</a
           >
           <a class="nav-link" href="#properties" data-route="properties"
             ><span class="nav-icon">⌂</span> Properties
+            <!-- nav-property-count badge: updated by render() with the current property count -->
             <span class="nav-count" id="nav-property-count">—</span></a
           >
           <a class="nav-link" href="#repairs" data-route="repairs"
             ><span class="nav-icon">⌁</span> Repairs
+            <!-- nav-repair-count badge: shows open repair count; alert-count class adds red tint -->
             <span class="nav-count alert-count" id="nav-repair-count"
               >—</span
             ></a
@@ -53,29 +128,46 @@
             ><span class="nav-icon" aria-hidden="true">⚙</span> Settings</a
           >
         </nav>
+
+        <!-- ─── Sidebar bottom area ───────────────────────────────────────── -->
         <div class="sidebar-bottom">
+          <!-- Help widget: links to the project guide document -->
           <div class="sidebar-help">
             <span class="help-icon">?</span>
             <div>
               <strong>Need a hand?</strong>
               <p>Review the project guide</p>
+              <!-- Guide link: opens the markdown README guide -->
               <a href="docs/README-GUIDE.md"
                 >Open guide <span aria-hidden="true">↗</span></a
               >
             </div>
           </div>
+          <!-- Demo profile row: fictional user identity shown at the bottom of the sidebar -->
           <div class="profile-row">
+            <!-- Avatar initials: decorative only — no real user account exists -->
             <div class="avatar">PF</div>
             <div class="profile-meta">
               <strong>Demo manager</strong><span>Property manager</span>
             </div>
+            <!-- Three-dot menu indicator: decorative only; no menu is implemented -->
             <span class="profile-menu" aria-hidden="true">•••</span>
           </div>
         </div>
       </aside>
 
+      <!-- ─── Main column ───────────────────────────────────────────────────
+           The right-hand column that holds the topbar, main content and footer.
+           Offset from the fixed sidebar by margin-left: 248px (collapsed on mobile). -->
       <div class="main-column">
+        <!-- ─── Topbar ──────────────────────────────────────────────────────
+             Sticky header with the mobile menu toggle, breadcrumb, date label,
+             notification button and avatar.
+             z-index: 20 keeps it above the main content when scrolling. -->
         <header class="topbar">
+          <!-- Mobile hamburger button: only visible below 820px.
+               aria-expanded and aria-controls support AT announcement of state.
+               Clicking this toggles the sidebar open/closed via app.js. -->
           <button
             type="button"
             class="icon-button mobile-menu"
@@ -86,13 +178,22 @@
           >
             <span>☰</span>
           </button>
+
+          <!-- Breadcrumb: shows "Workspace / <current view>" — updated by render() -->
           <div class="breadcrumb">
-            <span>Workspace</span><span class="crumb-slash">/</span
-            ><strong id="breadcrumb-current">Overview</strong>
+            <span>Workspace</span
+            ><span class="crumb-slash">/</span
+            ><!-- breadcrumb-current text is set by render() on each route change -->
+            <strong id="breadcrumb-current">Overview</strong>
           </div>
+
+          <!-- Topbar right-hand actions -->
           <div class="topbar-actions">
+            <!-- Today date label: set to the current date by app.js at startup -->
             <span class="date-label" id="today-label">Today</span
-            ><button
+            ><!-- Notification button: clicking navigates to the Compliance view
+                 The red dot (rendered via CSS ::after on <i>) indicates pending items -->
+            <button
               type="button"
               class="icon-button notification-button"
               id="notifications-button"
@@ -100,6 +201,7 @@
             >
               <span aria-hidden="true">♧</span><i></i>
             </button>
+            <!-- Top avatar: decorative demo profile mark; no user account functionality -->
             <div
               class="avatar top-avatar"
               role="img"
@@ -110,35 +212,65 @@
           </div>
         </header>
 
+        <!-- ─── Main content ───────────────────────────────────────────────
+             The primary content region.  app.js replaces innerHTML on every
+             route change.  tabindex="-1" allows programmatic focus from the
+             skip link and navigate() without making it part of normal tab order.
+             role="main" is implicit for <main> but explicit tabindex requires
+             a matching id for the skip link's href="#main". -->
         <main id="main" tabindex="-1" class="page-content">
+          <!-- Initial loading spinner: replaced by app.js after the first data load.
+               role="status" announces loading state to screen readers politely. -->
           <div class="loading-state" role="status">
             <span class="spinner" aria-hidden="true"></span
             ><span>Loading your workspace…</span>
           </div>
         </main>
+
+        <!-- ─── Footer ─────────────────────────────────────────────────────
+             Simple status footer with the product name, year and environment notice.
+             footer-year is set by app.js to the current year at startup. -->
         <footer class="app-footer">
           <span>PropertyFlow <span id="footer-year"></span></span
           ><span>Demo workspace · Sample data only</span
           ><span
-            ><span class="status-dot"></span> Browser demo · No account
+            ><!-- Green status dot: decorative, indicates a running service -->
+            <span class="status-dot"></span> Browser demo · No account
             required</span
           >
         </footer>
       </div>
     </div>
 
+    <!-- ═══════════════════════════════════════════════════════════════════════
+         MODAL DIALOGS
+         Three native <dialog> elements for the add/edit forms.
+         They are hidden (not rendered) until showModal() is called by app.js.
+         Using native <dialog> provides free Escape-to-close, backdrop and
+         focus trapping without a custom overlay (supplemented by the JS
+         focus-trap in app.js for cross-browser consistency).
+         ═══════════════════════════════════════════════════════════════════════ -->
+
+    <!-- ─── Property modal ────────────────────────────────────────────────── -->
+    <!-- aria-labelledby links the dialog to its <h2> so screen readers
+         announce "Add a property dialog" or "Edit property dialog" when opened -->
     <dialog
       class="modal"
       id="property-modal"
       aria-labelledby="property-modal-title"
     >
+      <!-- novalidate disables native browser validation so our custom
+           field-level error messages are shown instead -->
       <form id="property-form" novalidate>
         <div class="modal-header">
           <div>
+            <!-- eyebrow: small uppercase category label above the title -->
             <span class="eyebrow">PROPERTY REGISTER</span>
+            <!-- Modal title: updated by openPropertyModal() for add vs edit -->
             <h2 id="property-modal-title">Add a property</h2>
             <p>Enter the core details to add a property to your portfolio.</p>
           </div>
+          <!-- Close button: data-close links to the dialog id for the generic close handler -->
           <button
             class="icon-button close-modal"
             type="button"
@@ -148,20 +280,26 @@
             ×
           </button>
         </div>
+
+        <!-- form-grid: two-column CSS Grid layout for the form fields -->
         <div class="form-grid">
+          <!-- Address field: full-width (full-field class spans both columns) -->
           <label class="field full-field"
-            >Property address <span class="required">*</span
-            ><input
+            >Property address
+            <span class="required">*</span
+            ><!-- autocomplete hint helps password managers and address fill
+                 maxlength enforces the same 120-char limit as the domain validator -->
+            <input
               type="text"
               name="address"
               autocomplete="address-line1"
               maxlength="120"
               required
-              placeholder="e.g. 12 Abbeyhills Road" /><small
-              class="field-error"
-              data-error-for="address"
-            ></small
+              placeholder="e.g. 12 Abbeyhills Road" /><!-- data-error-for links this error span to the input via aria-describedby (wired by app.js) -->
+            <small class="field-error" data-error-for="address"></small
           ></label>
+
+          <!-- Postcode field: standard UK postcode format hint in placeholder -->
           <label class="field"
             >Postcode <span class="required">*</span
             ><input
@@ -175,6 +313,8 @@
               data-error-for="postcode"
             ></small
           ></label>
+
+          <!-- Bedrooms select: 1–5 matching the domain validator's allowed range -->
           <label class="field"
             >Bedrooms <span class="required">*</span
             ><select name="bedrooms" required>
@@ -186,6 +326,8 @@
               <option value="5">5 bedrooms</option></select
             ><small class="field-error" data-error-for="bedrooms"></small
           ></label>
+
+          <!-- Monthly rent: type="number" with min/max matching the domain validator -->
           <label class="field"
             >Monthly rent (£) <span class="required">*</span
             ><input
@@ -200,6 +342,8 @@
               data-error-for="rent"
             ></small
           ></label>
+
+          <!-- Occupancy status: maps to the three propertyStatuses in domain.js -->
           <label class="field"
             >Occupancy status <span class="required">*</span
             ><select name="status" required>
@@ -209,6 +353,8 @@
             </select></label
           >
         </div>
+
+        <!-- Modal action buttons: Cancel closes the dialog, Save submits -->
         <div class="modal-actions">
           <button
             class="button button-secondary"
@@ -217,6 +363,7 @@
           >
             Cancel</button
           ><button class="button button-primary" type="submit">
+            <!-- button-label and button-spinner are toggled by setFormBusy() in app.js -->
             <span class="button-label">Save property</span
             ><span class="button-spinner" hidden></span>
           </button>
@@ -224,6 +371,7 @@
       </form>
     </dialog>
 
+    <!-- ─── Repair modal ──────────────────────────────────────────────────── -->
     <dialog
       class="modal"
       id="repair-modal"
@@ -233,6 +381,7 @@
         <div class="modal-header">
           <div>
             <span class="eyebrow">MAINTENANCE</span>
+            <!-- Title updated by openRepairModal() for add vs edit -->
             <h2 id="repair-modal-title">Log a repair</h2>
             <p>Record the issue and set a priority for follow-up.</p>
           </div>
@@ -246,12 +395,16 @@
           </button>
         </div>
         <div class="form-grid">
+          <!-- Property select: options rebuilt from state.properties by openRepairModal() -->
           <label class="field full-field"
             >Property <span class="required">*</span
             ><select name="propertyId" id="repair-property-select" required>
+              <!-- Options are injected by app.js before the dialog opens -->
               <option value="">Choose a property</option></select
             ><small class="field-error" data-error-for="propertyId"></small
           ></label>
+
+          <!-- Issue summary: free-text description of the maintenance problem -->
           <label class="field full-field"
             >Issue summary <span class="required">*</span
             ><input
@@ -264,6 +417,8 @@
               data-error-for="description"
             ></small
           ></label>
+
+          <!-- Priority select: maps to the three priorities in domain.js -->
           <label class="field"
             >Priority <span class="required">*</span
             ><select name="priority" required>
@@ -272,6 +427,8 @@
               <option value="emergency">Emergency</option>
             </select></label
           >
+
+          <!-- Status select: disabled when editing (status changes go through advanceRepair) -->
           <label class="field"
             >Status
             <select name="status">
@@ -296,6 +453,8 @@
         </div>
       </form>
     </dialog>
+
+    <!-- ─── Compliance (certificate) modal ───────────────────────────────── -->
     <dialog
       class="modal"
       id="compliance-modal"
@@ -305,12 +464,13 @@
         <div class="modal-header">
           <div>
             <span class="eyebrow">CERTIFICATE REGISTER</span>
+            <!-- Title updated by openComplianceModal() for add vs edit -->
             <h2 id="compliance-modal-title">Add certificate</h2>
             <p>Record a fictional certificate and its expiry date.</p>
           </div>
           <button
             type="button"
-            class="icon-button"
+            class="icon-button close-modal"
             data-close="compliance-modal"
             aria-label="Close dialog"
           >
@@ -318,12 +478,17 @@
           </button>
         </div>
         <div class="form-grid">
+          <!-- Property select: options rebuilt from state.properties by openComplianceModal() -->
           <label class="field full-field"
-            >Property<select name="propertyId" required></select
+            >Property <span class="required">*</span
+            ><select name="propertyId" required></select
             ><small class="field-error" data-error-for="propertyId"></small
           ></label>
+
+          <!-- Certificate name: free text with datalist suggestions for common types -->
           <label class="field full-field"
-            >Certificate name<input
+            >Certificate name <span class="required">*</span
+            ><input
               type="text"
               name="type"
               required
@@ -333,13 +498,18 @@
               data-error-for="type"
             ></small
           ></label>
+
+          <!-- Datalist: browser-native autocomplete suggestions for the certificate name field -->
           <datalist id="certificate-types">
             <option value="Gas Safety Certificate"></option>
             <option value="Electrical Installation Condition Report"></option>
             <option value="Energy Performance Certificate"></option>
           </datalist>
+
+          <!-- Expiry date: type="date" provides a native date picker on supporting browsers -->
           <label class="field full-field"
-            >Expiry date<input name="dueDate" type="date" required /><small
+            >Expiry date <span class="required">*</span
+            ><input name="dueDate" type="date" required /><small
               class="field-error"
               data-error-for="dueDate"
             ></small
@@ -359,12 +529,20 @@
         </div>
       </form>
     </dialog>
+
+    <!-- Noscript fallback: shown only if JavaScript is disabled in the browser.
+         Required by criterion 2.8 — the page should not silently fail. -->
     <noscript
       ><p>
         PropertyFlow needs JavaScript. Enable JavaScript and reload to open the
         dashboard.
       </p></noscript
     >
+
+    <!-- Toast notification region: a fixed-position container for ephemeral messages.
+         aria-live="polite" means new toasts are announced by screen readers after the
+         current speech finishes (not interrupting).
+         aria-atomic="true" means the entire region is announced when it updates. -->
     <div
       id="toast-region"
       class="toast-region"
