@@ -14,3 +14,6 @@ dist/
 submission-artifacts/
 .vercel
 .env*
+
+# IBM Bob internal workspace
+.bob/
