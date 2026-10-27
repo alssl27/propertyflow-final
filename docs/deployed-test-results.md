@@ -1,12 +1,12 @@
-# Deployed test results — recorded 12 October 2026 release
+# Deployed test results — final production run, 27 October 2026
 
-Production URL: [PropertyFlow](https://propertyflow-final.vercel.app). Account/team: alssl27 / alssl27s-projects. Deployment: dpl_2yRE1N5Gcp4EtpWTmdLuBt6ZSRH1; target production; status READY. CLI upload commit c3715fd9c8381d1356561635b6e204c153a5f80a; application runtime unchanged from fa4aa1177e2006a144c628593e6695d4ee257416. Runtime source was verified by exact deployed-file comparisons against local dist.
+Production URL: [PropertyFlow](https://propertyflow-final.vercel.app). Account/team: alssl27 / alssl27s-projects. Deployment: `dpl_B95Rkz7gbkQsTQ11CvGysciNjDuC`; target production; status READY. The uploaded runtime commit is `24fc3886903538ebdfb6d06f90a17dc372b0563a`. Vercel CLI inspection linked the deployment ID, protected unique URL and public production alias. Runtime source was independently verified by exact deployed-file comparisons against local `dist`.
 
-Status reviewed 27 October 2026. These results remain genuine evidence for the named release. They do not verify the newer local IndexedDB persistence and official-validator revision; a fresh deployment identity, complete browser run, screenshots and HTTP/hash comparison must be recorded after that revision is published.
+Status reviewed 27 October 2026. This is the final post-IndexedDB production regression. The earlier 12 October records remain in Git history as genuine evidence for their named release, but the results below supersede them for the current runtime.
 
 ## Real browser verification
 
-Windows, Google Chrome 155.0.8059.39 headless, Playwright 1.64.0. The complete existing browser suite ran against the public HTTPS production alias with no local server. Fourteen tests passed, zero failed, in 52.2 seconds. Enabled axe scans reported no violations in the tested six routes at five widths and property dialog. Local evidence was preserved; deployed screenshots and JSON are under evidence/deployed.
+Windows, installed Google Chrome headless, Playwright 1.64.0. The complete browser suite ran against the public HTTPS production alias with no local server. Fourteen tests passed, zero failed, in 52.704 seconds, starting at `2026-10-27T00:12:20.125Z`. Enabled axe scans reported no violations in the tested six routes at five widths and property dialog. Deployed screenshots and JSON are under `evidence/deployed`. A separate installed Microsoft Edge 156.0.4314.42 run also passed 14/14 in 49.809 seconds, and the deployed forced-colour/reduced-motion suite passed 5/5.
 
 | Test                                                                                  | Actual result |
 | ------------------------------------------------------------------------------------- | ------------- |
@@ -22,7 +22,7 @@ Windows, Google Chrome 155.0.8059.39 headless, Playwright 1.64.0. The complete e
 | B07 responsive 1024px all views and accessibility scan                                | passed        |
 | B07 responsive 1440px all views and accessibility scan                                | passed        |
 | B08 duplicate form submit and unavailable storage retain unsaved form                 | passed        |
-| B09 Web Locks preserve writes from two browser tabs                                   | passed        |
+| B09 IndexedDB transactions preserve two-tab writes without Web Locks                  | passed        |
 | B10 quick actions, property status/filter, notification, unknown route and modal scan | passed        |
 
 Steps and expected outcomes remain executable in tests/browser/workflows.spec.js. Stories and bug references follow test-results.md; the same workflows were now retested after cloud deployment. The suite covered real property/repair/certificate edits, persistence, reset, downloads, navigation/history, keyboard focus, slow/failed loading, corrupt/blocked storage and duplicate/two-tab writes. No uncaught pageerror was observed in monitored B01/B07 flows. Expected caught load failures were deliberately injected in B05.
@@ -43,4 +43,4 @@ node node_modules/@playwright/test/cli.js test --config playwright.deployed.conf
 Remove-Item Env:BASE_URL
 ```
 
-The tests use isolated browser contexts and fictional browser records; they do not write a server database. This recorded release used its then-current localStorage/Web Locks path, while the later local revision replaces authoritative browser persistence with IndexedDB transactions. Static production has no application server logs. Browser assertions and HTTP checks support the runtime assessment; no Vercel-wide monitoring or independent accessibility certification is claimed. A separate fourteen-test Edge run and five preference checks are recorded in additional-verification.md, together with later approved GitHub publication. The scoped agent-operated [native Chrome 200%/400% zoom review](manual-accessibility-review.md) is also complete. Screen-reader speech, physical touch-device and actual OS contrast checks, Firefox/Safari if required, and independent learner usability/authorship review remain unverified. The deployment itself used the CLI.
+The tests use isolated browser contexts and fictional browser records; they do not write a server database. This release uses IndexedDB as the browser authority; the `localStorage` copy is retained only for migration, notification and fallback. Static production has no application server logs. Browser assertions and HTTP checks support the runtime assessment; no Vercel-wide monitoring or independent accessibility certification is claimed. The Edge and preference results are also summarised in [additional verification](additional-verification.md). The scoped agent-operated [native Chrome 200%/400% zoom review](manual-accessibility-review.md) is complete. Screen-reader speech, physical touch-device and actual OS contrast checks, Firefox/Safari if required, and independent learner usability/authorship review remain unverified. The deployment itself used the CLI.

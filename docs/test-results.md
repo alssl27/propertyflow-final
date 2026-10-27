@@ -8,11 +8,11 @@ After that correction, `npm test` passed **24/24**; lint, local HTML validation 
 
 The official hosted checks also ran for the current revision on 27 October: W3C Nu reported **0 errors** for `index.html` (12 informational notices) and **0 errors** for `404.html` (4 informational notices); W3C Jigsaw reported the stylesheet valid with **0 errors** and 16 warnings caused by static analysis of CSS custom properties. Initial official results—4 HTML errors in `index.html`, 1 in `404.html`, and 21 CSS errors—were fixed before that pass.
 
-These are current-revision local results. At the time this section was written, a new production deployment regression had not yet been run. The sections below preserve the 12 October evidence and must not be read as proof of the changed runtime.
+The same runtime was published from commit `24fc3886903538ebdfb6d06f90a17dc372b0563a` as deployment `dpl_B95Rkz7gbkQsTQ11CvGysciNjDuC`. The final production regression passed **14/14** in Chrome, **14/14** in Edge, **5/5** deployed preference checks and **13/13** HTTP/hash checks. The HTTP checks matched every successful response byte-for-byte to the local `dist` and confirmed the custom nested 404. The sections below preserve the earlier 12 October chronology; [deployed test results](deployed-test-results.md) is the current release record.
 
 ## Environment and scope
 
-Windows; Node v26.10.0; npm 11.19.1; Google Chrome 155.0.8059.39 (headless); Playwright 1.64.0; axe integration 4.13.0; ESLint 10.12.0; html-validate 11.16.2; CSS Tree 3.2.1; Prettier 3.9.10. Local URL http://127.0.0.1:4173. Browser plugin absent; regular Playwright was used as permitted by the testing skill. Tests ran on the implemented source after commit 73e93f4; this report and test additions are committed afterwards. This section records the local run. The later cloud run is recorded separately in deployed-test-results.md.
+Windows; Node v26.10.0; npm 11.19.1; installed Google Chrome (headless; 156.0.8078.48 recorded by the final deployed preference runner); Microsoft Edge 156.0.4314.42; Playwright 1.64.0; axe integration 4.13.0; ESLint 10.12.0; html-validate 11.16.2; CSS Tree 3.2.1; Prettier 3.9.10. Local URL http://127.0.0.1:4173; production URL https://propertyflow-final.vercel.app. Browser plugin absent; regular Playwright was used as permitted by the testing skill. Runtime commit `24fc3886903538ebdfb6d06f90a17dc372b0563a` was tested locally and deployed; documentation and evidence updates follow it.
 
 ## Browser workflows — historical 12 October run: 14 passed, zero failed
 
@@ -96,7 +96,7 @@ CSS Tree provides the fast local syntax/property-value check. The hosted Jigsaw 
 
 ## Outstanding / not run
 
-- The 12 October cloud revision passed 14 browser workflows and 13 HTTP/hash checks. See [deployed results](deployed-test-results.md). The production site still requires a fresh deployment and repeat regression for the 27 October IndexedDB change.
+- The 27 October production deployment passed 14 Chrome workflows, 14 Edge workflows, 5 preference checks and 13 HTTP/hash checks. See [deployed results](deployed-test-results.md). No further automated production rerun is outstanding for the recorded runtime.
 - Screen-reader speech, physical touch devices, actual OS high-contrast settings and independent learner usability feedback remain unverified. The scoped agent-operated native Chrome 200%/400% zoom review is complete; see [manual review](manual-accessibility-review.md).
 - Firefox/Safari remain untested. A separate full Edge run subsequently passed; see additional-verification.md.
 - Every possible malformed record and extreme dataset size remain outside scope. Exact 15-second service timeout/cancellation was subsequently tested with virtual time in A14.

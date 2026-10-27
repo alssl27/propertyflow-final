@@ -171,6 +171,17 @@ test("B03 certificates create edit expiry filtering, reports CSV and reset", asy
     fullPage: true,
   });
   await go(page, "settings");
+  const dismissNotifications = page.getByRole("button", {
+    name: "Dismiss notification",
+  });
+  await dismissNotifications.evaluateAll((buttons) =>
+    buttons.forEach((button) => button.click()),
+  );
+  await expect(page.locator("#toast-region")).toBeEmpty();
+  await page.screenshot({
+    path: `${evidenceDir}/settings-desktop.png`,
+    fullPage: true,
+  });
   page.once("dialog", (d) => d.accept());
   await page.getByRole("button", { name: "Reset demo data" }).click();
   await expect(page).toHaveURL(/#dashboard$/);

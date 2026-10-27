@@ -4,7 +4,7 @@
 
 PropertyFlow is a responsive, framework-free educational prototype for a small UK property-management team. It connects a property register, maintenance workflow, certificate dates and portfolio reporting in one browser workspace.
 
-**Status reviewed 27 October 2026. Live site:** [PropertyFlow](https://propertyflow-final.vercel.app), first published to alssl27’s Vercel account on 12 October 2026. The current local revision passed 24 Node tests, 14 Chrome browser tests, five emulated colour/motion checks and the local plus official W3C validators. The recorded production release passed 14 deployed Chrome tests, 14 deployed Edge tests and 13 HTTP/hash checks; the 27 October IndexedDB runtime revision still needs a fresh production deployment and rerun. Real screenshots and initial failure/retest evidence are retained. Human accessibility checks and learner verification remain outstanding; the assessment has not been submitted.
+**Status reviewed 27 October 2026. Live site:** [PropertyFlow](https://propertyflow-final.vercel.app), first published to alssl27’s Vercel account on 12 October 2026 and refreshed with the current IndexedDB revision on 27 October. The current revision passed 24 Node tests, 14 local Chrome tests, 14 deployed Chrome tests, 14 deployed Edge tests, five deployed colour/motion preference checks, 13 deployed HTTP/hash checks and the local plus official W3C validators. Real screenshots and initial failure/retest evidence are retained. Human accessibility checks and learner verification remain outstanding; the assessment has not been submitted.
 
 ## Purpose, users and goals
 
@@ -117,7 +117,7 @@ The postcode check validates format, not postal existence. No repair SLA or lega
 
 [Actual results](docs/test-results.md), [methodology](docs/testing-methodology.md), [test plan](docs/test-plan.md) and [bug report](docs/bug-report.md) distinguish observed passes from outstanding checks. The 24 Node tests cover calculations, search/filter, validation, duplicates, dates, transitions, CSV, concurrent writes, rejected requests, reset safety, corrupt storage, exact timeout cancellation and out-of-order responses. The 14 browser tests cover the main workflows, keyboard navigation, storage, two-tab writes, failure recovery and five responsive widths.
 
-The initial browser run had six failures: dialog focus and dashboard ARIA/contrast issues. A later stress run exposed a real cross-tab lost-update race in the localStorage design; IndexedDB transactions replaced that authoritative path. Focused regression, repeated concurrency tests with Web Locks deliberately unavailable and the complete current local suite passed after the fix; a production deployment rerun is still required. This is not a claim that every browser, device or possible action was tested. HTML/CSS checks now include html-validate, CSS Tree, the official W3C Nu HTML validator and the official W3C Jigsaw CSS validator.
+The initial browser run had six failures: dialog focus and dashboard ARIA/contrast issues. A later stress run exposed a real cross-tab lost-update race in the localStorage design; IndexedDB transactions replaced that authoritative path. Focused regression, repeated concurrency tests with Web Locks deliberately unavailable, the complete local suite and the deployed Chrome/Edge suites passed after the fix. This is not a claim that every browser, device or possible action was tested. HTML/CSS checks now include html-validate, CSS Tree, the official W3C Nu HTML validator and the official W3C Jigsaw CSS validator.
 
 ## Real screenshots
 
@@ -135,7 +135,7 @@ The supplied folder was not a Git repository. The first genuine commit preserves
 
 Vercel is the live hosting platform. The build command is npm run build, output is dist, framework is Other, install command is npm ci, and no app secrets are needed. The output contains the website and quick guide, excluding assessment evidence and test tooling. A root-level 404.html offers a direct Return to Dashboard link without a timer or redirect loop; unknown JSON requests remain errors.
 
-Published through the CLI to the explicitly selected alssl27 account. [deployment.md](docs/deployment.md) records the real deployment identity/settings; [deployed test results](docs/deployed-test-results.md) distinguish the verified 12 October release from any later rerun. **Live site: [PropertyFlow](https://propertyflow-final.vercel.app). GitHub repository: [alssl27/propertyflow-final](https://github.com/alssl27/propertyflow-final).**
+Published through the CLI to the explicitly selected alssl27 account. [deployment.md](docs/deployment.md) records the current deployment identity/settings; [deployed test results](docs/deployed-test-results.md) record the 27 October Chrome, Edge, preference and HTTP/hash reruns. **Live site: [PropertyFlow](https://propertyflow-final.vercel.app). GitHub repository: [alssl27/propertyflow-final](https://github.com/alssl27/propertyflow-final).**
 
 ## Assessment and final preparation
 

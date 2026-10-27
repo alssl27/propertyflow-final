@@ -19,8 +19,7 @@ Status reviewed 27 October 2026. Checked items refer to the recorded local and d
 - [x] Automated axe checks across six routes at five widths and property dialog.
 - [x] Keyboard skip link, dialog focus, Escape, history and validation checks.
 - [ ] Learner screen-reader test with NVDA/VoiceOver or equivalent.
-- [x] Recorded release: full deployed Edge regression run and emulated forced-colour/reduced-motion checks.
-- [ ] Final IndexedDB revision: repeat the deployed Chrome/Edge regression after publication.
+- [x] Final IndexedDB revision: full deployed Chrome/Edge regression and emulated forced-colour/reduced-motion checks.
 - [x] Native Chrome 200%/400% zoom review of overview, register, search and property dialog.
 - [ ] Actual OS contrast mode, physical touch device and Firefox/Safari if required.
 
@@ -33,10 +32,10 @@ Status reviewed 27 October 2026. Checked items refer to the recorded local and d
 ## Testing
 
 - [x] Final local revision: 24 Node tests, 14 Chrome tests and five emulated preference checks pass.
-- [x] Recorded release: deployed Chrome and Edge passed 14 tests each.
+- [x] Final deployed revision: Chrome and Edge passed 14 tests each; five preference checks passed.
 - [x] Failed initial browser run, fixes and actual screenshots retained.
 - [ ] Learner performs and records independent manual usability tests.
-- [ ] Repeat all 14 browser tests on the deployed final runtime; record results/screenshots separately.
+- [x] Repeat all 14 browser tests on the deployed final runtime; record results/screenshots separately.
 
 ## User stories and screenshots
 
@@ -55,8 +54,8 @@ Status reviewed 27 October 2026. Checked items refer to the recorded local and d
 - [x] Vercel static configuration, copy build and deployment guide prepared.
 - [x] User approved Vercel publication.
 - [x] User selected alssl27; publish successfully using its authorised CLI login.
-- [x] Recorded release: verify live workflows plus 13 HTTP/hash checks, including custom 404 and release match.
-- [ ] Publish and verify the final IndexedDB revision; replace deployment identity/hashes with the new evidence.
+- [x] Final revision: verify live workflows plus 13 HTTP/hash checks, including custom 404 and exact release match.
+- [x] Publish and verify the final IndexedDB revision; replace deployment identity/hashes with the new evidence.
 - [x] Add verified live URL and separate deployment evidence.
 
 ## README

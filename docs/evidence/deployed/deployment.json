@@ -1,18 +1,28 @@
 {
-  "date": "2026-10-12",
+  "date": "2026-10-27",
   "productionURL": "https://propertyflow-final.vercel.app",
-  "uniqueURL": "https://propertyflow-final-8jc3nj4h0-alssl27s-projects.vercel.app",
-  "deploymentId": "dpl_2yRE1N5Gcp4EtpWTmdLuBt6ZSRH1",
+  "uniqueURL": "https://propertyflow-final-fr19uiyjx-alssl27s-projects.vercel.app",
+  "deploymentId": "dpl_B95Rkz7gbkQsTQ11CvGysciNjDuC",
   "projectId": "prj_9Gj6lEVAxzUbAZ3ual8kmilll2dn",
   "teamSlug": "alssl27s-projects",
   "teamId": "team_MkzLGUM1fbtgA7ElYcaDZLxT",
   "target": "production",
   "readyState": "READY",
-  "localCommitAtUpload": "c3715fd9c8381d1356561635b6e204c153a5f80a",
-  "runtimeBaselineCommit": "fa4aa1177e2006a144c628593e6695d4ee257416",
-  "buildDurationSeconds": 7,
-  "deployedBrowserTests": {
+  "localCommitAtUpload": "24fc3886903538ebdfb6d06f90a17dc372b0563a",
+  "runtimeBaselineCommit": "24fc3886903538ebdfb6d06f90a17dc372b0563a",
+  "buildDurationSeconds": 6,
+  "deployedChromeTests": {
     "passed": 14,
+    "failed": 0,
+    "durationMs": 52704.623
+  },
+  "deployedEdgeTests": {
+    "passed": 14,
+    "failed": 0,
+    "durationMs": 49808.972
+  },
+  "preferenceAccessibilityChecks": {
+    "passed": 5,
     "failed": 0
   },
   "httpChecks": {
@@ -20,5 +30,6 @@
     "failed": 0
   },
   "publicProductionAlias": true,
-  "notes": "CLI metadata recorded the runtime baseline commit; the upload commit adds only deployment/test configuration. Successful HTTP responses matched local dist bytes exactly."
+  "uniqueURLProtected": true,
+  "notes": "Vercel CLI inspection linked this production deployment ID, immutable URL and public aliases. Exact-byte HTTP checks used the public production alias because the immutable URL retained Vercel Authentication; protection was not disabled. Runtime files matched local dist from the upload commit."
 }

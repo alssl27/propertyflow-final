@@ -6,7 +6,7 @@ const deploymentURL = process.env.DEPLOYMENT_URL;
 const deploymentId = process.env.DEPLOYMENT_ID;
 if (!deploymentURL)
   throw new Error(
-    "Set DEPLOYMENT_URL to the inspected immutable deployment URL.",
+    "Set DEPLOYMENT_URL to the verified Vercel deployment origin.",
   );
 if (!deploymentId)
   throw new Error(
@@ -94,6 +94,8 @@ const passed = results.filter((result) => result.passed).length;
 const report = {
   deploymentURL: origin,
   deploymentId,
+  deploymentIdSource:
+    "Label copied from the separately retained Vercel CLI deployment inspection.",
   checkedAt: new Date().toISOString(),
   localRevision: revision,
   kind: "Read-only HTTP smoke and exact-byte comparison against local dist",

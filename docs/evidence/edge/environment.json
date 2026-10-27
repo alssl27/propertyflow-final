@@ -1,11 +1,11 @@
 {
-  "date": "2026-10-12",
+  "date": "2026-10-27",
   "baseURL": "https://propertyflow-final.vercel.app",
   "operatingSystem": "Windows",
   "browser": "Microsoft Edge",
   "channel": "msedge",
-  "browserVersion": "155.0.4283.45",
-  "browserVersionEvidence": "Installed msedge.exe FileVersion and ProductVersion",
+  "browserVersion": "156.0.4314.42",
+  "browserVersionEvidence": "Playwright browser.version() from the installed msedge channel",
   "nodeVersion": "v26.10.0",
   "playwrightVersion": "1.64.0",
   "headless": true,
@@ -17,14 +17,14 @@
     "failed": 0,
     "skipped": 0,
     "flaky": 0,
-    "durationMs": 56243.571
+    "durationMs": 49808.972
   },
-  "command": "$env:BASE_URL = 'https://propertyflow-final.vercel.app'; .\\node_modules\\.bin\\playwright.cmd test --config=playwright.edge.config.js",
-  "browserAvailability": "Browser plugin not available; existing Playwright suite used",
-  "launchEnvironment": "Executed outside sandbox after sandbox browser startup closed before any application interaction, with Crashpad pipe/profile file errors",
+  "command": "$env:BASE_URL = 'https://propertyflow-final.vercel.app'; npm run test:edge",
+  "browserAvailability": "Browser plugin not available; installed Edge was exercised through Playwright",
+  "launchEnvironment": "Normal installed Edge launch through the shared Playwright configuration",
   "visualInspection": {
     "desktop": "dashboard-1440.png inspected: meaningful content, readable layout, aligned cards, navigation and controls; no visible overlap or error overlay",
     "mobile": "dashboard-320.png inspected: single-column content, mobile navigation control and bounded horizontal table region; no visible page overflow or error overlay"
   },
-  "scope": "Unmodified shared 14-test suite, including six routes at five widths, axe scans, form validation, CRUD, persistence, tab writes, CSV export and error recovery. No app runtime files edited."
+  "scope": "Current shared 14-test suite, including six routes at five widths, axe scans, form validation, CRUD, IndexedDB persistence, Web-Locks-disabled tab writes, CSV export and error recovery."
 }

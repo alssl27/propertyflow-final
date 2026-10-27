@@ -1,12 +1,12 @@
 # Additional verification — 12 October baseline, 27 October 2026 update
 
-The Edge, preference and expanded-service sections below record the 12 October revision. No application runtime files changed during those checks, and Chrome/deployed evidence was preserved in its existing folders. Application runtime files changed before the 27 October current-revision run; therefore the older production evidence is not presented as verification of the new IndexedDB persistence implementation.
+The expanded-service history begins with the 12 October revision. The Edge, preference and browser evidence below was regenerated against the final 27 October production deployment so the current IndexedDB runtime, rather than the superseded release, is represented.
 
 ## IndexedDB race regression — 27 October
 
 The full local browser suite first returned 13/14 because B09 lost a write. Ten focused repetitions of the old implementation failed four times, confirming that Web Locks did not prevent a browser process from reading a stale `localStorage` cache. Browser persistence now uses IndexedDB as the authority, with each read/validate/mutate/write sequence in one `readwrite` transaction.
 
-After the fix, B05 (corrupt workspace recovery), B08 (failed write and retained form) and B09 passed together, **3/3**. B09 then passed **10/10** repeated runs with `navigator.locks` deliberately unavailable. Each run makes 20 simultaneous two-tab write pairs and checks all records from both pages plus a fresh third page: **400 writes** were retained across the stress retest. This isolates the IndexedDB transaction guarantee instead of relying on Web Locks. The complete local browser suite subsequently passed **14/14**, and the local forced-colour/reduced-motion suite passed **5/5**. The current deployed suite was still pending at the time of this entry.
+After the fix, B05 (corrupt workspace recovery), B08 (failed write and retained form) and B09 passed together, **3/3**. B09 then passed **10/10** repeated runs with `navigator.locks` deliberately unavailable. Each run makes 20 simultaneous two-tab write pairs and checks all records from both pages plus a fresh third page: **400 writes** were retained across the stress retest. This isolates the IndexedDB transaction guarantee instead of relying on Web Locks. The complete local browser suite subsequently passed **14/14**, and the local forced-colour/reduced-motion suite passed **5/5**. After deployment, Chrome passed **14/14**, Edge passed **14/14**, the live preference suite passed **5/5**, and the independent HTTP/hash verifier passed **13/13**.
 
 ## Official validators — 27 October
 
@@ -14,13 +14,13 @@ The first official run identified four errors in `index.html`, one in `404.html`
 
 ## Edge cross-browser run
 
-Microsoft Edge 155.0.4283.45, Windows, Node v26.10.0, Playwright 1.64.0, headless. All fourteen shared workflows passed with zero failures, skips or flaky tests in 56.2 seconds. Six routes were scanned at 320, 375, 768, 1024 and 1440px, including keyboard/form/persistence/history/CSV/error/two-tab journeys and enabled axe checks. The desktop and mobile screenshots were visually inspected. Edge's initial sandbox startup failed before app interaction; the unchanged suite succeeded with authorised host/browser access.
+Microsoft Edge 156.0.4314.42, Windows, Node v26.10.0, Playwright 1.64.0, headless. All fourteen shared workflows passed against https://propertyflow-final.vercel.app with zero failures, skips or flaky tests in 49.809 seconds, starting at `2026-10-27T00:13:18.108Z`. Six routes were scanned at 320, 375, 768, 1024 and 1440px, including keyboard/form/persistence/history/CSV/error/two-tab journeys and enabled axe checks. The desktop and mobile screenshots were visually inspected.
 
 [Actual Edge JSON](evidence/edge/browser-results.json) · [Environment and scope](evidence/edge/environment.json) · [Desktop](evidence/edge/dashboard-1440.png) · [320px](evidence/edge/dashboard-320.png)
 
 ## Colour and motion preferences
 
-Five checks AC01–AC05 passed in Chrome on the live site at 375×1000. Playwright emulated forced-colors: active and prefers-reduced-motion: reduce. Media queries became active; six headings remained visible, page-wide overflow was absent and hidden mobile navigation stayed inert. The sidebar transition was reduced to 0.00001 seconds. Form validation remained text-described, focused the first invalid input and supported Escape. No uncaught pageerror occurred.
+Five checks AC01–AC05 passed in Chrome 156.0.8078.48 on the final live site at 375×1000 on 27 October 2026. Playwright emulated forced-colors: active and prefers-reduced-motion: reduce. Media queries became active; six headings remained visible, page-wide overflow was absent and hidden mobile navigation stayed inert. The sidebar transition was reduced to 0.00001 seconds. Form validation remained text-described, focused the first invalid input and supported Escape. No uncaught pageerror occurred.
 
 [Exact results](evidence/accessibility/results.json) · [Dashboard](evidence/accessibility/forced-colours-dashboard.png) · [Form error](evidence/accessibility/forced-colours-form-error.png)
 

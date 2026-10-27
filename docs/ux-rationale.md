@@ -47,4 +47,4 @@ ESLint, html-validate, CSS Tree, the official W3C Nu HTML validator and the offi
 
 ## Verified revision
 
-The original 12 October 2026 browser run checked all six views at five widths and modal accessibility. The 26 October revision adds official-validator results and transactional browser persistence, with current retest scope recorded in test-results.md. Human checks remain separate.
+The original 12 October 2026 browser run checked all six views at five widths and modal accessibility. The final 27 October revision adds official-validator results and transactional browser persistence. It passed the current local Chrome and preference suites, then the full production Chrome, Edge, preference and HTTP/hash checks recorded in [test results](test-results.md). Human checks remain separate.
