@@ -1,6 +1,6 @@
 # Final submission checklist
 
-12 October 2026. Checked items refer to the recorded local and deployed scope. The site is published on Vercel; the assessment has not been submitted.
+Status reviewed 27 October 2026. Checked items refer to the recorded local and deployed scope; they do not imply assessor approval. The site is published on Vercel; the assessment has not been submitted.
 
 ## Application functionality
 
@@ -11,7 +11,7 @@
 ## Code quality
 
 - [x] Vanilla modules retained; formatted and linted source.
-- [x] HTML and CSS checked with named tools; local link check available.
+- [x] HTML and CSS checked locally and with the official W3C Nu HTML and Jigsaw CSS validators; local link check available.
 - [x] No runtime packages; development tools documented and lockfile retained.
 
 ## Accessibility
@@ -19,7 +19,8 @@
 - [x] Automated axe checks across six routes at five widths and property dialog.
 - [x] Keyboard skip link, dialog focus, Escape, history and validation checks.
 - [ ] Learner screen-reader test with NVDA/VoiceOver or equivalent.
-- [x] Full deployed Edge regression run and emulated forced-colour/reduced-motion checks.
+- [x] Recorded release: full deployed Edge regression run and emulated forced-colour/reduced-motion checks.
+- [ ] Final IndexedDB revision: repeat the deployed Chrome/Edge regression after publication.
 - [x] Native Chrome 200%/400% zoom review of overview, register, search and property dialog.
 - [ ] Actual OS contrast mode, physical touch device and Firefox/Safari if required.
 
@@ -31,15 +32,17 @@
 
 ## Testing
 
-- [x] Expanded 24 Node tests; original 14 local Chrome tests; deployed Chrome and Edge 14 tests each.
+- [x] Final local revision: 24 Node tests, 14 Chrome tests and five emulated preference checks pass.
+- [x] Recorded release: deployed Chrome and Edge passed 14 tests each.
 - [x] Failed initial browser run, fixes and actual screenshots retained.
 - [ ] Learner performs and records independent manual usability tests.
-- [x] Repeat all 14 browser tests on deployed origin; record results/screenshots separately.
+- [ ] Repeat all 14 browser tests on the deployed final runtime; record results/screenshots separately.
 
 ## User stories and screenshots
 
 - [x] US01–US10 defined; evidence mapped to genuine captures.
-- [ ] Learner checks course-specific screenshot requirements and adds any additional requested evidence.
+- [x] Supplied Unit 2 specification reviewed: criterion 3.3 requires finished-project screenshots aligned to user stories; the US01–US10 evidence map supplies that mapping.
+- [ ] Learner checks the portal/tutor instructions for any additional screenshot or upload requirements.
 
 ## Git/GitHub
 
@@ -52,7 +55,8 @@
 - [x] Vercel static configuration, copy build and deployment guide prepared.
 - [x] User approved Vercel publication.
 - [x] User selected alssl27; publish successfully using its authorised CLI login.
-- [x] Verify live workflows plus 13 HTTP/hash checks, including custom 404 and release match.
+- [x] Recorded release: verify live workflows plus 13 HTTP/hash checks, including custom 404 and release match.
+- [ ] Publish and verify the final IndexedDB revision; replace deployment identity/hashes with the new evidence.
 - [x] Add verified live URL and separate deployment evidence.
 
 ## README
@@ -69,7 +73,7 @@
 
 ## Merit evidence
 
-- [x] Local missing-path recovery, logical commits, user stories, design and bug/test documentation.
+- [x] Local missing-path recovery, genuine traceable history, user stories, design and bug/test documentation. The large revision and vague `final commit` are disclosed rather than rewritten.
 - [x] Cloud nested missing-path test.
 - [ ] Remaining human accessibility checks.
 
@@ -81,11 +85,11 @@
 - [ ] Confirm assessment-specific AI permission and follow the required declaration process.
 - [ ] Demonstrate and explain the project independently; no grade is guaranteed.
 
-Native UI results: [MANUAL-ACCESSIBILITY-REVIEW.md](MANUAL-ACCESSIBILITY-REVIEW.md). Prepared materials: [PROJECT-EVALUATION.md](PROJECT-EVALUATION.md), [AI-ASSISTANCE-DISCLOSURE.md](AI-ASSISTANCE-DISCLOSURE.md) and [ACADEMIC-INTEGRITY-REVIEW.md](ACADEMIC-INTEGRITY-REVIEW.md). Unperformed speech/device/learner checks stay unchecked.
+Native UI results: [manual-accessibility-review.md](manual-accessibility-review.md). Prepared materials: [project-evaluation.md](project-evaluation.md), [ai-assistance-disclosure.md](ai-assistance-disclosure.md) and [academic-integrity-review.md](academic-integrity-review.md). Unperformed speech/device/learner checks stay unchecked.
 
-## Review package — 14 October 2026
+## Review package — updated 27 October 2026
 
-- [x] Ordered [demonstration instructions](DEMONSTRATION-WALKTHROUGH.md) and [review route/packaging instructions](SUBMISSION-PACKAGE.md) prepared.
+- [x] Ordered [demonstration instructions](demonstration-walkthrough.md) and [review route/packaging instructions](submission-package.md) prepared.
 - [x] Separate live Settings screenshot added to the evidence checklist, with actual capture date and scope.
 - [ ] Learner verifies the actual submission portal's accepted files, size limits and declaration requirements before upload.
 

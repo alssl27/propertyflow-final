@@ -1,6 +1,6 @@
 # Demonstration walkthrough
 
-Prepared on 14 October 2026. These are practice instructions and expected outcomes, not a record of a learner demonstration. Allow about 10–15 minutes. Record your own observations separately using the [results template](TEST-RESULTS-TEMPLATE.md).
+Prepared on 14 October 2026. These are practice instructions and expected outcomes, not a record of a learner demonstration. Allow about 10–15 minutes. Record your own observations separately using the [results template](test-results-template.md).
 
 Open the [live app](https://propertyflow-final.vercel.app) in a fresh browser profile or private window. This gives a separate fictional workspace. Reload persistence can be demonstrated within the same private session; closing it may remove its storage. Existing saved workspaces can have different totals from the seed values below.
 
@@ -18,10 +18,10 @@ Open the [live app](https://propertyflow-final.vercel.app) in a fresh browser pr
 | 10. Keyboard and history | Navigate to Properties, open Add property, move through controls using Tab/Shift+Tab, use Escape, then try browser Back/Forward between views.                             | Focus stays in the modal while open; Escape closes it and returns focus. Hash routes support browser history. Explain native dialogs, focus management, described errors and the limits of automated accessibility checks.    |
 | 11. Reset                | In this separate demo session, open Settings and Reset demo data, then confirm.                                                                                            | The fictional seed workspace is restored: 8 properties and no Review Lane record. Explain that replacement data is fetched and validated before the atomic save; failed resets preserve the old snapshot.                     |
 
-For missing-path recovery, open [an unknown page](https://propertyflow-final.vercel.app/demonstration/missing-page) and use Return to Dashboard. The expected HTTP result is 404 with the custom page; missing JSON assets also remain errors. Existing production verification is in [deployed results](DEPLOYED-TEST-RESULTS.md).
+For missing-path recovery, open [an unknown page](https://propertyflow-final.vercel.app/demonstration/missing-page) and use Return to Dashboard. The expected HTTP result is 404 with the custom page; missing JSON assets also remain errors. Existing production verification is in [deployed results](deployed-test-results.md).
 
 ## Explain the code and evidence
 
-Open `assets/js/domain.js` for pure calculations/validation, `assets/js/api.js` for Fetch/Promise.all/AbortController and queued persistence, and `assets/js/app.js` for routing/events/rendering. Use tests A01/A13–A16 to explain overlapping writes, out-of-order fetch completion, rejection and virtual timeout cancellation. See the [handover](LEARNER-HANDOVER.md) for worked assessor questions.
+Open `assets/js/domain.js` for pure calculations/validation, `assets/js/api.js` for Fetch/Promise.all/AbortController and queued persistence, and `assets/js/app.js` for routing/events/rendering. Use tests A01/A13–A16 to explain overlapping writes, out-of-order fetch completion, rejection and virtual timeout cancellation. See the [handover](learner-handover.md) for worked assessor questions.
 
-Compare initial browser failures with their fixes in the [bug report](BUG-REPORT.md) and [actual test results](TEST-RESULTS.md). Attribute the [native zoom review](MANUAL-ACCESSIBILITY-REVIEW.md) and other recorded checks to their real methods. A walkthrough does not replace screen-reader speech testing or independent usability feedback. Write your own explanation and reflection, and use the [disclosure](AI-ASSISTANCE-DISCLOSURE.md) according to the applicable course rules.
+Compare initial browser failures with their fixes in the [bug report](bug-report.md) and [actual test results](test-results.md). Attribute the [native zoom review](manual-accessibility-review.md) and other recorded checks to their real methods. A walkthrough does not replace screen-reader speech testing or independent usability feedback. Write your own explanation and reflection, and use the [disclosure](ai-assistance-disclosure.md) according to the applicable course rules.

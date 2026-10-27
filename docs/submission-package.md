@@ -1,15 +1,15 @@
 # Submission package and review route
 
-Prepared on 14 October 2026. This is a review package, not evidence that the assessment has been submitted or accepted. The course's actual upload requirements still need checking.
+Updated on 27 October 2026. This is a review package, not evidence that the assessment has been submitted or accepted. The supplied Unit 2 specification has been reviewed; the actual portal/tutor upload and declaration requirements still need checking.
 
 ## Start here
 
 1. Open the [live application](https://propertyflow-final.vercel.app) and [public repository](https://github.com/alssl27/propertyflow-final).
-2. Read the [final report](FINAL-REPORT.md) for the implementation and recorded verification scope.
-3. Use the [criteria matrix](ASSESSMENT-CRITERIA-MATRIX.md) and [evidence checklist](EVIDENCE-CHECKLIST.md) to locate features, tests and genuine screenshots.
-4. Practise the [demonstration walkthrough](DEMONSTRATION-WALKTHROUGH.md), with the [learner handover](LEARNER-HANDOVER.md) for code explanations.
-5. Review the [assisted evaluation](PROJECT-EVALUATION.md), [AI disclosure](AI-ASSISTANCE-DISCLOSURE.md) and [policy review](ACADEMIC-INTEGRITY-REVIEW.md). Record your own review and verify the applicable assessment rules.
-6. Complete the remaining items in the [final checklist](FINAL-SUBMISSION-CHECKLIST.md) before making an actual submission.
+2. Read the [final report](final-report.md) for the implementation and recorded verification scope.
+3. Use the [criteria matrix](assessment-criteria-matrix.md) and [evidence checklist](evidence-checklist.md) to locate features, tests and genuine screenshots.
+4. Practise the [demonstration walkthrough](demonstration-walkthrough.md), with the [learner handover](learner-handover.md) for code explanations.
+5. Review the [assisted evaluation](project-evaluation.md), [AI disclosure](ai-assistance-disclosure.md) and [policy review](academic-integrity-review.md). Record your own review and verify the applicable assessment rules.
+6. Complete the remaining items in the [final checklist](final-submission-checklist.md) before making an actual submission.
 
 ## Create the package
 
@@ -40,6 +40,6 @@ Replace `COMMIT` with the short identifier printed in the generated filename. Re
 
 ## Remaining evidence requiring the learner
 
-The completed native Chrome zoom review is agent-operated evidence. Screen-reader speech, actual OS contrast mode, a physical touch device and any required Firefox/Safari checks remain unverified. Independent usability feedback, understanding and endorsement of the evaluation, course-specific screenshot requirements and assessment-specific AI permission cannot be established by packaging files. The [manual checklist](../tests/MANUAL-TEST-CHECKLIST.md) and [results template](TEST-RESULTS-TEMPLATE.md) are ready for actual observations.
+The completed native Chrome zoom review is agent-operated evidence. Screen-reader speech, actual OS contrast mode, a physical touch device and any required Firefox/Safari checks remain unverified. Independent usability feedback, understanding and endorsement of the evaluation, portal/tutor-specific screenshot or file requirements, and assessment-specific AI permission cannot be established by packaging files. The supplied Unit 2 criterion 3.3 screenshot requirement is mapped in the [course specification review](course-specification-review.md) and [evidence checklist](evidence-checklist.md). The [manual checklist](../tests/manual-test-checklist.md) and [results template](test-results-template.md) are ready for actual observations.
 
 No assessment portal upload, tutor message or personal declaration has been performed.

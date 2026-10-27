@@ -30,10 +30,12 @@
  *   • Write the cyclePropertyStatus, advanceRepair and removeProperty helpers
  *     that integrate with the api.js queue.
  *   • Implement the CSV export with BOM and formula-protection.
- *   • Wire the storage event listener for cross-tab awareness.
+ *   • Wire the compatibility-mirror storage event for cross-tab awareness.
  *   • Author all inline comments, JSDoc descriptions and section headers.
  * All generated code was reviewed, the 14 browser tests (tests/browser/
  * workflows.spec.js) verify the visible behaviour end-to-end.
+ * OpenAI Codex later updated the visible storage explanation when IndexedDB
+ * transactions became the authoritative persistence mechanism.
  *
  * CRITERIA ADDRESSED
  * ------------------
@@ -85,7 +87,7 @@ const repairModal = document.querySelector("#repair-modal"); // <dialog> for add
 /**
  * state — the single source of truth for all in-memory application data.
  * The UI is always derived from this object; render() reads it and writes HTML.
- * api.js maintains the localStorage copy; state is the live in-memory mirror.
+ * api.js maintains browser persistence; state is the live in-memory mirror.
  */
 const state = {
   properties: [], // array of property records loaded from storage
@@ -533,7 +535,7 @@ function renderProperties() {
     state.statusFilter,
   );
   // Build the full view HTML; selected values are re-applied so filters survive re-renders
-  return `${pageHeading("PROPERTY REGISTER", "Properties", "Manage addresses, occupancy and rent details.", '<button class="button button-primary" data-action="add-property"><span class="plus">+</span> Add property</button>')}<section class="panel"><div class="toolbar-row"><label class="search-box"><span aria-hidden="true">⌕</span><span class="sr-only">Search properties</span><input id="property-search" type="search" value="${escapeHTML(state.search)}" placeholder="Search address, postcode or bedrooms…" autocomplete="off"></label><label class="sr-only" for="property-status-filter">Filter by status</label><select class="filter-select" id="property-status-filter"><option value="all" ${state.statusFilter === "all" ? "selected" : ""}>All statuses</option><option value="occupied" ${state.statusFilter === "occupied" ? "selected" : ""}>Occupied</option><option value="vacant" ${state.statusFilter === "vacant" ? "selected" : ""}>Vacant</option><option value="maintenance" ${state.statusFilter === "maintenance" ? "selected" : ""}>Maintenance</option></select><button class="button button-secondary button-small" data-action="clear-property-filters">Clear filters</button></div><div class="results-meta" id="property-results" role="status">Showing ${list.length} of ${state.properties.length} properties</div><div class="table-wrap"><table><thead><tr><th>Property</th><th>Bedrooms</th><th>Monthly rent</th><th>Status</th><th>Actions</th></tr></thead><tbody id="property-table-body">${propertyRows(list, true)}</tbody></table></div></section><p class="compliance-table-note">Sample portfolio records are stored in this browser using localStorage. Do not enter real tenant or landlord personal data.</p>`;
+  return `${pageHeading("PROPERTY REGISTER", "Properties", "Manage addresses, occupancy and rent details.", '<button class="button button-primary" data-action="add-property"><span class="plus">+</span> Add property</button>')}<section class="panel"><div class="toolbar-row"><label class="search-box"><span aria-hidden="true">⌕</span><span class="sr-only">Search properties</span><input id="property-search" type="search" value="${escapeHTML(state.search)}" placeholder="Search address, postcode or bedrooms…" autocomplete="off"></label><label class="sr-only" for="property-status-filter">Filter by status</label><select class="filter-select" id="property-status-filter"><option value="all" ${state.statusFilter === "all" ? "selected" : ""}>All statuses</option><option value="occupied" ${state.statusFilter === "occupied" ? "selected" : ""}>Occupied</option><option value="vacant" ${state.statusFilter === "vacant" ? "selected" : ""}>Vacant</option><option value="maintenance" ${state.statusFilter === "maintenance" ? "selected" : ""}>Maintenance</option></select><button class="button button-secondary button-small" data-action="clear-property-filters">Clear filters</button></div><div class="results-meta" id="property-results" role="status">Showing ${list.length} of ${state.properties.length} properties</div><div class="table-wrap"><table><thead><tr><th>Property</th><th>Bedrooms</th><th>Monthly rent</th><th>Status</th><th>Actions</th></tr></thead><tbody id="property-table-body">${propertyRows(list, true)}</tbody></table></div></section><p class="compliance-table-note">Sample portfolio records are stored in this browser. Do not enter real tenant or landlord personal data.</p>`;
 }
 
 /**
@@ -1321,12 +1323,18 @@ function exportCsv() {
 /**
  * renderSettings — builds the Settings view HTML.
  * Describes the browser-storage workspace and provides the Reset demo data
- * button.  The Web Locks availability message adapts to the browser.
+ * button. The persistence explanation adapts to browser capabilities.
  *
  * @returns {string}  HTML for the Settings view.
  */
 function renderSettings() {
-  return `${pageHeading("WORKSPACE SETTINGS", "Settings", "Manage fictional records saved in this browser.")}<section class="panel report-card"><h2>Your browser workspace</h2><p>Changes are saved in localStorage on this device and origin. This demonstration has no account, server or cross-device synchronisation. Use fictional data only.</p><p>Reset replaces properties, repairs and certificates with the original records. A failed download or save leaves the existing workspace intact.</p><button class="button button-primary" data-action="reset-demo">Reset demo data</button><p>Operations in this tab are queued. ${navigator.locks ? "Web Locks also coordinate cooperating tabs." : "Web Locks are unavailable: edit in only one tab to avoid cross-tab conflicts."}</p></section>`;
+  const persistence =
+    "indexedDB" in globalThis
+      ? "IndexedDB transactions protect complete read-and-write operations across tabs."
+      : navigator.locks
+        ? "This browser uses the localStorage fallback; Web Locks coordinate cooperating tabs."
+        : "This browser uses the localStorage fallback without cross-tab transactions, so edit in only one tab.";
+  return `${pageHeading("WORKSPACE SETTINGS", "Settings", "Manage fictional records saved in this browser.")}<section class="panel report-card"><h2>Your browser workspace</h2><p>Changes are saved in browser storage on this device and origin. This demonstration has no account, server or cross-device synchronisation. Use fictional data only.</p><p>Reset replaces properties, repairs and certificates with the original records. A failed download or save leaves the existing workspace intact.</p><button class="button button-primary" data-action="reset-demo">Reset demo data</button><p>Operations in this tab are queued. ${persistence}</p></section>`;
 }
 
 /**
@@ -1520,8 +1528,8 @@ document.querySelectorAll("dialog").forEach((dialog) => {
 
 // ─── Cross-tab storage awareness ─────────────────────────────────────────────
 
-// Listen for changes made by another browser tab to the same localStorage key.
-// When detected, show a toast so the user knows they should refresh.
+// The persistence service mirrors committed data to this localStorage key so
+// other tabs receive a standard storage event and can prompt the user to refresh.
 window.addEventListener("storage", (event) => {
   if (event.key === "propertyflow.workspace.v2")
     // only react to our own key

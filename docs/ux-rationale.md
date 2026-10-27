@@ -25,7 +25,7 @@ The primary user is a property manager or administrator who needs to switch betw
 
 The page includes a skip link, semantic header/navigation/main/footer landmarks, a page title, explicit form labels, keyboard focus styles, text-based status labels, live announcements and reduced-motion styling. The sidebar becomes a controlled overlay on small screens. Tables remain horizontally scrollable on narrow screens instead of collapsing data into ambiguous fragments.
 
-These measures are intended to support WCAG-aligned practice, but the project has not been independently certified as conformant. Keyboard, zoom, contrast and screen-reader checks must be performed and documented before submission.
+These measures are intended to support WCAG-aligned practice, but the project has not been independently certified as conformant. Scripted keyboard checks, native Chrome 200%/400% zoom review and emulated forced-colour/reduced-motion checks are recorded. Screen-reader speech, an actual operating-system contrast mode, a physical touch device and independent participant usability still require genuine human observations.
 
 ## Visual system
 
@@ -39,12 +39,12 @@ These measures are intended to support WCAG-aligned practice, but the project ha
 
 - The supplied illustrative financial trend was removed. Status bars and the compliance ring now reflect current records. No historical financial values are invented.
 - The confirmation dialog for deletion uses the browser's native confirm prompt. It is simple and familiar, but a production version could use a custom accessible confirmation dialog for consistent styling.
-- Data is stored locally in the browser and initial JSON fetching is asynchronous and storage operations are queued. This is suitable for demonstrating front-end behaviour, not multi-user property operations or confidential data.
+- Data is stored locally in the browser. IndexedDB transactions are authoritative in supported browsers; a localStorage snapshot supports migration and change notifications, with a queued localStorage fallback where IndexedDB is unavailable. Initial JSON fetching is asynchronous. This is suitable for demonstrating front-end behaviour, not multi-user property operations or confidential data.
 
-## Validation still required
+## Validation status
 
-Run HTML and CSS validators, a JavaScript linter, keyboard-only checks, browser zoom checks, mobile viewport checks and manual screen-reader/assistive-technology checks. Record the results in the testing documents rather than assuming the design is accessible solely because these features are present.
+ESLint, html-validate, CSS Tree, the official W3C Nu HTML validator and the official W3C Jigsaw CSS validator have been run. Automated keyboard, responsive viewport, axe, native Chrome zoom and emulated preference checks are recorded in the testing documents. These do not replace the remaining human screen-reader, real OS contrast, physical touch-device and independent usability checks.
 
 ## Verified revision
 
-The 12 October 2026 automated browser run checked all six views at five widths and modal accessibility. See TEST-RESULTS.md for actual scope and remaining manual checks.
+The original 12 October 2026 browser run checked all six views at five widths and modal accessibility. The 26 October revision adds official-validator results and transactional browser persistence, with current retest scope recorded in test-results.md. Human checks remain separate.

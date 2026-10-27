@@ -1,0 +1,18 @@
+PropertyFlow official validator results
+=======================================
+
+Command: npm run validate:official
+Executed: 2026-10-27T00:01:58.517Z
+
+W3C Nu HTML Checker
+Endpoint: https://validator.w3.org/nu/?out=json
+- index.html: 0 errors; 12 warning/information notices
+- 404.html: 0 errors; 4 warning/information notices
+
+W3C Jigsaw CSS Validator
+Endpoint: https://jigsaw.w3.org/css-validator/validator
+- assets/css/styles.css: valid; 0 errors; 16 warnings
+
+Result: passed. Both official services reported zero errors. The Jigsaw
+warnings are its static-analysis warnings for values expressed through CSS
+custom properties; they are not CSS syntax or property/value errors.

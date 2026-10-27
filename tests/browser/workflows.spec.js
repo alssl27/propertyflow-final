@@ -11,6 +11,32 @@ async function go(page, route) {
   await page.locator(`.primary-nav [data-route="${route}"]`).click();
   await expect(page).toHaveURL(new RegExp(`#${route}$`));
 }
+async function workspaceFrom(page) {
+  return page.evaluate(async () => {
+    const api = await import("/assets/js/api.js");
+    return api.getWorkspaceData();
+  });
+}
+async function replaceIndexedWorkspace(page, value) {
+  await page.evaluate(async (replacement) => {
+    const api = await import("/assets/js/api.js");
+    const database = await new Promise((resolve, reject) => {
+      const request = indexedDB.open(api.DATABASE_NAME, 1);
+      request.addEventListener("success", () => resolve(request.result));
+      request.addEventListener("error", () => reject(request.error));
+    });
+    const transaction = database.transaction(api.DATABASE_STORE, "readwrite");
+    transaction
+      .objectStore(api.DATABASE_STORE)
+      .put(replacement, api.DATABASE_KEY);
+    await new Promise((resolve, reject) => {
+      transaction.addEventListener("complete", resolve);
+      transaction.addEventListener("abort", () => reject(transaction.error));
+      transaction.addEventListener("error", () => reject(transaction.error));
+    });
+    database.close();
+  }, value);
+}
 async function addProperty(page, address = "99 Fiction Lane") {
   await page.locator('[data-action="add-property"]').first().click();
   const form = page.locator("#property-form");
@@ -24,9 +50,9 @@ async function addProperty(page, address = "99 Fiction Lane") {
 test("B01 full property workflow, duplicates, persistence, search, delete", async ({
   page,
 }) => {
-  // Clear localStorage before this test so it always starts from the seed data,
-  // regardless of state left by a previous test run.  Navigate first so the
-  // origin is set, then clear, then reload to get a clean workspace.
+  // Playwright gives each test a fresh browser context, including IndexedDB.
+  // Clear localStorage migration keys as well: navigate first so the origin is
+  // set, then clear, then reload to initialise a clean workspace from seeds.
   await page.goto("/");
   await page.evaluate(() => localStorage.clear());
   const errors = [];
@@ -202,7 +228,7 @@ test("B05 slow fetch loading failure retry and corrupt storage recovery", async 
   await page.unroute("**/data/repairs.json");
   await page.getByRole("button", { name: "Try again" }).click();
   await expect(page.locator("h1")).toBeVisible();
-  await page.evaluate((k) => localStorage.setItem(k, "{bad"), key);
+  await replaceIndexedWorkspace(page, "{bad");
   await page.reload();
   await expect(page.getByText("We couldn't load your workspace")).toBeVisible();
   await page.screenshot({
@@ -304,13 +330,9 @@ test("B08 duplicate form submit and unavailable storage retain unsaved form", as
   });
   await expect(page.locator("#property-modal")).not.toBeVisible();
   expect(
-    await page.evaluate(
-      (k) =>
-        JSON.parse(localStorage.getItem(k)).properties.filter(
-          (p) => p.address === "77 Fiction Avenue",
-        ).length,
-      key,
-    ),
+    (await workspaceFrom(page)).properties.filter(
+      (property) => property.address === "77 Fiction Avenue",
+    ).length,
   ).toBe(1);
   await page.locator('[data-action="add-property"]').first().click();
   await f.locator('[name="address"]').fill("78 Fiction Avenue");
@@ -318,27 +340,30 @@ test("B08 duplicate form submit and unavailable storage retain unsaved form", as
   await f.locator('[name="bedrooms"]').selectOption("2");
   await f.locator('[name="rent"]').fill("1000");
   await page.evaluate(() => {
-    Storage.prototype.setItem = () => {
+    IDBObjectStore.prototype.put = () => {
       throw new DOMException("Quota exceeded", "QuotaExceededError");
     };
   });
   await f.getByRole("button", { name: "Save property" }).click();
   await expect(page.locator("#toast-region")).toContainText("could not save");
   await expect(page.locator("#property-modal")).toBeVisible();
-  expect(
-    await page.evaluate(
-      (k) => JSON.parse(localStorage.getItem(k)).properties.length,
-      key,
-    ),
-  ).toBe(9);
+  expect((await workspaceFrom(page)).properties.length).toBe(9);
 });
-test("B09 Web Locks preserve writes from two browser tabs", async ({
+test("B09 IndexedDB transactions preserve two-tab writes without Web Locks", async ({
   page,
   context,
 }) => {
+  await context.addInitScript(() =>
+    Object.defineProperty(navigator, "locks", {
+      configurable: true,
+      value: undefined,
+    }),
+  );
   await ready(page);
   const second = await context.newPage();
   await ready(second);
+  expect(await page.evaluate(() => navigator.locks)).toBeUndefined();
+  expect(await second.evaluate(() => navigator.locks)).toBeUndefined();
   const write = (tab, id) =>
     tab.evaluate(async (id) => {
       const api = await import("/assets/js/api.js");
@@ -352,13 +377,28 @@ test("B09 Web Locks preserve writes from two browser tabs", async ({
         createdAt: new Date().toISOString(),
       });
     }, id);
-  await Promise.all([write(page, "tab-one"), write(second, "tab-two")]);
-  expect(
-    await page.evaluate(
-      (k) => JSON.parse(localStorage.getItem(k)).properties.length,
-      key,
-    ),
-  ).toBe(10);
+  const ids = [];
+  for (let iteration = 0; iteration < 20; iteration += 1) {
+    const firstId = `tab-one-${iteration}`;
+    const secondId = `tab-two-${iteration}`;
+    ids.push(firstId, secondId);
+    await Promise.all([write(page, firstId), write(second, secondId)]);
+  }
+
+  const assertAllWrites = async (tab) => {
+    const workspace = await workspaceFrom(tab);
+    const savedIds = new Set(
+      workspace.properties.map((property) => property.id),
+    );
+    expect(ids.every((id) => savedIds.has(id))).toBe(true);
+    expect(workspace.properties).toHaveLength(8 + ids.length);
+  };
+  await assertAllWrites(page);
+  await assertAllWrites(second);
+
+  const third = await context.newPage();
+  await ready(third);
+  await assertAllWrites(third);
   await expect(page.locator("#toast-region")).toContainText("another tab");
 });
 test("B10 quick actions, property status/filter, notification, unknown route and modal scan", async ({

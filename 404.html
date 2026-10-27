@@ -1,9 +1,11 @@
 <!doctype html>
-<!--
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8" />
+    <!--
   404.html — Custom "page not found" error page for PropertyFlow
 
-  PURPOSE
-  -------
+  PURPOSE:
   This page is served by Vercel whenever a request is made to a path that does
   not match any file in the deployment.  It provides a clear, branded message
   and a direct link back to the dashboard — satisfying the M(iv)/Distinction
@@ -11,36 +13,31 @@
   redirected back to the main page without having to use browser navigation
   buttons.
 
-  DESIGN DECISIONS
-  ----------------
+  DESIGN DECISIONS:
   • No timer-based redirect: the user stays on this page until they choose to
     click the link, giving them control (UX principle: user control).
   • Root-absolute href="/index.html#dashboard" works for the Vercel deployment
     where the app is at the domain root.  A GitHub Pages subpath deployment
-    would need a path prefix here — see docs/DEPLOYMENT.md.
+    would need a path prefix here — see docs/deployment.md.
   • No JavaScript: this page intentionally has no script dependency.  If the
     main app fails to load, this fallback still works.
   • meta robots="noindex": prevents search engines from indexing the error page.
 
-  AI-ASSISTANCE RECORD
-  --------------------
+  AI-ASSISTANCE RECORD:
   This file was written with the help of IBM Bob (AI coding assistant).
   The assistant was used to:
     • Design the minimal, on-brand error page layout.
     • Add the meta robots noindex tag and root-absolute link.
     • Author all inline HTML comments.
   All HTML passes html-validate (npm run validate:html) with no issues.
+  OpenAI Codex later moved the charset declaration ahead of the long source
+  comment so the official W3C Nu validator also reports zero errors.
 
-  CRITERIA ADDRESSED
-  ------------------
+  CRITERIA ADDRESSED:
   M(iv)   Users who reach a non-existent page are redirected back to the main
           page without using browser navigation buttons.
   Distinction: user control — no aggressive auto-redirects; user chooses when to return.
 -->
-<html lang="en-GB">
-  <head>
-    <!-- Character encoding first -->
-    <meta charset="utf-8" />
     <!-- Responsive viewport -->
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!-- Prevent search engines from indexing the 404 error page -->

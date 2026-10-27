@@ -1,6 +1,16 @@
-# Additional verification — 12 October 2026
+# Additional verification — 12 October baseline, 27 October 2026 update
 
-Production remained https://propertyflow-final.vercel.app. No application runtime files changed during these checks. Chrome/deployed evidence was preserved in its existing folders.
+The Edge, preference and expanded-service sections below record the 12 October revision. No application runtime files changed during those checks, and Chrome/deployed evidence was preserved in its existing folders. Application runtime files changed before the 27 October current-revision run; therefore the older production evidence is not presented as verification of the new IndexedDB persistence implementation.
+
+## IndexedDB race regression — 27 October
+
+The full local browser suite first returned 13/14 because B09 lost a write. Ten focused repetitions of the old implementation failed four times, confirming that Web Locks did not prevent a browser process from reading a stale `localStorage` cache. Browser persistence now uses IndexedDB as the authority, with each read/validate/mutate/write sequence in one `readwrite` transaction.
+
+After the fix, B05 (corrupt workspace recovery), B08 (failed write and retained form) and B09 passed together, **3/3**. B09 then passed **10/10** repeated runs with `navigator.locks` deliberately unavailable. Each run makes 20 simultaneous two-tab write pairs and checks all records from both pages plus a fresh third page: **400 writes** were retained across the stress retest. This isolates the IndexedDB transaction guarantee instead of relying on Web Locks. The complete local browser suite subsequently passed **14/14**, and the local forced-colour/reduced-motion suite passed **5/5**. The current deployed suite was still pending at the time of this entry.
+
+## Official validators — 27 October
+
+The first official run identified four errors in `index.html`, one in `404.html` and 21 stylesheet errors. After source corrections, `npm run validate:official` returned zero W3C Nu errors for both HTML files and a valid, zero-error W3C Jigsaw result. Jigsaw retained 16 warnings because it cannot statically resolve CSS custom-property values. Local HTML/CSS checks and the targeted B04/B07/B10 accessibility regression also passed after those changes.
 
 ## Edge cross-browser run
 
@@ -14,7 +24,7 @@ Five checks AC01–AC05 passed in Chrome on the live site at 375×1000. Playwrig
 
 [Exact results](evidence/accessibility/results.json) · [Dashboard](evidence/accessibility/forced-colours-dashboard.png) · [Form error](evidence/accessibility/forced-colours-form-error.png)
 
-These five checks used preference emulation; they did not observe an actual Windows high-contrast setting, screen-reader speech or native browser zoom. A separate scoped agent-operated [native Chrome 200%/400% zoom review](MANUAL-ACCESSIBILITY-REVIEW.md) is complete. Screen-reader speech and actual OS contrast/touch-device checks remain unverified.
+These five checks used preference emulation; they did not observe an actual Windows high-contrast setting, screen-reader speech or native browser zoom. A separate scoped agent-operated [native Chrome 200%/400% zoom review](manual-accessibility-review.md) is complete. Screen-reader speech and actual OS contrast/touch-device checks remain unverified.
 
 ## Additional asynchronous tests
 
@@ -39,10 +49,12 @@ The workspace was found configured to the existing public repository [alssl27/pr
 
 ```powershell
 npm test
+npm run validate:official
+npx playwright test tests/browser/workflows.spec.js --grep "B09" --repeat-each=10
 $env:BASE_URL = 'https://propertyflow-final.vercel.app'
 npm run test:edge
 npm run test:accessibility
 Remove-Item Env:BASE_URL
 ```
 
-Each test config saves separate evidence. The Edge suite and scoped agent-operated native Chrome zoom review are complete. Remaining learner work: screen-reader speech, physical touch-device and actual OS high-contrast checks, Firefox/Safari if required, independent usability feedback, course-specific screenshot review, review of the prepared academic-integrity disclosure and applicable policy, and personal reflection. No assessor approval or assessment submission is claimed.
+Each test config saves separate evidence. The recorded Edge suite and scoped agent-operated native Chrome zoom review are complete for their named revisions. Remaining learner work: screen-reader speech, physical touch-device and actual OS high-contrast checks, Firefox/Safari if required, independent usability feedback, review of the prepared academic-integrity disclosure and applicable policy, and personal reflection. No assessor approval or assessment submission is claimed.

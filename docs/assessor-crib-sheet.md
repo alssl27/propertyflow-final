@@ -87,17 +87,17 @@ A: Automatic redirects (meta-refresh or JS timers) remove user control. The UX p
 A: Native dialogs provide Escape-to-close, backdrop rendering and focus trapping for free. The custom focus-trap code supplements it for cross-browser consistency. Using native elements means less JavaScript, better accessibility defaults and less to test.
 
 **Q: Why is `window.confirm()` used for deletion instead of a custom dialog?**
-A: A native confirm prompt is a known compromise — it looks browser-native rather than matching the app's design. It was chosen because the assessment scope is a front-end prototype and adding a third custom modal for confirmation would add code without adding assessed value. This decision is documented in UX-DESIGN.md under Compromises.
+A: A native confirm prompt is a known compromise — it looks browser-native rather than matching the app's design. It was chosen because the assessment scope is a front-end prototype and adding a third custom modal for confirmation would add code without adding assessed value. This decision is documented in ux-design.md under Compromises.
 
 ---
 
 ### About deployment and Git
 
 **Q: Walk me through the deployment.**
-A: `npm run build` copies public files (index.html, 404.html, assets/, data/) into dist/. `vercel.json` configures Vercel to serve dist as the root and handle unknown paths with 404.html. The live site is at propertyflow-final.vercel.app. DEPLOYMENT.md documents the account and steps; DEPLOYED-TEST-RESULTS.md records the 14 browser tests and 13 HTTP/hash checks that passed against the deployed origin.
+A: `npm run build` copies public files (index.html, 404.html, assets/, data/) into dist/. `vercel.json` configures Vercel to serve dist as the root and handle unknown paths with 404.html. The live site is at propertyflow-final.vercel.app. deployment.md documents the account and steps; deployed-test-results.md records the 14 browser tests and 13 HTTP/hash checks that passed against the deployed origin.
 
 **Q: What does your commit history show?**
-A: The first commit preserves the supplied project folder. Later commits add domain rules, persistence fixes, workflow improvements, accessibility fixes, tests and documentation — each as a separate labelled commit. DEVELOPMENT-LOG.md explains each stage. The commits use a clearly named project identity because this was an assisted revision; future commits should use your own identity.
+A: The first commit preserves the supplied project folder. Later commits record domain rules, persistence fixes, workflow improvements, accessibility fixes, tests and documentation. Most are staged and labelled, but the history also contains a large multi-file revision and an unhelpful `final commit` message; those limitations are documented rather than rewritten. development-log.md explains each stage. The commits use a clearly named project identity because this was an assisted revision; future commits should use your own identity.
 
 ---
 
@@ -111,7 +111,7 @@ A: The first commit preserves the supplied project folder. Later commits add dom
 6. Open the property dialog. Confirm the dialog title is announced on open.
 7. Tab through the form. Confirm each label is announced with its field.
 8. Leave the address field empty and submit. Confirm the error message is announced.
-9. Press Escape. Confirm the dialog closes and focus returns to the main area.
+9. Press Escape. Confirm the dialog closes and focus returns to the control that opened it (or to the main content if a re-render removed that control).
 10. Record actual spoken announcements vs expected. Note any unexpected or missing speech.
 
-Add your actual findings to tests/MANUAL-TEST-CHECKLIST.md.
+Tick the matching item in `tests/manual-test-checklist.md` and record the detailed, dated findings in `docs/test-results-template.md`.

@@ -2,11 +2,11 @@
 
 ## Starting point — 12 October 2026
 
-The supplied folder was not a Git repository. Initial inspection read the HTML, CSS, modules, JSON and documentation. No earlier source history, executed tests or deployed URL were supplied. Commit `5cdfe36` (`chore: preserve supplied project starting point`) records the real starting point, not a fabricated earlier development milestone. The initial ASSESSMENT-AUDIT.md records gaps discovered before implementation.
+The supplied folder was not a Git repository. Initial inspection read the HTML, CSS, modules, JSON and documentation. No earlier source history, executed tests or deployed URL were supplied. Commit `5cdfe36` (`chore: preserve supplied project starting point`) records the real starting point, not a fabricated earlier development milestone. The initial assessment-audit.md records gaps discovered before implementation.
 
 ## Data integrity and tests
 
-Commit `f5b60e6` (`fix: validate and serialise workspace persistence with regression tests`) introduces pure domain rules, one atomic workspace snapshot, a shared queue, cooperating-tab locks and failure-safe reset. Twenty Node tests passed. The design keeps a static front end and documents that localStorage is synchronous even though loading and queue/lock acquisition are asynchronous.
+Commit `f5b60e6` (`fix: validate and serialise workspace persistence with regression tests`) introduced pure domain rules, one atomic `localStorage` workspace snapshot, a shared queue, cooperating-tab locks and failure-safe reset. Twenty Node tests passed at that stage. The later 27 October entry records why this design was replaced in browsers.
 
 ## Workflows and accessible UI
 
@@ -22,7 +22,7 @@ At the initial local handover, learner-facing documentation distinguished eviden
 
 Commits use `PropertyFlow project <propertyflow@example.invalid>` to avoid inventing the learner's author identity. Configure your own name/email for future work. At that stage no remote was configured and nothing had been pushed. The user approved Vercel publication on 12 October 2026. The connected integration returned HTTP 403 on project creation. CLI inspection found a different signed-in owner; publication was blocked pending the later account selection recorded below. VS Code was opened and the project window confirmed.
 
-The learner should write their own reflection: which errors they understood, which UX choices they agree with, what they changed after personal testing and what they would improve next. Do not submit this generated record as personal reflection. See SOURCES.md for AI assistance and provenance.
+The learner should write their own reflection: which errors they understood, which UX choices they agree with, what they changed after personal testing and what they would improve next. Do not submit this generated record as personal reflection. See sources.md for AI assistance and provenance.
 
 ## Approved account selection, deployment and live verification
 
@@ -38,6 +38,14 @@ Prepared an evidence-based evaluation, truthful AI-assistance disclosure and pub
 
 ## Submission package preparation — 14 October 2026
 
-Reconciled stale current summaries with the already recorded native zoom, Edge and expanded Node evidence, preserving original test records. Captured the previously missing Settings view on the live alias in a fresh isolated Chrome context; actual date, method and scope are in EVIDENCE-CHECKLIST.md. Added an ordered demonstration guide and a Git-based source/evidence packaging command, with per-file SHA-256 manifest and genuine commit listing. These changes prepare review materials; they do not change application runtime, establish learner understanding or submit an assessment. Generated archives stay outside tracked source and production uploads.
+Reconciled stale current summaries with the already recorded native zoom, Edge and expanded Node evidence, preserving original test records. Captured the previously missing Settings view on the live alias in a fresh isolated Chrome context; actual date, method and scope are in evidence-checklist.md. Added an ordered demonstration guide and a Git-based source/evidence packaging command, with per-file SHA-256 manifest and genuine commit listing. These changes prepare review materials; they do not change application runtime, establish learner understanding or submit an assessment. Generated archives stay outside tracked source and production uploads.
 
 Independent archive verification caught this Windows machine's Git `core.autocrlf=true` conversion changing exported line endings. The packaging command now overrides that setting only during export so the ZIP can match the committed-byte manifest. The failed first archive was retained separately; the corrected archive is checked against every manifest entry before handover. The demonstration instructions were also corrected after source review, including the linked deletion guard running before confirmation.
+
+## Persistence and official-validator correction — 27 October 2026
+
+Repeating B09 exposed a real defect hidden by the earlier single passing run: the Web Lock was acquired, but one browser process could still read a stale `localStorage` cache and overwrite a peer's newly committed snapshot. The full local run was 13/14; isolated B09 failed 4 of 10 repeats. Browser storage was changed to IndexedDB, and each whole-workspace mutation now reads, validates, mutates and writes within one `readwrite` transaction. `localStorage` remains only a best-effort migration mirror and a fallback for environments without IndexedDB.
+
+The correction passed B05/B08/B09 together and then B09 10/10 times with Web Locks deliberately disabled, covering 400 two-tab writes in 200 simultaneous pairs and isolating the IndexedDB guarantee. The 24 Node tests, complete 14-case local Chrome suite and five local preference-accessibility checks also passed. The old deployed Chrome/Edge evidence remains historical until the changed runtime is redeployed and the production suites are rerun.
+
+The official W3C services were also added to the repeatable quality workflow. The initial hosted run reported four errors in `index.html`, one in `404.html` and 21 CSS errors. After semantic markup and stylesheet corrections, W3C Nu reported zero errors for both HTML documents and Jigsaw reported valid CSS with zero errors; 16 disclosed warnings are limitations of its static analysis of CSS custom-property values. Local lint/HTML/CSS checks and targeted accessibility regression passed after the same corrections.

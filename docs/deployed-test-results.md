@@ -1,6 +1,8 @@
-# Deployed test results — 12 October 2026
+# Deployed test results — recorded 12 October 2026 release
 
 Production URL: [PropertyFlow](https://propertyflow-final.vercel.app). Account/team: alssl27 / alssl27s-projects. Deployment: dpl_2yRE1N5Gcp4EtpWTmdLuBt6ZSRH1; target production; status READY. CLI upload commit c3715fd9c8381d1356561635b6e204c153a5f80a; application runtime unchanged from fa4aa1177e2006a144c628593e6695d4ee257416. Runtime source was verified by exact deployed-file comparisons against local dist.
+
+Status reviewed 27 October 2026. These results remain genuine evidence for the named release. They do not verify the newer local IndexedDB persistence and official-validator revision; a fresh deployment identity, complete browser run, screenshots and HTTP/hash comparison must be recorded after that revision is published.
 
 ## Real browser verification
 
@@ -23,7 +25,7 @@ Windows, Google Chrome 155.0.8059.39 headless, Playwright 1.64.0. The complete e
 | B09 Web Locks preserve writes from two browser tabs                                   | passed        |
 | B10 quick actions, property status/filter, notification, unknown route and modal scan | passed        |
 
-Steps and expected outcomes remain executable in tests/browser/workflows.spec.js. Stories and bug references follow TEST-RESULTS.md; the same workflows were now retested after cloud deployment. The suite covered real property/repair/certificate edits, persistence, reset, downloads, navigation/history, keyboard focus, slow/failed loading, corrupt/blocked storage and duplicate/two-tab writes. No uncaught pageerror was observed in monitored B01/B07 flows. Expected caught load failures were deliberately injected in B05.
+Steps and expected outcomes remain executable in tests/browser/workflows.spec.js. Stories and bug references follow test-results.md; the same workflows were now retested after cloud deployment. The suite covered real property/repair/certificate edits, persistence, reset, downloads, navigation/history, keyboard focus, slow/failed loading, corrupt/blocked storage and duplicate/two-tab writes. No uncaught pageerror was observed in monitored B01/B07 flows. Expected caught load failures were deliberately injected in B05.
 
 [Browser JSON](evidence/deployed/browser-results.json) · [Desktop capture](evidence/deployed/dashboard-1440.png) · [320px capture](evidence/deployed/dashboard-320.png) · [Dialog capture](evidence/deployed/property-dialog.png)
 
@@ -41,4 +43,4 @@ node node_modules/@playwright/test/cli.js test --config playwright.deployed.conf
 Remove-Item Env:BASE_URL
 ```
 
-The tests use isolated browser contexts and fictional records in localStorage; they do not write a server database. Static production has no application server logs. Browser assertions and HTTP checks support the runtime assessment; no Vercel-wide monitoring or independent accessibility certification is claimed. A separate fourteen-test Edge run and five preference checks are recorded in ADDITIONAL-VERIFICATION.md, together with later approved GitHub publication. The scoped agent-operated [native Chrome 200%/400% zoom review](MANUAL-ACCESSIBILITY-REVIEW.md) is also complete. Screen-reader speech, physical touch-device and actual OS contrast checks, Firefox/Safari if required, and independent learner usability/authorship review remain unverified. The deployment itself used the CLI.
+The tests use isolated browser contexts and fictional browser records; they do not write a server database. This recorded release used its then-current localStorage/Web Locks path, while the later local revision replaces authoritative browser persistence with IndexedDB transactions. Static production has no application server logs. Browser assertions and HTTP checks support the runtime assessment; no Vercel-wide monitoring or independent accessibility certification is claimed. A separate fourteen-test Edge run and five preference checks are recorded in additional-verification.md, together with later approved GitHub publication. The scoped agent-operated [native Chrome 200%/400% zoom review](manual-accessibility-review.md) is also complete. Screen-reader speech, physical touch-device and actual OS contrast checks, Firefox/Safari if required, and independent learner usability/authorship review remain unverified. The deployment itself used the CLI.

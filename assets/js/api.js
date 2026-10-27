@@ -3,10 +3,11 @@
  *
  * PURPOSE
  * -------
- * This module is the only place in the application that reads from or writes
- * to localStorage, or that fetches the starter JSON files over HTTP.  All
- * access goes through a serialised queue so overlapping calls from the UI or
- * competing browser tabs cannot corrupt the saved workspace.
+ * This module is the only place in the application that persists workspace
+ * data or fetches the starter JSON files over HTTP. Browsers use IndexedDB as
+ * the authoritative store so each read/modify/write can run in one transaction
+ * across tabs. localStorage remains a migration/mirror layer and the fallback
+ * for environments such as the Node unit tests that do not expose IndexedDB.
  *
  * The module exports a small set of named functions that the UI (app.js) calls:
  *   getWorkspaceData()          — load (or first-fetch) the full workspace
@@ -15,7 +16,7 @@
  *   updateRecord(name, id, …)   — merge changes into an existing record
  *   deleteRecord(name, id)      — remove a record (with referential-integrity check)
  *   resetDemoData()             — re-download the starter JSON and replace the workspace
- *   STORAGE_KEY                 — the localStorage key used by all operations
+ *   STORAGE_KEY                 — the compatibility localStorage mirror key
  *
  * AI-ASSISTANCE RECORD
  * --------------------
@@ -34,6 +35,9 @@
  *     overrides used in tests/api.test.js.
  * All generated code was reviewed, tested and verified by the 16 automated
  * tests in tests/api.test.js before inclusion.
+ * OpenAI Codex later replaced whole-snapshot cross-tab localStorage writes
+ * with IndexedDB readwrite transactions after a repeated browser stress test
+ * exposed a real lost-update race between Chromium renderer processes.
  *
  * CRITERIA ADDRESSED
  * ------------------
@@ -49,8 +53,13 @@ import { validateWorkspace, nextRepairStatus } from "./domain.js";
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
-/** The localStorage key that stores the entire workspace as a single JSON snapshot. */
+/** Compatibility key used for migration, cross-tab notification and Node tests. */
 export const STORAGE_KEY = "propertyflow.workspace.v2";
+
+/** IndexedDB identifiers are exported so browser tests can exercise recovery. */
+export const DATABASE_NAME = "propertyflow";
+export const DATABASE_STORE = "workspace";
+export const DATABASE_KEY = "current";
 
 /** The three top-level collection names expected in the workspace object. */
 const collections = ["properties", "repairs", "compliance"];
@@ -112,7 +121,7 @@ function exclusive(operation) {
  * @returns {*|null}    Parsed value, or null if the key is absent.
  * @throws {Error}      If reading or parsing fails.
  */
-function read(key) {
+function readLocal(key) {
   try {
     const value = localStorage.getItem(key); // returns null if absent
     return value === null ? null : JSON.parse(value); // parse only if present
@@ -138,7 +147,7 @@ function read(key) {
  * @returns {object}     Validated deep clone of the saved workspace.
  * @throws {Error}       If validation fails or if localStorage is full/blocked.
  */
-function save(data) {
+function saveLocal(data) {
   validateWorkspace(data); // throws if any field fails schema validation
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); // single atomic write
@@ -149,6 +158,123 @@ function save(data) {
     );
   }
   return structuredClone(data); // return a deep copy so callers cannot mutate stored state
+}
+
+/** Return true only when a real IndexedDB implementation is available. */
+const hasIndexedDB = () => typeof globalThis.indexedDB !== "undefined";
+
+let databasePromise;
+
+/** Open the single-store PropertyFlow database, creating it on first use. */
+function openDatabase() {
+  if (!databasePromise) {
+    databasePromise = new Promise((resolve, reject) => {
+      const request = indexedDB.open(DATABASE_NAME, 1);
+      request.addEventListener("upgradeneeded", () => {
+        if (!request.result.objectStoreNames.contains(DATABASE_STORE))
+          request.result.createObjectStore(DATABASE_STORE);
+      });
+      request.addEventListener("success", () => resolve(request.result));
+      request.addEventListener("error", () => reject(request.error));
+      request.addEventListener("blocked", () =>
+        reject(new Error("Browser storage is blocked by another open page.")),
+      );
+    }).catch((error) => {
+      databasePromise = undefined;
+      throw error;
+    });
+  }
+  return databasePromise;
+}
+
+/** Convert an IndexedDB request event into an awaitable result. */
+function requestResult(request) {
+  return new Promise((resolve, reject) => {
+    request.addEventListener("success", () => resolve(request.result));
+    request.addEventListener("error", () => reject(request.error));
+  });
+}
+
+/** Resolve only after every request in a transaction has committed. */
+function transactionComplete(transaction) {
+  return new Promise((resolve, reject) => {
+    transaction.addEventListener("complete", () => resolve());
+    transaction.addEventListener("abort", () =>
+      reject(
+        transaction.error ?? new Error("Browser storage transaction failed."),
+      ),
+    );
+    transaction.addEventListener("error", () =>
+      reject(
+        transaction.error ?? new Error("Browser storage transaction failed."),
+      ),
+    );
+  });
+}
+
+/** Map low-level IndexedDB failures to the same actionable save error used by the UI. */
+function storageWriteError(error) {
+  if (
+    error?.name === "QuotaExceededError" ||
+    error?.name === "AbortError" ||
+    error?.name === "InvalidStateError" ||
+    error?.name === "UnknownError" ||
+    error?.name === "TransactionInactiveError"
+  )
+    return new Error(
+      "Your browser could not save this change. Check storage permissions and available space.",
+      { cause: error },
+    );
+  return error;
+}
+
+/**
+ * Keep a compatibility snapshot for migration, storage-event notifications and
+ * older browsers. IndexedDB has already committed when this runs, so a blocked
+ * mirror must not turn a successful authoritative write into a false failure.
+ */
+function mirrorWorkspace(data) {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  } catch {
+    // IndexedDB remains authoritative; the mirror is deliberately best effort.
+  }
+}
+
+/** Read the current authoritative snapshot without modifying it. */
+async function readIndexedWorkspace() {
+  const database = await openDatabase();
+  const transaction = database.transaction(DATABASE_STORE, "readonly");
+  const completed = transactionComplete(transaction);
+  const value = await requestResult(
+    transaction.objectStore(DATABASE_STORE).get(DATABASE_KEY),
+  );
+  await completed;
+  return value;
+}
+
+/** Atomically replace the authoritative snapshot, then update the mirror. */
+async function saveIndexedWorkspace(data) {
+  const validated = structuredClone(validateWorkspace(data));
+  const database = await openDatabase();
+  const transaction = database.transaction(DATABASE_STORE, "readwrite");
+  const completed = transactionComplete(transaction);
+  try {
+    await requestResult(
+      transaction.objectStore(DATABASE_STORE).put(validated, DATABASE_KEY),
+    );
+    await completed;
+  } catch (error) {
+    try {
+      transaction.abort();
+    } catch {
+      // The transaction may already have aborted.
+    }
+    await completed.catch(() => {});
+    throw storageWriteError(error);
+  }
+  mirrorWorkspace(validated);
+  return structuredClone(validated);
 }
 
 // ─── JSON seed fetching ───────────────────────────────────────────────────────
@@ -217,8 +343,8 @@ async function fetchSeeds() {
 // ─── Internal load helper ────────────────────────────────────────────────────
 
 /**
- * load — reads the workspace from localStorage, migrating from v1 if necessary,
- * or fetches the starter JSON on first use.
+ * initialWorkspace — reads a compatible localStorage snapshot, migrates v1 if
+ * necessary, or fetches the starter JSON on first use.
  *
  * Migration path (v1 → v2):
  *   The original project stored three separate keys (propertyflow.*.v1).
@@ -228,29 +354,110 @@ async function fetchSeeds() {
  *
  * @returns {Promise<object>}  Deep-cloned, validated workspace object.
  */
-async function load() {
-  const saved = read(STORAGE_KEY); // check for an existing v2 workspace
-  // If a saved workspace exists, validate it and return a clone — no fetch needed
+async function initialWorkspace() {
+  const saved = readLocal(STORAGE_KEY);
   if (saved !== null) return structuredClone(validateWorkspace(saved));
 
-  // No v2 data — check for legacy v1 collection keys
   const legacy = Object.fromEntries(
-    collections.map((name) => [name, read(`propertyflow.${name}.v1`)]),
+    collections.map((name) => [name, readLocal(`propertyflow.${name}.v1`)]),
   );
-
-  // Download the fresh starter JSON
   const seed = await fetchSeeds();
-
-  // Merge any valid v1 records into the seed workspace (old keys are kept as backup)
   for (const name of collections)
-    if (legacy[name] !== null) seed[name] = legacy[name]; // prefer the user's saved data
-
-  // Normalise legacy repair status "resolved" to the current "complete" value
+    if (legacy[name] !== null) seed[name] = legacy[name];
   for (const repair of seed.repairs)
     if (repair.status === "resolved") repair.status = "complete";
+  return structuredClone(validateWorkspace(seed));
+}
 
-  // Persist the merged workspace and return it
-  return save(seed);
+/**
+ * Initialise IndexedDB exactly once. Two tabs may fetch candidates together,
+ * but the readwrite transaction serialises their final get/put decision: the
+ * second transaction keeps the snapshot committed by the first.
+ */
+async function ensureIndexedWorkspace() {
+  const existing = await readIndexedWorkspace();
+  if (existing !== undefined)
+    return structuredClone(validateWorkspace(existing));
+
+  const candidate = await initialWorkspace();
+  const database = await openDatabase();
+  const transaction = database.transaction(DATABASE_STORE, "readwrite");
+  const completed = transactionComplete(transaction);
+  const store = transaction.objectStore(DATABASE_STORE);
+  try {
+    const current = await requestResult(store.get(DATABASE_KEY));
+    const selected =
+      current === undefined
+        ? structuredClone(validateWorkspace(candidate))
+        : structuredClone(validateWorkspace(current));
+    if (current === undefined)
+      await requestResult(store.put(selected, DATABASE_KEY));
+    await completed;
+    mirrorWorkspace(selected);
+    return structuredClone(selected);
+  } catch (error) {
+    try {
+      transaction.abort();
+    } catch {
+      // The transaction may already have aborted.
+    }
+    await completed.catch(() => {});
+    throw storageWriteError(error);
+  }
+}
+
+/** Load from IndexedDB in browsers, or the localStorage fallback elsewhere. */
+async function load() {
+  if (hasIndexedDB()) return ensureIndexedWorkspace();
+  const saved = readLocal(STORAGE_KEY);
+  if (saved !== null) return structuredClone(validateWorkspace(saved));
+  return saveLocal(await initialWorkspace());
+}
+
+/**
+ * Run a synchronous workspace mutation inside one IndexedDB readwrite
+ * transaction. IndexedDB queues those transactions across tabs, so every
+ * mutator reads the previous committed value before it writes the next one.
+ */
+async function mutateWorkspace(mutator) {
+  if (!hasIndexedDB()) {
+    const data = await load();
+    const result = mutator(data);
+    saveLocal(data);
+    return structuredClone(result);
+  }
+
+  await ensureIndexedWorkspace();
+  const database = await openDatabase();
+  const transaction = database.transaction(DATABASE_STORE, "readwrite");
+  const completed = transactionComplete(transaction);
+  const store = transaction.objectStore(DATABASE_STORE);
+  let data;
+  let result;
+  try {
+    data = structuredClone(
+      validateWorkspace(await requestResult(store.get(DATABASE_KEY))),
+    );
+    result = mutator(data);
+    validateWorkspace(data);
+    await requestResult(store.put(data, DATABASE_KEY));
+    await completed;
+  } catch (error) {
+    try {
+      transaction.abort();
+    } catch {
+      // The transaction may already have aborted.
+    }
+    await completed.catch(() => {});
+    throw storageWriteError(error);
+  }
+  mirrorWorkspace(data);
+  return structuredClone(result);
+}
+
+/** Replace the workspace using the strongest storage mechanism available. */
+async function saveWorkspace(data) {
+  return hasIndexedDB() ? saveIndexedWorkspace(data) : saveLocal(data);
 }
 
 // ─── Internal guard ──────────────────────────────────────────────────────────
@@ -303,16 +510,16 @@ export const getCollection = (name) =>
  * @throws {Error}  If a record with the same id already exists.
  */
 export function addRecord(name, record) {
-  return exclusive(async () => {
-    checkCollection(name); // reject unknown collection names
-    const data = await load(); // get the current workspace inside the lock
-    // Reject if a record with this id is already present (idempotency guard)
-    if (data[name].some((item) => item.id === record.id))
-      throw new Error("This record has already been saved.");
-    data[name].unshift(record); // prepend so newest records appear at the top
-    save(data); // validate and persist the updated workspace
-    return structuredClone(record); // return a clone so caller cannot mutate storage
-  });
+  return exclusive(() =>
+    mutateWorkspace((data) => {
+      checkCollection(name); // reject unknown collection names
+      // Reject if a record with this id is already present (idempotency guard)
+      if (data[name].some((item) => item.id === record.id))
+        throw new Error("This record has already been saved.");
+      data[name].unshift(record); // prepend so newest records appear at the top
+      return record;
+    }),
+  );
 }
 
 /**
@@ -334,39 +541,39 @@ export function addRecord(name, record) {
  * @throws {Error}  If the record is not found, or the repair-status transition is invalid.
  */
 export function updateRecord(name, id, changes) {
-  return exclusive(async () => {
-    checkCollection(name); // guard against unknown names
-    const data = await load(); // load current workspace inside the lock
-    const index = data[name].findIndex((item) => item.id === id); // find the record
-    // Throw if the record has been deleted since the UI last rendered
-    if (index < 0)
-      throw new Error("This record no longer exists. Refresh and try again.");
+  return exclusive(() =>
+    mutateWorkspace((data) => {
+      checkCollection(name); // guard against unknown names
+      const index = data[name].findIndex((item) => item.id === id); // find the record
+      // Throw if the record has been deleted since the UI last rendered
+      if (index < 0)
+        throw new Error("This record no longer exists. Refresh and try again.");
 
-    const original = data[name][index]; // keep the original for comparison
+      const original = data[name][index]; // keep the original for comparison
 
-    // Repairs can only advance one step at a time through the lifecycle
-    if (
-      name === "repairs" && // only applies to repairs
-      changes.status && // a status change is being requested
-      changes.status !== original.status && // it is actually a change
-      changes.status !== nextRepairStatus(original.status) // it is not the next step
-    )
-      throw new Error(
-        "Move the repair through Open → Scheduled → In progress → Completed → Open.",
-      );
+      // Repairs can only advance one step at a time through the lifecycle
+      if (
+        name === "repairs" && // only applies to repairs
+        changes.status && // a status change is being requested
+        changes.status !== original.status && // it is actually a change
+        changes.status !== nextRepairStatus(original.status) // it is not the next step
+      )
+        throw new Error(
+          "Move the repair through Open → Scheduled → In progress → Completed → Open.",
+        );
 
-    // Merge changes onto the original; lock down id and createdAt, stamp updatedAt
-    const updated = {
-      ...original, // start with all existing fields
-      ...changes, // overwrite with requested changes
-      id: original.id, // id can never be changed
-      createdAt: original.createdAt, // creation timestamp can never be changed
-      updatedAt: new Date().toISOString(), // record when the update was made
-    };
-    data[name][index] = updated; // replace in-place (preserves array order)
-    save(data); // validate and persist
-    return structuredClone(updated); // return a clone
-  });
+      // Merge changes onto the original; lock down id and createdAt, stamp updatedAt
+      const updated = {
+        ...original, // start with all existing fields
+        ...changes, // overwrite with requested changes
+        id: original.id, // id can never be changed
+        createdAt: original.createdAt, // creation timestamp can never be changed
+        updatedAt: new Date().toISOString(), // record when the update was made
+      };
+      data[name][index] = updated; // replace in-place (preserves array order)
+      return updated;
+    }),
+  );
 }
 
 /**
@@ -383,29 +590,29 @@ export function updateRecord(name, id, changes) {
  * @throws {Error}  If the record is not found, or the property has linked records.
  */
 export function deleteRecord(name, id) {
-  return exclusive(async () => {
-    checkCollection(name); // guard unknown names
-    const data = await load(); // load current workspace inside the lock
+  return exclusive(() =>
+    mutateWorkspace((data) => {
+      checkCollection(name); // guard unknown names
 
-    // Confirm the record still exists (it might have been deleted in another tab)
-    if (!data[name].some((item) => item.id === id))
-      throw new Error("This record no longer exists. Refresh and try again.");
+      // Confirm the record still exists (it might have been deleted in another tab)
+      if (!data[name].some((item) => item.id === id))
+        throw new Error("This record no longer exists. Refresh and try again.");
 
-    // Properties: block deletion if any repair or compliance record references this id
-    if (
-      name === "properties" &&
-      [...data.repairs, ...data.compliance].some(
-        (item) => item.propertyId === id,
+      // Properties: block deletion if any repair or compliance record references this id
+      if (
+        name === "properties" &&
+        [...data.repairs, ...data.compliance].some(
+          (item) => item.propertyId === id,
+        )
       )
-    )
-      throw new Error(
-        "This property has linked repairs or certificates. Keep it in the register to preserve those records.",
-      );
+        throw new Error(
+          "This property has linked repairs or certificates. Keep it in the register to preserve those records.",
+        );
 
-    // Remove the matching record and save the updated workspace
-    data[name] = data[name].filter((item) => item.id !== id);
-    save(data); // validate and persist (no return value needed)
-  });
+      // Remove the matching record and save the updated workspace
+      data[name] = data[name].filter((item) => item.id !== id);
+    }),
+  );
 }
 
 /**
@@ -421,4 +628,4 @@ export function deleteRecord(name, id) {
  * @throws {Error}  If the fetch, validation or save fails.
  */
 export const resetDemoData = () =>
-  exclusive(async () => save(await fetchSeeds())); // fetch first, save only on success
+  exclusive(async () => saveWorkspace(await fetchSeeds())); // fetch first, save only on success

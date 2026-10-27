@@ -51,7 +51,7 @@ Below 820px the sidebar becomes a disclosure. Cards collapse at smaller breakpoi
 
 ## Wireframes and actual implementation
 
-[Wireframe](UX-WIREFRAME.md) is explicitly retrospective. [Desktop screenshot](evidence/dashboard-1440.png) and [320px screenshot](evidence/dashboard-320.png) show the implemented hierarchy. See [evidence checklist](EVIDENCE-CHECKLIST.md) for story-to-image mapping. The chart area now shows status bars, not the supplied invented rent history; Settings was added as a sixth route.
+[Wireframe](ux-wireframe.md) is explicitly retrospective. [Desktop screenshot](evidence/dashboard-1440.png) and [320px screenshot](evidence/dashboard-320.png) show the implemented hierarchy. See [evidence checklist](evidence-checklist.md) for story-to-image mapping. The chart area now shows status bars, not the supplied invented rent history; Settings was added as a sixth route.
 
 ## Compromises and future work
 

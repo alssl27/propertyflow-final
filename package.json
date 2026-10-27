@@ -11,12 +11,14 @@
     "format:check": "prettier --check .",
     "validate:html": "html-validate index.html 404.html",
     "validate:css": "node scripts/validate-css.js",
+    "validate:official": "node scripts/validate-official.js",
     "test:browser": "playwright test",
     "build": "node scripts/build.js",
     "check:links": "node scripts/check-links.js",
     "test:deployed": "playwright test --config playwright.deployed.config.js",
     "test:edge": "playwright test --config playwright.edge.config.js",
     "test:accessibility": "node scripts/verify-accessibility.js",
+    "verify:deployment": "node scripts/verify-deployment.js",
     "package:submission": "node scripts/package-submission.js"
   },
   "devDependencies": {

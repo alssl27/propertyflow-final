@@ -123,7 +123,7 @@ try {
     passed: true,
   });
   const result = {
-    date: "2026-10-12",
+    date: new Date().toISOString().slice(0, 10),
     url: baseURL,
     browser: browser.version(),
     viewport: { width: 375, height: 1000 },

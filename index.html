@@ -1,16 +1,17 @@
 <!doctype html>
-<!--
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8" />
+    <!--
   index.html — Application shell for PropertyFlow
 
-  PURPOSE
-  -------
+  PURPOSE:
   This is the single HTML file that the browser loads for the entire application.
   PropertyFlow is a single-page application (SPA): navigation between views
   happens entirely in JavaScript (app.js) by updating the #main element and
   the URL hash — no page reloads are needed.
 
-  STRUCTURE OVERVIEW
-  ------------------
+  STRUCTURE OVERVIEW:
   <head>         — meta tags, viewport, CSS link and ES module script tag
   <body>
     .app-shell   — outermost layout wrapper (sidebar + main column)
@@ -23,8 +24,7 @@
     <noscript>   — fallback message if JavaScript is disabled
     #toast-region — ARIA live region for toast notifications
 
-  AI-ASSISTANCE RECORD
-  --------------------
+  AI-ASSISTANCE RECORD:
   This file was structured with the help of IBM Bob (AI coding assistant).
   The assistant was used to:
     • Design the accessible landmark structure (aside, main, header, footer).
@@ -34,18 +34,15 @@
     • Set up the ES module <script type="module"> tag (defers automatically).
     • Author all inline HTML comments.
   All HTML passes html-validate (npm run validate:html) with no issues.
+  OpenAI Codex later corrected official W3C Nu validation findings without
+  changing the application's information architecture.
 
-  CRITERIA ADDRESSED
-  ------------------
+  CRITERIA ADDRESSED:
   1.1  Structured layout, navigation model, accessibility guidelines
   2.1  Validated HTML (html-validate passes)
   2.5  JavaScript linked at the bottom of <head> as type="module" (deferred)
   2.9  CSS in an external file linked in <head>; JS in an external file
 -->
-<html lang="en-GB">
-  <head>
-    <!-- Character encoding must be the first element in <head> -->
-    <meta charset="utf-8" />
     <!-- Responsive viewport: prevents mobile browsers zooming to desktop width -->
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!-- Meta description: shown in search results and browser previews -->
@@ -83,7 +80,14 @@
         <a class="brand" href="#dashboard" aria-label="PropertyFlow home">
           <!-- Brand icon: decorative SVG house mark; aria-hidden hides it from AT -->
           <span class="brand-mark" aria-hidden="true"
-            ><svg viewBox="0 0 32 32">
+            ><svg
+              viewBox="0 0 32 32"
+              fill="none"
+              stroke="#fff"
+              stroke-width="2.2"
+              stroke-linejoin="round"
+              stroke-linecap="round"
+            >
               <!-- House outline path -->
               <path d="M4 14.2 16 4l12 10.2v13H19v-8h-6v8H4z" />
               <!-- Tick/check mark path inside the house -->
@@ -138,7 +142,7 @@
               <strong>Need a hand?</strong>
               <p>Review the project guide</p>
               <!-- Guide link: opens the markdown README guide -->
-              <a href="docs/README-GUIDE.md"
+              <a href="docs/readme-guide.md"
                 >Open guide <span aria-hidden="true">↗</span></a
               >
             </div>
@@ -219,6 +223,7 @@
              role="main" is implicit for <main> but explicit tabindex requires
              a matching id for the skip link's href="#main". -->
         <main id="main" tabindex="-1" class="page-content">
+          <h1 class="sr-only">PropertyFlow is loading</h1>
           <!-- Initial loading spinner: replaced by app.js after the first data load.
                role="status" announces loading state to screen readers politely. -->
           <div class="loading-state" role="status">
@@ -347,7 +352,8 @@
           <label class="field"
             >Occupancy status <span class="required">*</span
             ><select name="status" required>
-              <option value="occupied">Occupied</option>
+              <option value="" hidden>Select occupancy status</option>
+              <option value="occupied" selected>Occupied</option>
               <option value="vacant">Vacant</option>
               <option value="maintenance">Maintenance</option>
             </select></label
@@ -422,7 +428,8 @@
           <label class="field"
             >Priority <span class="required">*</span
             ><select name="priority" required>
-              <option value="routine">Routine</option>
+              <option value="" hidden>Select priority</option>
+              <option value="routine" selected>Routine</option>
               <option value="urgent">Urgent</option>
               <option value="emergency">Emergency</option>
             </select></label
@@ -481,7 +488,8 @@
           <!-- Property select: options rebuilt from state.properties by openComplianceModal() -->
           <label class="field full-field"
             >Property <span class="required">*</span
-            ><select name="propertyId" required></select
+            ><select name="propertyId" required>
+              <option value="">Choose a property</option></select
             ><small class="field-error" data-error-for="propertyId"></small
           ></label>
 

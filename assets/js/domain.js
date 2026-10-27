@@ -4,7 +4,7 @@
  * PURPOSE
  * -------
  * This module contains every rule that is independent of the browser, the DOM
- * and localStorage.  Because none of these functions touch the outside world
+ * and browser storage. Because none of these functions touch the outside world
  * they can be imported by both the UI (app.js) and the Node unit-test suite
  * (tests/domain.test.js) without any mocking.
  *
@@ -310,7 +310,7 @@ export const toCsv = (rows) =>
 
 /**
  * validateWorkspace — validates the entire workspace object before it is
- * saved to or read from localStorage.
+ * saved to or read from browser storage.
  *
  * Checks performed:
  *   • All three collections (properties, repairs, compliance) exist and are arrays.
@@ -324,7 +324,7 @@ export const toCsv = (rows) =>
  * Throws a descriptive Error on any violation so api.js can catch it and
  * surface a recovery message to the user (criterion 2.3, 2.8).
  *
- * @param {object} data  Candidate workspace object from JSON or localStorage.
+ * @param {object} data  Candidate workspace object from JSON or browser storage.
  * @returns {object}     The same data object if valid (allows chaining).
  * @throws {Error}       With a human-readable message on any schema violation.
  */
